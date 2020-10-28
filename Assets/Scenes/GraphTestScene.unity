@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 8855795877467435317, guid: 3eff6f92fa4f4af458e350c22f1b7f83, type: 3}
+  columnPrefab: {fileID: 738158450019789180, guid: 33cd4862c18cae4408575bd870579e77, type: 3}
 --- !u!1 &1635327104
 GameObject:
   m_ObjectHideFlags: 0
