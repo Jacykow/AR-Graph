@@ -17,6 +17,7 @@ public class GraphVisualizationData
         {
             points.Add(new Vector3(Random.value, Random.value, Random.value));
         }
+        data.points = points.ToArray();
         return data;
     }
 }
