@@ -4,27 +4,42 @@ public class GraphGenerator : MonoBehaviour
 {
     public GameObject ballPrefab, columnPrefab;
 
-    public void ShowGraph(GraphVisualizationData data)
+    public void ShowGraph(IGraphVisualizationData data)
     {
-        if (data.graphType == GraphType.Balls)
+        if (data.GraphType == GraphType.Balls)
         {
-            foreach (var point in data.points)
-            {
-                Instantiate(ballPrefab, point, Quaternion.identity, transform);
-            }
+            ShowBallGraph(data as BallGraph);
         }
-        else if (data.graphType == GraphType.Columns)
+        else if (data.GraphType == GraphType.Columns)
         {
-            var width = data.width;
-            var height = data.points.Length / width;
-            var largestDimension = Mathf.Max(width, height);
-            var columnSize = new Vector3(1f / largestDimension, 0f, 1f / largestDimension);
-            foreach (var point in data.points)
+            ShowColumnGraph(data as ColumnGraph);
+        }
+    }
+
+    private void ShowBallGraph(BallGraph graph)
+    {
+        foreach (var point in graph.BallPositions)
+        {
+            Instantiate(ballPrefab, point, Quaternion.identity, transform);
+        }
+    }
+
+    private void ShowColumnGraph(ColumnGraph graph)
+    {
+        var largestDimension = Mathf.Max(graph.Values.GetLength(0), graph.Values.GetLength(1));
+        var columnSize = new Vector3(1f / largestDimension, 1f, 1f / largestDimension);
+        for (int x = 0; x < graph.Values.GetLength(0); x++)
+        {
+            for (int z = 0; z < graph.Values.GetLength(1); z++)
             {
-                var columnPosition = point;
-                columnPosition.y /= 2;
+                var columnPosition = new Vector3
+                {
+                    x = (float)(x + 1) / (graph.Values.GetLength(0) + 1),
+                    y = graph.Values[x, z] / 2,
+                    z = (float)(z + 1) / (graph.Values.GetLength(1) + 1)
+                };
+                columnSize.y = graph.Values[x, z];
                 var column = Instantiate(columnPrefab, columnPosition, Quaternion.identity, transform);
-                columnSize.y = point.y;
                 column.transform.localScale = columnSize;
             }
         }
