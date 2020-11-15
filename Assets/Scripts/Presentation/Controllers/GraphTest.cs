@@ -6,6 +6,6 @@ public class GraphTest : MonoBehaviour
 
     private void Start()
     {
-        graphGenerator.ShowGraph(ColumnGraph.Test);
+        graphGenerator.ShowGraph(TestGraphVisualizationData.BallGraph);
     }
 }

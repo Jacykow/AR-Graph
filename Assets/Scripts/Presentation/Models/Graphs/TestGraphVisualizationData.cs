@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class TestGraphVisualizationData
 {
-    public static ColumnGraph TestColumns
+    public static ColumnGraph ColumnGraph
     {
         get
         {
@@ -22,7 +22,7 @@ public static class TestGraphVisualizationData
         }
     }
 
-    public static BallGraph TestBalls
+    public static BallGraph BallGraph
     {
         get
         {
