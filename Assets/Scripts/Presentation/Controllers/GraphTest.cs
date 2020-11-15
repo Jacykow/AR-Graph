@@ -2,7 +2,7 @@
 
 public class GraphTest : MonoBehaviour
 {
-    public GraphGenerator graphGenerator;
+    [SerializeField] private GraphGenerator graphGenerator;
 
     private void Start()
     {

@@ -2,17 +2,21 @@
 
 public class GraphGenerator : MonoBehaviour
 {
-    public GameObject ballPrefab, columnPrefab;
+    [SerializeField] private GameObject ballPrefab, columnPrefab;
 
     public void ShowGraph(IGraphVisualizationData data)
     {
-        if (data.GraphType == GraphType.Balls)
+        switch (data.GraphType)
         {
-            ShowBallGraph(data as BallGraph);
-        }
-        else if (data.GraphType == GraphType.Columns)
-        {
-            ShowColumnGraph(data as ColumnGraph);
+            case GraphType.Balls:
+                ShowBallGraph(data as BallGraph);
+                break;
+            case GraphType.Columns:
+                ShowColumnGraph(data as ColumnGraph);
+                break;
+            default:
+                Debug.LogWarning("Unsupported graph type!");
+                break;
         }
     }
 
