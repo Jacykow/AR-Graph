@@ -3,11 +3,11 @@ using UnityEngine;
 
 public static class TestGraphVisualizationData
 {
-    public static ColumnGraph ColumnGraph
+    public static ColumnGraphData Columns
     {
         get
         {
-            var graph = new ColumnGraph
+            var graph = new ColumnGraphData
             {
                 Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
             };
@@ -22,7 +22,23 @@ public static class TestGraphVisualizationData
         }
     }
 
-    public static BallGraph BallGraph
+    public static ColumnGraph2DData Columns2D
+    {
+        get
+        {
+            var graph = new ColumnGraph2DData
+            {
+                Values = new float[Random.Range(5, 15)]
+            };
+            for (int x = 0; x < graph.Values.Length; x++)
+            {
+                graph.Values[x] = Random.value;
+            }
+            return graph;
+        }
+    }
+
+    public static BallGraphData Balls
     {
         get
         {
@@ -32,7 +48,7 @@ public static class TestGraphVisualizationData
                 points.Add(new Vector3(Random.value, Random.value, Random.value));
             }
 
-            return new BallGraph
+            return new BallGraphData
             {
                 BallPositions = points.ToArray()
             };

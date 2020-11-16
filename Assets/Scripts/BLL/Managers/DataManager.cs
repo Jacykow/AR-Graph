@@ -15,5 +15,5 @@ public class DataManager
         }
     }
 
-    public ReactiveProperty<GraphData> GraphDataProperty { get; } = new ReactiveProperty<GraphData>();
+    public ReactiveProperty<TestGraphData> GraphDataProperty { get; } = new ReactiveProperty<TestGraphData>();
 }
