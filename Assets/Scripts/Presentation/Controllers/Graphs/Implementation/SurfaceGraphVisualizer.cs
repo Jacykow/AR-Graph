@@ -1,6 +1,6 @@
-﻿public class SurfaceGraphVisualizer : BaseGraphVisualizer<ColumnGraph2DData>
+﻿public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
 {
-    protected override void Redraw(ColumnGraph2DData graphData)
+    protected override void Redraw(SurfaceGraphData graphData)
     {
 
     }

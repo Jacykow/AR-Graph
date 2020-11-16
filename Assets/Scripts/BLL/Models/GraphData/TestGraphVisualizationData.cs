@@ -28,7 +28,7 @@ public static class TestGraphVisualizationData
         {
             var graph = new ColumnGraph2DData
             {
-                Values = new float[Random.Range(5, 15)]
+                Values = new float[Random.Range(5, 25)]
             };
             for (int x = 0; x < graph.Values.Length; x++)
             {

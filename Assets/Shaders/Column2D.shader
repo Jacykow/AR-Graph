@@ -1,12 +1,9 @@
 ﻿Shader "Graph/Column2D"
 {
-    Properties
-    {
-        _ColumnAmount ("Column Values", Float) = 0
-    }
     SubShader
     {
-        Tags { "RenderType"="Transparent" }
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
 
         Pass
@@ -29,7 +26,7 @@
                 float2 uv : TEXCOORD0;
             };
             
-            uniform float _Columns [20];
+            uniform float _Columns [100];
             uniform float _ColumnAmount;
 
             v2f vert (appdata v)
@@ -42,7 +39,9 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = fixed4(i.uv.x,i.uv.y,1,1);
+                if(_ColumnAmount == 0) discard;
+                if(i.uv.y > _Columns[floor(i.uv.x*_ColumnAmount)]) discard;
+                fixed4 col = fixed4(1,1,1,1);
                 return col;
             }
             ENDCG
