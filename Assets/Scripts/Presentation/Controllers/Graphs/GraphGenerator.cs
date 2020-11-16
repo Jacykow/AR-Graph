@@ -14,6 +14,10 @@ public class GraphGenerator : MonoBehaviour
         visualizers = visualizerContainer.
             GetComponentsInChildren<IGraphVisualizer>().
             ToDictionary(visualizer => visualizer.GetGraphDataType());
+        foreach (var visualizer in visualizers.Values)
+        {
+            visualizer.Hide();
+        }
     }
 
     public void ShowGraph(IGraphVisualizationData data)
