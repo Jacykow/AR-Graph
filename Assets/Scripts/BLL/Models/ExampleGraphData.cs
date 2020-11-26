@@ -1,4 +1,4 @@
-﻿public class GraphData
+﻿public class ExampleGraphData
 {
     public string Name { get; set; }
 }
