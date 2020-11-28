@@ -26,7 +26,7 @@ public class Example : MonoBehaviour
         if (timeElapsed >= interval)
         {
             timeElapsed = 0f;
-            var data = new GraphData
+            var data = new ExampleGraphData
             {
                 Name = Time.time.ToString()
             };
