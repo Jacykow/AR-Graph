@@ -73,4 +73,20 @@ public static class TestGraphVisualizationData
             return graph;
         }
     }
+
+    public static PieChart2DData Pie2D
+    {
+        get
+        {
+            var graph = new PieChart2DData
+            {
+                Values = new float[Random.Range(3, 10)]
+            };
+            for (int x = 0; x < graph.Values.Length; x++)
+            {
+                graph.Values[x] = Random.value;
+            }
+            return graph;
+        }
+    }
 }
