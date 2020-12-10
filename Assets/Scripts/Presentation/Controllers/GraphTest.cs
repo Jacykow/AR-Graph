@@ -6,6 +6,6 @@ public class GraphTest : MonoBehaviour
 
     private void Start()
     {
-        graphGenerator.ShowGraph(TestGraphVisualizationData.Pie2D);
+        graphGenerator.ShowGraph(TestGraphVisualizationData.UndirectedGraph);
     }
 }
