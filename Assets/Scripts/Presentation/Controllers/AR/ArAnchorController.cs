@@ -14,20 +14,19 @@ public class ArAnchorController : MonoBehaviour
     private void Update()
     {
         Session.GetTrackables(augmentedImages, TrackableQueryFilter.Updated);
-
-        var augmentedImage = augmentedImages.FirstOrDefault();
-        if (augmentedImage != null)
+        if (graphVisualizer == null)
         {
-            if (graphVisualizer == null && augmentedImage.TrackingState == TrackingState.Tracking)
+            var augmentedImage = augmentedImages.FirstOrDefault(image => image.TrackingState == TrackingState.Tracking);
+            if (augmentedImage != null)
             {
-                var anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
+                Anchor anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
                 graphVisualizer = Instantiate(graphPrefab, anchor.transform).GetComponent<ArGraphVisualizer>();
                 graphVisualizer.Align(augmentedImage);
             }
-            else if (graphVisualizer != null && augmentedImage.TrackingState == TrackingState.Stopped)
-            {
-                Destroy(graphVisualizer.gameObject);
-            }
+        }
+        else if (augmentedImages.Any(image => image.TrackingState == TrackingState.Stopped))
+        {
+            Destroy(graphVisualizer.gameObject);
         }
     }
 }
