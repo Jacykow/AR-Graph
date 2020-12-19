@@ -1,14 +1,17 @@
 ﻿using GoogleARCore;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ArAnchorController : MonoBehaviour
 {
     [SerializeField]
-    private ArGraphVisualizer augmentedImageVisualizerPrefab;
+    private GameObject graphPrefab;
+    [SerializeField]
+    private TextMeshProUGUI debugText;
 
-    private List<AugmentedImage> tempAugmentedImages = new List<AugmentedImage>();
-    private ArGraphVisualizer visualizer;
+    private List<AugmentedImage> augmentedImages = new List<AugmentedImage>();
+    private ArGraphVisualizer graphVisualizer;
 
     public void Awake()
     {
@@ -31,20 +34,22 @@ public class ArAnchorController : MonoBehaviour
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
 
-        Session.GetTrackables(tempAugmentedImages, TrackableQueryFilter.Updated);
+        Session.GetTrackables(augmentedImages, TrackableQueryFilter.Updated);
 
-        foreach (var image in tempAugmentedImages)
+        foreach (var augmentedImage in augmentedImages)
         {
-            if (image.TrackingState == TrackingState.Tracking && visualizer == null)
+            if (augmentedImage.TrackingState == TrackingState.Tracking && graphVisualizer == null)
             {
-                Anchor anchor = image.CreateAnchor(image.CenterPose);
-                visualizer = Instantiate(augmentedImageVisualizerPrefab, anchor.transform);
+                Anchor anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
+                graphVisualizer = Instantiate(graphPrefab, anchor.transform).GetComponent<ArGraphVisualizer>();
+                graphVisualizer.Align(augmentedImage);
             }
-            else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
+            else if (augmentedImage.TrackingState == TrackingState.Stopped && graphVisualizer != null)
             {
-                Destroy(visualizer.gameObject);
-                visualizer = null;
+                Destroy(graphVisualizer.gameObject);
             }
         }
+
+        debugText.text = $"{augmentedImages.Count}\n{graphVisualizer}";
     }
 }
