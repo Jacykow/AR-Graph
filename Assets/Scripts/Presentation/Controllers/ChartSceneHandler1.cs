@@ -1,7 +1,17 @@
 ﻿using UnityEngine;
-
-public class DropdownHandler : MonoBehaviour
+using UnityEngine.SceneManagement;
+public class BackToMenuHandler : MonoBehaviour
 {
+    public void Start()
+    {
+        var graphTest = new GraphTest();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("CameraScene", LoadSceneMode.Single);
+    }
+
     public void ChangeChartView(int arg)
     {
         switch (arg)
