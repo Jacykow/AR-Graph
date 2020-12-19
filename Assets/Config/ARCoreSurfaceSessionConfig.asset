@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53ac32fab2599402fb6d154adf4c1e40, type: 3}
-  m_Name: ARCoreAnchorSessionConfig
+  m_Name: ARCoreSurfaceSessionConfig
   m_EditorClassIdentifier: 
   MatchCameraFramerate: 1
-  PlaneFindingMode: 0
+  PlaneFindingMode: 1
   LightEstimationMode: 3
   CloudAnchorMode: 0
-  AugmentedImageDatabase: {fileID: 11400000, guid: b4b17d4d59100ac499071cc7a68d90dc, type: 2}
+  AugmentedImageDatabase: {fileID: 0}
   CameraFocusMode: 0
   AugmentedFaceMode: 0
   DepthMode: 0
