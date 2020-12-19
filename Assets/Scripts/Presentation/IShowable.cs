@@ -1,4 +1,4 @@
-﻿public interface IAxisVisualizer
+﻿public interface IShowable
 {
     void Hide();
     void Show();

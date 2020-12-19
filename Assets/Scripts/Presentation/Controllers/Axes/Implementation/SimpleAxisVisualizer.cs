@@ -1,13 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
+public class SimpleAxisVisualizer : MonoBehaviour, IShowable
 {
     [Serializable]
     private class Axis : IAxisProperties
     {
         [SerializeField] private AxisRenderer renderer;
-        [SerializeField] private float length;
+        [SerializeField] private float length = 1f;
 
         public Vector3 Direction { get; }
         public float Length => length;
@@ -25,11 +25,11 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
 
     [Header("Axes")]
 
-    [SerializeField] private Axis x = new Axis(Vector3.right);
+    [SerializeField] private Axis xAxis = new Axis(Vector3.right);
 
-    [SerializeField] private Axis y = new Axis(Vector3.up);
+    [SerializeField] private Axis yAxis = new Axis(Vector3.up);
 
-    [SerializeField] private Axis z = new Axis(Vector3.forward);
+    [SerializeField] private Axis zAxis = new Axis(Vector3.forward);
 
     public void Hide()
     {
@@ -39,8 +39,8 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
     public void Show()
     {
         gameObject.SetActive(true);
-        x.Show();
-        y.Show();
-        z.Show();
+        xAxis.Show();
+        yAxis.Show();
+        zAxis.Show();
     }
 }

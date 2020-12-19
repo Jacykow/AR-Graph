@@ -1265,13 +1265,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048c683e296870643be3b3d2931ef231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x:
+  xAxis:
     renderer: {fileID: 1427980690}
     length: 1
-  y:
+  yAxis:
     renderer: {fileID: 524203530}
     length: 1
-  z:
+  zAxis:
     renderer: {fileID: 918233696}
     length: 1
 --- !u!1 &1635327104

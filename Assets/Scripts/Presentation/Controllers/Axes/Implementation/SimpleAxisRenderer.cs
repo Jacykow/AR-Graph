@@ -14,7 +14,7 @@ public class SimpleAxisRenderer : AxisRenderer
 
     public override void Redraw(IAxisProperties properties)
     {
-        Vector3 end = properties.Direction * properties.Length;
+        var end = properties.Direction * properties.Length;
         lineRenderer.positionCount = 2;
         lineRenderer.SetPositions(new[] { Vector3.zero, end });
         cone.position = end;
