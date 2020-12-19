@@ -1,5 +1,6 @@
 ﻿using GoogleARCore;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ArAnchorController : MonoBehaviour
@@ -13,19 +14,19 @@ public class ArAnchorController : MonoBehaviour
     private void Update()
     {
         Session.GetTrackables(augmentedImages, TrackableQueryFilter.Updated);
-
-        foreach (var augmentedImage in augmentedImages)
+        if (graphVisualizer == null)
         {
-            if (augmentedImage.TrackingState == TrackingState.Tracking && graphVisualizer == null)
+            var augmentedImage = augmentedImages.FirstOrDefault(image => image.TrackingState == TrackingState.Tracking);
+            if (augmentedImage != null)
             {
                 Anchor anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
                 graphVisualizer = Instantiate(graphPrefab, anchor.transform).GetComponent<ArGraphVisualizer>();
                 graphVisualizer.Align(augmentedImage);
             }
-            else if (augmentedImage.TrackingState == TrackingState.Stopped && graphVisualizer != null)
-            {
-                Destroy(graphVisualizer.gameObject);
-            }
+        }
+        else if (augmentedImages.Any(image => image.TrackingState == TrackingState.Stopped))
+        {
+            Destroy(graphVisualizer.gameObject);
         }
     }
 }
