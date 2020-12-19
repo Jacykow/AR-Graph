@@ -9,6 +9,8 @@ public class GraphGenerator : MonoBehaviour
 
     private Dictionary<Type, IGraphVisualizer> visualizers;
 
+    private IShowable axes;
+
     private void Awake()
     {
         visualizers = visualizerContainer.
@@ -18,6 +20,9 @@ public class GraphGenerator : MonoBehaviour
         {
             visualizer.Hide();
         }
+
+        axes = GetComponentInChildren<IShowable>();
+        axes.Hide();
     }
 
     public void ShowGraph(IGraphVisualizationData data)
@@ -26,6 +31,7 @@ public class GraphGenerator : MonoBehaviour
         if (visualizers.ContainsKey(dataType))
         {
             visualizers[dataType].Show(data);
+            axes.Show();
         }
         else
         {
