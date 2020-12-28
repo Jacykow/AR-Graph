@@ -15,5 +15,7 @@ public class DataManager
         }
     }
 
+    public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } = new ReactiveProperty<VisualisationType>();
+
     public ReactiveProperty<ExampleGraphData> GraphDataProperty { get; } = new ReactiveProperty<ExampleGraphData>();
 }
