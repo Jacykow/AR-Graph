@@ -14,20 +14,21 @@ public class ArSurfaceController : MonoBehaviour
 
     private void TryPlacePrefab()
     {
-        Touch touch;
-        if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+        if (Input.touchCount < 1)
         {
             return;
         }
 
-        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+        var touch = Input.GetTouch(0);
+
+        if (touch.phase != TouchPhase.Began || EventSystem.current.IsPointerOverGameObject(touch.fingerId))
         {
             return;
         }
 
-        TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
+        var raycastHitFlags = TrackableHitFlags.PlaneWithinPolygon |
             TrackableHitFlags.FeaturePointWithSurfaceNormal;
-        if (!Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out TrackableHit hit))
+        if (!Frame.Raycast(touch.position.x, touch.position.y, raycastHitFlags, out TrackableHit hit))
         {
             return;
         }
