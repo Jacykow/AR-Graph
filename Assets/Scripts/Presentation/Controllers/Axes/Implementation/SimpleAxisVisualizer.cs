@@ -24,9 +24,27 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         }
     }
 
+    [Serializable]
+    private class Grid
+    {
+        [SerializeField] private bool enabled;
+
+        public GridRenderer Renderer { get; set; }
+
+        public IAxisProperties PrimaryAxis { get; set; }
+        public IAxisProperties SecondaryAxis { get; set; }
+
+        public void Show()
+        {
+            if (!enabled) return;
+            Renderer.gameObject.SetActive(true);
+            Renderer.Redraw(PrimaryAxis, SecondaryAxis);
+        }
+    }
+
     [Header("Axes")]
 
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject axisPrefab;
 
     [SerializeField] private Axis xAxis = new Axis(Vector3.right);
 
@@ -34,18 +52,67 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
 
     [SerializeField] private Axis zAxis = new Axis(Vector3.forward);
 
+    [Header("Grid")]
+
+    [SerializeField] private GameObject gridPrefab;
+
+    [Tooltip("Lines for X axis on XY plane")]
+    [SerializeField] private Grid xAxisToY;
+
+    [Tooltip("Lines for X axis on XZ plane")]
+    [SerializeField] private Grid xAxisToZ;
+
+    [Tooltip("Lines for Y axis on XY plane")]
+    [SerializeField] private Grid yAxisToX;
+
+    [Tooltip("Lines for Y axis on YZ plane")]
+    [SerializeField] private Grid yAxisToZ;
+
+    [Tooltip("Lines for Z axis on XZ plane")]
+    [SerializeField] private Grid zAxisToX;
+
+    [Tooltip("Lines for Z axis on YZ plane")]
+    [SerializeField] private Grid zAxisToY;
+
     private void Awake()
     {
-        if (prefab != null && prefab.GetComponent<AxisRenderer>() != null)
+        if (axisPrefab != null && axisPrefab.GetComponent<AxisRenderer>() != null)
         {
             AxisRenderer AxisRenderer() =>
-                Instantiate(prefab, transform.position, Quaternion.identity, transform)
+                Instantiate(axisPrefab, transform.position, Quaternion.identity, transform)
                     .GetComponent<AxisRenderer>();
 
             xAxis.Renderer = AxisRenderer();
             yAxis.Renderer = AxisRenderer();
             zAxis.Renderer = AxisRenderer();
         }
+
+        if (gridPrefab != null && gridPrefab.GetComponent<GridRenderer>() != null)
+        {
+            GridRenderer GridRenderer() =>
+                Instantiate(gridPrefab, transform.position, Quaternion.identity, transform)
+                    .GetComponent<GridRenderer>();
+
+            xAxisToY.Renderer = GridRenderer();
+            xAxisToZ.Renderer = GridRenderer();
+            yAxisToX.Renderer = GridRenderer();
+            yAxisToZ.Renderer = GridRenderer();
+            zAxisToX.Renderer = GridRenderer();
+            zAxisToY.Renderer = GridRenderer();
+        }
+
+        xAxisToY.PrimaryAxis = xAxis;
+        xAxisToY.SecondaryAxis = yAxis;
+        xAxisToZ.PrimaryAxis = xAxis;
+        xAxisToZ.SecondaryAxis = zAxis;
+        yAxisToX.PrimaryAxis = yAxis;
+        yAxisToX.SecondaryAxis = xAxis;
+        yAxisToZ.PrimaryAxis = yAxis;
+        yAxisToZ.SecondaryAxis = zAxis;
+        zAxisToX.PrimaryAxis = zAxis;
+        zAxisToX.SecondaryAxis = xAxis;
+        zAxisToY.PrimaryAxis = zAxis;
+        zAxisToY.SecondaryAxis = yAxis;
     }
 
     public void Hide()
@@ -59,5 +126,11 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         xAxis.Show();
         yAxis.Show();
         zAxis.Show();
+        xAxisToY.Show();
+        xAxisToZ.Show();
+        yAxisToX.Show();
+        yAxisToZ.Show();
+        zAxisToX.Show();
+        zAxisToY.Show();
     }
 }

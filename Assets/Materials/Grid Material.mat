@@ -75,7 +75,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 1
+    - _Scale: 2
     - _ScaleX: 1
     - _ScaleY: 1
     - _SecondaryFadeInSpeed: 0.5

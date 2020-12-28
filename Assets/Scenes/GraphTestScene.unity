@@ -751,13 +751,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048c683e296870643be3b3d2931ef231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1047438548024195077, guid: ab6718a1f09a89f408569dc9c0689207, type: 3}
+  axisPrefab: {fileID: 1047438548024195077, guid: ab6718a1f09a89f408569dc9c0689207, type: 3}
   xAxis:
     length: 1
   yAxis:
     length: 1
   zAxis:
     length: 1
+  gridPrefab: {fileID: 5551959209627637440, guid: 0e7c6a49af4f56248b00b4171eda88bc, type: 3}
+  xAxisToY:
+    enabled: 1
+  xAxisToZ:
+    enabled: 1
+  yAxisToX:
+    enabled: 1
+  yAxisToZ:
+    enabled: 1
+  zAxisToX:
+    enabled: 1
+  zAxisToY:
+    enabled: 1
 --- !u!1 &1635327104
 GameObject:
   m_ObjectHideFlags: 0

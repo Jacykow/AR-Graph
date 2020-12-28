@@ -19,7 +19,7 @@
       Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
       LOD 100
 
-      ZWrite On // We need to write in depth to avoid tearing issues
+      ZWrite Off
       Blend SrcAlpha OneMinusSrcAlpha
 
       Pass
