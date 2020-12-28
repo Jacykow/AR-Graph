@@ -1,4 +1,4 @@
-﻿#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #endif
 
@@ -117,9 +117,7 @@ namespace UniRx
                 {
                     SetValue(value);
                     if (isDisposed)
-                    {
                         return;
-                    }
 
                     RaiseOnNext(ref value);
                 }
@@ -165,9 +163,7 @@ namespace UniRx
         {
             SetValue(value);
             if (isDisposed)
-            {
                 return;
-            }
 
             RaiseOnNext(ref value);
         }
@@ -227,10 +223,7 @@ namespace UniRx
 
         protected virtual void Dispose(bool disposing)
         {
-            if (isDisposed)
-            {
-                return;
-            }
+            if (isDisposed) return;
 
             var node = root;
             root = last = null;
@@ -385,11 +378,7 @@ namespace UniRx
 
         protected virtual void Dispose(bool disposing)
         {
-            if (isDisposed)
-            {
-                return;
-            }
-
+            if (isDisposed) return;
             sourceConnection.Dispose();
 
             var node = root;
@@ -426,10 +415,7 @@ namespace UniRx
 
         void IObserver<T>.OnNext(T value)
         {
-            if (isDisposed)
-            {
-                return;
-            }
+            if (isDisposed) return;
 
             if (canPublishValueOnSubscribe)
             {
@@ -598,9 +584,7 @@ namespace UniRx
                 foreach (var item in xs)
                 {
                     if (item == false)
-                    {
                         return false;
-                    }
                 }
                 return true;
             });
@@ -617,9 +601,7 @@ namespace UniRx
                 foreach (var item in xs)
                 {
                     if (item == true)
-                    {
                         return false;
-                    }
                 }
                 return true;
             });
