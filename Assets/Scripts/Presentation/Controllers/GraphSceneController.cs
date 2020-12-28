@@ -11,22 +11,36 @@ public class GraphSceneController : MonoBehaviour
     public Button scannerButton;
     public Image qrScanner;
 
-    public EventSystem eventSystem;
     private GameObject _lastSelected;
 
     void Start()
     {
-        DataManager.Main.VisualisationTypeDataProperty.Subscribe(data =>
+        DataManager.Main.VisualisationTypeProperty.Subscribe(data =>
         {
-            Debug.Log(data?.VisualisationType);
+            Debug.Log(data);
         }).AddTo(this);
 
-        _lastSelected = eventSystem.firstSelectedGameObject;
-        arOnPaperCard.onClick.AddListener(SelectArOnPaperCard);
-        arInSpace.onClick.AddListener(SelectArInSpace);
-        space3D.onClick.AddListener(SelectSpaceIn3D);
+        _lastSelected = EventSystem.current.firstSelectedGameObject;
 
-        setActivityOfGameObject(scannerButton.gameObject, false);
+        arOnPaperCard.OnClickAsObservable().Subscribe(_ =>
+       {
+           _lastSelected = arOnPaperCard.gameObject;
+           SetVisualisationType(VisualisationType.ArOnPaperCard);
+       }).AddTo(this);
+
+        arInSpace.OnClickAsObservable().Subscribe(_ =>
+        {
+            _lastSelected = arInSpace.gameObject;
+            SetVisualisationType(VisualisationType.ArInSpace);
+        }).AddTo(this);
+
+        space3D.OnClickAsObservable().Subscribe(_ =>
+        {
+            _lastSelected = space3D.gameObject;
+            SetVisualisationType(VisualisationType.Space3D);
+        }).AddTo(this);
+
+        scannerButton.gameObject.SetActive(false);
         scannerButton.onClick.AddListener(ScanQr);
 
         ChangeElementsAfterQrScanning();
@@ -34,54 +48,24 @@ public class GraphSceneController : MonoBehaviour
 
     private void Update()
     {
-        eventSystem.SetSelectedGameObject(_lastSelected);
+        EventSystem.current.SetSelectedGameObject(_lastSelected);
     }
 
-    private void setActivityOfGameObject(GameObject gObject, bool active)
+    public void SetVisualisationType(VisualisationType visualisation)
     {
-        gObject.SetActive(active);
-    }
-
-    public void SelectArOnPaperCard()
-    {
-        _lastSelected = arOnPaperCard.gameObject;
-        var visualisationType = new VisualisationTypeData
-        {
-            VisualisationType = VisualisationType.ArOnPaperCard
-        };
-        DataManager.Main.VisualisationTypeDataProperty.Value = visualisationType;
-    }
-
-    public void SelectArInSpace()
-    {
-        _lastSelected = arInSpace.gameObject;
-        var visualisationType = new VisualisationTypeData
-        {
-            VisualisationType = VisualisationType.ArInSpace
-        };
-        DataManager.Main.VisualisationTypeDataProperty.Value = visualisationType;
-    }
-    public void SelectSpaceIn3D()
-    {
-        _lastSelected = space3D.gameObject;
-        var visualisationType = new VisualisationTypeData
-        {
-            VisualisationType = VisualisationType.Space3D
-        };
-        DataManager.Main.VisualisationTypeDataProperty.Value = visualisationType;
+        DataManager.Main.VisualisationTypeProperty.Value = visualisation;
     }
 
     public void ScanQr()
     {
-        setActivityOfGameObject(qrScanner.gameObject, true);
-        setActivityOfGameObject(scannerButton.gameObject, false);
+        qrScanner.gameObject.SetActive(true);
+        scannerButton.gameObject.SetActive(false);
 
-        //TODO: camera and scanning
     }
 
     public void ChangeElementsAfterQrScanning()
     {
-        setActivityOfGameObject(qrScanner.gameObject, false);
-        setActivityOfGameObject(scannerButton.gameObject, true);
+        qrScanner.gameObject.SetActive(false);
+        scannerButton.gameObject.SetActive(true);
     }
 }

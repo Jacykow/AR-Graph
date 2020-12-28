@@ -117,7 +117,9 @@ namespace UniRx
                 {
                     SetValue(value);
                     if (isDisposed)
+                    {
                         return;
+                    }
 
                     RaiseOnNext(ref value);
                 }
@@ -163,7 +165,9 @@ namespace UniRx
         {
             SetValue(value);
             if (isDisposed)
+            {
                 return;
+            }
 
             RaiseOnNext(ref value);
         }
@@ -223,7 +227,10 @@ namespace UniRx
 
         protected virtual void Dispose(bool disposing)
         {
-            if (isDisposed) return;
+            if (isDisposed)
+            {
+                return;
+            }
 
             var node = root;
             root = last = null;
@@ -244,11 +251,6 @@ namespace UniRx
         public bool IsRequiredSubscribeOnCurrentThread()
         {
             return false;
-        }
-
-        public object Subscribe(Action<object> p)
-        {
-            throw new NotImplementedException();
         }
     }
 
@@ -383,7 +385,11 @@ namespace UniRx
 
         protected virtual void Dispose(bool disposing)
         {
-            if (isDisposed) return;
+            if (isDisposed)
+            {
+                return;
+            }
+
             sourceConnection.Dispose();
 
             var node = root;
@@ -420,7 +426,10 @@ namespace UniRx
 
         void IObserver<T>.OnNext(T value)
         {
-            if (isDisposed) return;
+            if (isDisposed)
+            {
+                return;
+            }
 
             if (canPublishValueOnSubscribe)
             {
@@ -589,7 +598,9 @@ namespace UniRx
                 foreach (var item in xs)
                 {
                     if (item == false)
+                    {
                         return false;
+                    }
                 }
                 return true;
             });
@@ -606,7 +617,9 @@ namespace UniRx
                 foreach (var item in xs)
                 {
                     if (item == true)
+                    {
                         return false;
+                    }
                 }
                 return true;
             });
