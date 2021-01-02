@@ -18,7 +18,6 @@
    {
       Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
       LOD 100
-
       ZWrite Off
       Blend SrcAlpha OneMinusSrcAlpha
 
@@ -48,13 +47,10 @@
 
          sampler2D _GridTexture;
          float4 _GridTexture_ST;
-			
          sampler2D _MaskTexture;
          float4 _MaskTexture_ST;
-
          float _Scale;
          float _GraduationScale;
-
          float _Thickness;
          float _SecondaryFadeInSpeed;
          float _ColorInterpolationFactor;
@@ -69,16 +65,11 @@
             UNITY_SETUP_INSTANCE_ID(v);
             UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
             o.vertex = UnityObjectToClipPos(v.vertex);
-
-            // Scale the whole thing if necessary
             o.uv = v.uv * _GraduationScale;
-
-            // UVs for mask texture
             o.uv1 = TRANSFORM_TEX(v.uv1, _MaskTexture);
             return o;
          }
 
-         // Remap value from a range to another
          float remap(float value, float from1, float to1, float from2, float to2) {
             return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
          }
@@ -91,27 +82,13 @@
          {
             fixed4 col = _MainColor;
             fixed4 maskCol = tex2D(_MaskTexture, i.uv1);
-				
-            // With the ceil value of the log10 of the scale, we obtain the closest measure unit above (eg : 165 -> 3, 0.146 -> 0, 0.001 -> -3)
-            // Then, we do 10^(this value) to get the actual value of that unit in meters
-            // Finally, we divide the scale by this unit in meters to have our log mapped scale
-            // This way, we are sure our logMappedScale is between 0.1 and 1
             float logMappedScale = _Scale / pow(10, ceil(log10(_Scale)));
-
-            // We want a zoom in effect when the users is scaling up his model.
-            // Scaling up in 3D space means a lower scale value, so we have to use the invert the scale for our zoom effect.
             float localScale = 1 / logMappedScale;
-
-            // Fade is used to make secondary grid appear slowly instead of popping
-            // Here we remap the value from logMappedScale from [0.1:1] to [0:1]
-            // The power can be used to make the fade effect faster or slower
             float fade =  pow(remap(logMappedScale, 0.1, 1, 0.00001, 0.99999), _SecondaryFadeInSpeed);
-
             float pos = floor(frac((i.uv.y - 0.5 * _Thickness) * localScale) + _Thickness * localScale);
 
             if (pos != 1) {
                pos = floor(frac((i.uv.y - 0.5 * _Thickness) * 10.0 * localScale) + _Thickness * 10.0 * localScale);
-
                if (pos == 1) {
                   col = lerp(_SecondaryColor, _MainColor, pow(logMappedScale, _ColorInterpolationFactor));
                   col.a = fade;
@@ -119,8 +96,7 @@
                   col = _BackgroundColor;
                }
             }
-				
-            // Apply mask multiplying by its alpha
+
             col.a *= maskCol.a;
             return col;
          }

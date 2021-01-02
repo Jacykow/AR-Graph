@@ -9,7 +9,6 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         [SerializeField] private float length = 1f;
 
         public AxisRenderer Renderer { get; set; }
-
         public Vector3 Direction { get; }
         public float Length => length;
 
@@ -30,13 +29,12 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         [SerializeField] private bool enabled;
 
         public GridRenderer Renderer { get; set; }
-
         public IAxisProperties PrimaryAxis { get; set; }
         public IAxisProperties SecondaryAxis { get; set; }
 
         public void Show()
         {
-            if (!enabled) return;
+            if (!enabled || Renderer == null) return;
             Renderer.gameObject.SetActive(true);
             Renderer.Redraw(PrimaryAxis, SecondaryAxis);
         }
@@ -57,22 +55,22 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
     [SerializeField] private GameObject gridPrefab;
 
     [Tooltip("Lines for X axis on XY plane")]
-    [SerializeField] private Grid xAxisToY;
+    [SerializeField] private Grid xToYGrid;
 
     [Tooltip("Lines for X axis on XZ plane")]
-    [SerializeField] private Grid xAxisToZ;
+    [SerializeField] private Grid xToZGrid;
 
     [Tooltip("Lines for Y axis on XY plane")]
-    [SerializeField] private Grid yAxisToX;
+    [SerializeField] private Grid yToXGrid;
 
     [Tooltip("Lines for Y axis on YZ plane")]
-    [SerializeField] private Grid yAxisToZ;
+    [SerializeField] private Grid yToZGrid;
 
     [Tooltip("Lines for Z axis on XZ plane")]
-    [SerializeField] private Grid zAxisToX;
+    [SerializeField] private Grid zToXGrid;
 
     [Tooltip("Lines for Z axis on YZ plane")]
-    [SerializeField] private Grid zAxisToY;
+    [SerializeField] private Grid zToYGrid;
 
     private void Awake()
     {
@@ -93,26 +91,26 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
                 Instantiate(gridPrefab, transform.position, Quaternion.identity, transform)
                     .GetComponent<GridRenderer>();
 
-            xAxisToY.Renderer = GridRenderer();
-            xAxisToZ.Renderer = GridRenderer();
-            yAxisToX.Renderer = GridRenderer();
-            yAxisToZ.Renderer = GridRenderer();
-            zAxisToX.Renderer = GridRenderer();
-            zAxisToY.Renderer = GridRenderer();
+            xToYGrid.Renderer = GridRenderer();
+            xToZGrid.Renderer = GridRenderer();
+            yToXGrid.Renderer = GridRenderer();
+            yToZGrid.Renderer = GridRenderer();
+            zToXGrid.Renderer = GridRenderer();
+            zToYGrid.Renderer = GridRenderer();
         }
 
-        xAxisToY.PrimaryAxis = xAxis;
-        xAxisToY.SecondaryAxis = yAxis;
-        xAxisToZ.PrimaryAxis = xAxis;
-        xAxisToZ.SecondaryAxis = zAxis;
-        yAxisToX.PrimaryAxis = yAxis;
-        yAxisToX.SecondaryAxis = xAxis;
-        yAxisToZ.PrimaryAxis = yAxis;
-        yAxisToZ.SecondaryAxis = zAxis;
-        zAxisToX.PrimaryAxis = zAxis;
-        zAxisToX.SecondaryAxis = xAxis;
-        zAxisToY.PrimaryAxis = zAxis;
-        zAxisToY.SecondaryAxis = yAxis;
+        xToYGrid.PrimaryAxis = xAxis;
+        xToYGrid.SecondaryAxis = yAxis;
+        xToZGrid.PrimaryAxis = xAxis;
+        xToZGrid.SecondaryAxis = zAxis;
+        yToXGrid.PrimaryAxis = yAxis;
+        yToXGrid.SecondaryAxis = xAxis;
+        yToZGrid.PrimaryAxis = yAxis;
+        yToZGrid.SecondaryAxis = zAxis;
+        zToXGrid.PrimaryAxis = zAxis;
+        zToXGrid.SecondaryAxis = xAxis;
+        zToYGrid.PrimaryAxis = zAxis;
+        zToYGrid.SecondaryAxis = yAxis;
     }
 
     public void Hide()
@@ -126,11 +124,11 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         xAxis.Show();
         yAxis.Show();
         zAxis.Show();
-        xAxisToY.Show();
-        xAxisToZ.Show();
-        yAxisToX.Show();
-        yAxisToZ.Show();
-        zAxisToX.Show();
-        zAxisToY.Show();
+        xToYGrid.Show();
+        xToZGrid.Show();
+        yToXGrid.Show();
+        yToZGrid.Show();
+        zToXGrid.Show();
+        zToYGrid.Show();
     }
 }

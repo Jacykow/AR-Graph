@@ -759,17 +759,17 @@ MonoBehaviour:
   zAxis:
     length: 1
   gridPrefab: {fileID: 5551959209627637440, guid: 0e7c6a49af4f56248b00b4171eda88bc, type: 3}
-  xAxisToY:
+  xToYGrid:
     enabled: 1
-  xAxisToZ:
+  xToZGrid:
     enabled: 1
-  yAxisToX:
+  yToXGrid:
     enabled: 1
-  yAxisToZ:
+  yToZGrid:
     enabled: 1
-  zAxisToX:
+  zToXGrid:
     enabled: 1
-  zAxisToY:
+  zToYGrid:
     enabled: 1
 --- !u!1 &1635327104
 GameObject:
