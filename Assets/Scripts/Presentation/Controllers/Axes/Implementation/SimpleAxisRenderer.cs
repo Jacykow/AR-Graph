@@ -3,6 +3,8 @@
 [RequireComponent(typeof(LineRenderer))]
 public class SimpleAxisRenderer : AxisRenderer
 {
+    [SerializeField] private float coneOffset = 0.1f;
+
     private LineRenderer lineRenderer;
     private Transform cone;
 
@@ -14,9 +16,9 @@ public class SimpleAxisRenderer : AxisRenderer
 
     public override void Redraw(IAxisProperties properties)
     {
-        var end = properties.Direction * properties.Length;
+        var end = properties.Direction * (properties.Length + coneOffset);
         lineRenderer.positionCount = 2;
-        lineRenderer.SetPositions(new[] { Vector3.zero, end });
+        lineRenderer.SetPositions(new[] { transform.position, end });
         cone.position = end;
         cone.rotation = Quaternion.LookRotation(properties.Direction);
     }
