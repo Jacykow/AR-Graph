@@ -1,45 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SimpleAxisVisualizer : MonoBehaviour, IShowable
 {
-    [Serializable]
-    private class Axis : IAxisProperties
-    {
-        [SerializeField] private float length = 1f;
-
-        public AxisRenderer Renderer { get; set; }
-        public Vector3 Direction { get; }
-        public float Length => length;
-
-        public Axis(Vector3 direction)
-        {
-            Direction = direction;
-        }
-
-        public void Show()
-        {
-            Renderer?.Redraw(this);
-        }
-    }
-
-    [Serializable]
-    private class Grid
-    {
-        [SerializeField] private bool enabled;
-
-        public GridRenderer Renderer { get; set; }
-        public IAxisProperties PrimaryAxis { get; set; }
-        public IAxisProperties SecondaryAxis { get; set; }
-
-        public void Show()
-        {
-            if (!enabled || Renderer == null) return;
-            Renderer.gameObject.SetActive(true);
-            Renderer.Redraw(PrimaryAxis, SecondaryAxis);
-        }
-    }
-
     [Header("Axes")]
 
     [SerializeField] private GameObject axisPrefab;
