@@ -13,13 +13,8 @@ public class GraphSceneController : MonoBehaviour
 
     private GameObject _lastSelected;
 
-    void Start()
+    private void Start()
     {
-        DataManager.Main.VisualisationTypeProperty.Subscribe(data =>
-        {
-            Debug.Log(data);
-        }).AddTo(this);
-
         _lastSelected = EventSystem.current.firstSelectedGameObject;
 
         arOnPaperCard.OnClickAsObservable().Subscribe(_ =>
@@ -60,7 +55,6 @@ public class GraphSceneController : MonoBehaviour
     {
         qrScanner.gameObject.SetActive(true);
         scannerButton.gameObject.SetActive(false);
-
     }
 
     public void ChangeElementsAfterQrScanning()

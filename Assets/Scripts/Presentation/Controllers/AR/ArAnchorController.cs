@@ -21,7 +21,7 @@ public class ArAnchorController : MonoBehaviour
             {
                 Anchor anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
                 graphVisualizer = Instantiate(graphPrefab, anchor.transform).GetComponent<ArGraphVisualizer>();
-                graphVisualizer.Align(augmentedImage);
+                graphVisualizer.AlignToAugmentedImage(augmentedImage);
             }
         }
         else if (augmentedImages.Any(image => image.TrackingState == TrackingState.Stopped))

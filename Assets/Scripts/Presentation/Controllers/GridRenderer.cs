@@ -8,11 +8,7 @@ public class GridRenderer : MonoBehaviour
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-    }
 
-    //Flips the UV on the backside of the cube so it matches the front
-    private void OnValidate()
-    {
         var uvs = GetComponent<MeshFilter>().mesh.uv;
 
         uvs[6] = new Vector2(0, 0);

@@ -15,7 +15,9 @@ public class DataManager
         }
     }
 
-    public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } = new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
+    public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
+        new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
 
-    public ReactiveProperty<ExampleGraphData> GraphDataProperty { get; } = new ReactiveProperty<ExampleGraphData>();
+    public IReactiveProperty<IGraphVisualizationData> GraphDataProperty { get; } =
+        new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.Surface);
 }
