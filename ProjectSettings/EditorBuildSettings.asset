@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AnchorScene.unity
-    guid: fab95a90d28c0fe4483ad454655e8b61
+    path: Assets/GoogleARCore/Examples/HelloAR/Scenes/SurfaceScene.unity
+    guid: ac7286f9337376941b77aa3e96f40ce8
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 384e6f9c3ed11b247aa404b74b62856a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ebb9cd50ed083ce46923198de0b5a9bb, type: 2}
