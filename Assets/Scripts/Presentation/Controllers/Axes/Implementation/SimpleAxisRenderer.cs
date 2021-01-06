@@ -18,8 +18,8 @@ public class SimpleAxisRenderer : AxisRenderer
     {
         var end = properties.Direction * (properties.Length + coneOffset);
         lineRenderer.positionCount = 2;
-        lineRenderer.SetPositions(new[] { transform.position, end });
-        cone.position = end;
-        cone.rotation = Quaternion.LookRotation(properties.Direction);
+        lineRenderer.SetPositions(new[] { transform.position, transform.position + transform.rotation * Vector3.Scale(end, transform.lossyScale) });
+        cone.localPosition = end;
+        cone.localRotation = Quaternion.LookRotation(properties.Direction);
     }
 }

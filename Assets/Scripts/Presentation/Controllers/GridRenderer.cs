@@ -52,9 +52,9 @@ public class GridRenderer : MonoBehaviour
         var height = primaryAxis.Length;
         var width = secondaryAxis.Length;
 
-        transform.position = primaryAxis.Direction * height / 2f + secondaryAxis.Direction * width / 2f;
+        transform.localPosition = primaryAxis.Direction * height / 2f + secondaryAxis.Direction * width / 2f;
         var crossProduct = Vector3.Cross(primaryAxis.Direction, secondaryAxis.Direction);
-        transform.rotation = Quaternion.LookRotation(crossProduct, primaryAxis.Direction);
+        transform.localRotation = Quaternion.LookRotation(crossProduct, primaryAxis.Direction);
 
         transform.localScale = new Vector3(width, height, 0f);
         meshRenderer.material.SetFloat("_GraduationScale", height);
