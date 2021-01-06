@@ -40,14 +40,13 @@ public class ScaleRenderer : MonoBehaviour
 
         if (labels == null) InstantiateLabels();
         var positions = grid.GetScaleMarks().ToArray();
-        var i = skipLabels;
-        for (; i < positions.Length; i++)
+        for (var i = skipLabels; i < positions.Length; i++)
         {
             labels[i].position = transform.position + axis.Direction * positions[i];
             labels[i].gameObject.SetActive(true);
         }
 
-        for (; i < labels.Length; i++)
+        for (var i = positions.Length; i < labels.Length; i++)
         {
             labels[i].gameObject.SetActive(false);
         }

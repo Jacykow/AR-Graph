@@ -12,6 +12,9 @@ public class GridRenderer : MonoBehaviour
     private float scale = 2f;
 
     private const float DefaultInterval = 0.1f;
+    private const float RescaleFactor = 5f;
+    private const int MaxScaleMarks = 10;
+
 
     public float Scale
     {
@@ -36,7 +39,6 @@ public class GridRenderer : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         Scale = scale;
 
-        //Flips the UV on the backside of the cube so it matches the front
         var uvs = GetComponent<MeshFilter>().mesh.uv;
         uvs[6] = new Vector2(0, 0);
         uvs[7] = new Vector2(1, 0);
@@ -63,12 +65,12 @@ public class GridRenderer : MonoBehaviour
         var scaleLogFactor = Mathf.Floor(Mathf.Log10(scale));
         var normalizedScale = scale / Mathf.Pow(10f, scaleLogFactor);
         var interval = DefaultInterval;
-        if (normalizedScale > 5f)
+        if (normalizedScale > RescaleFactor)
         {
-            interval /= 5f;
+            interval /= RescaleFactor;
         }
 
-        return Enumerable.Range(0, 10)
+        return Enumerable.Range(0, MaxScaleMarks)
             .Select(x => x * normalizedScale * interval)
             .TakeWhile(x => x <= transform.localScale.y);
     }
