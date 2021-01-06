@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class ArSurfaceController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject graphPrefab;
+    private GameObject graphContainerPrefab;
 
     private ArGraphVisualizer graph;
 
@@ -38,6 +38,6 @@ public class ArSurfaceController : MonoBehaviour
             return;
         }
 
-        graph = Instantiate(graphPrefab, hit.Pose.position, hit.Pose.rotation).GetComponent<ArGraphVisualizer>();
+        graph = Instantiate(graphContainerPrefab, hit.Pose.position, hit.Pose.rotation).GetComponent<ArGraphVisualizer>();
     }
 }

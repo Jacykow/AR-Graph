@@ -3,11 +3,21 @@ using UnityEngine;
 
 public class ArGraphVisualizer : MonoBehaviour
 {
-    [SerializeField] private Transform graph;
+    [SerializeField] private GameObject graphPrefab;
 
-    public void Align(AugmentedImage augmentedImage)
+    public void AlignToAugmentedImage(AugmentedImage augmentedImage)
     {
         var size = Mathf.Min(augmentedImage.ExtentX, augmentedImage.ExtentZ);
-        graph.localScale = Vector3.one * size;
+        transform.localScale = Vector3.one * size;
+    }
+
+    private void Awake()
+    {
+        var containerTranform = VisualizationDataManager.Main.GraphContainer.transform;
+        containerTranform.SetParent(transform);
+        containerTranform.localPosition = Vector3.zero;
+        containerTranform.localRotation = Quaternion.identity;
+        containerTranform.localScale = Vector3.one;
+        containerTranform.gameObject.SetActive(true);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using UnityEngine;
 
 public class GraphGenerator : MonoBehaviour
@@ -23,6 +24,14 @@ public class GraphGenerator : MonoBehaviour
 
         axes = GetComponentInChildren<IShowable>();
         axes.Hide();
+    }
+
+    private void Start()
+    {
+        DataManager.Main.GraphDataProperty.Subscribe(graphData =>
+        {
+            ShowGraph(graphData);
+        }).AddTo(this);
     }
 
     public void ShowGraph(IGraphVisualizationData data)
