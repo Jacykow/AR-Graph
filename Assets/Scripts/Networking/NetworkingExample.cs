@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class NetworkingTest : MonoBehaviour
+public class NetworkingExample : MonoBehaviour
 {
     private void Start()
     {
