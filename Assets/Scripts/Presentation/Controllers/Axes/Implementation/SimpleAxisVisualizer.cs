@@ -34,6 +34,12 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
     [Tooltip("Lines for Z axis on YZ plane")]
     [SerializeField] private Grid zToYGrid;
 
+    [Header("Scale")]
+
+    [SerializeField] private GameObject scalePrefab;
+    [SerializeField] private Transform labelParent;
+    [SerializeField] private Transform lookAtTarget;
+
     private void Awake()
     {
         if (axisPrefab != null && axisPrefab.GetComponent<AxisRenderer>() != null)
@@ -59,6 +65,25 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
             yToZGrid.Renderer = GridRenderer();
             zToXGrid.Renderer = GridRenderer();
             zToYGrid.Renderer = GridRenderer();
+        }
+
+        if (scalePrefab != null && scalePrefab.GetComponent<ScaleRenderer>() != null)
+        {
+            ScaleRenderer ScaleRenderer()
+            {
+                var scale = Instantiate(scalePrefab, transform.position, Quaternion.identity, transform)
+                    .GetComponent<ScaleRenderer>();
+                scale.LabelParent = labelParent;
+                scale.LookAtTarget = lookAtTarget;
+                return scale;
+            }
+
+            xToYGrid.Scale = ScaleRenderer();
+            xToZGrid.Scale = ScaleRenderer();
+            yToXGrid.Scale = ScaleRenderer();
+            yToZGrid.Scale = ScaleRenderer();
+            zToXGrid.Scale = ScaleRenderer();
+            zToYGrid.Scale = ScaleRenderer();
         }
 
         xToYGrid.PrimaryAxis = xAxis;
