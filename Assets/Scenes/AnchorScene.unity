@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc9040211fc401047b697178a145fb74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphPrefab: {fileID: 787927345055135516, guid: dc1270029e65b9c4bba0b71d11af8b4d, type: 3}
+  graphContainerPrefab: {fileID: 787927345055135516, guid: dc1270029e65b9c4bba0b71d11af8b4d, type: 3}
 --- !u!4 &2126322411
 Transform:
   m_ObjectHideFlags: 0
