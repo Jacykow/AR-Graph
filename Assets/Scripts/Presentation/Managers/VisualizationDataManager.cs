@@ -11,7 +11,6 @@ public class VisualizationDataManager : MonoBehaviour
 
     private Dictionary<VisualisationType, string> visualizationScenes;
     private string currentVisualizationScene;
-    private string previousVisualizationScene;
 
     public Transform GraphContainer => graphContainer;
     public static VisualizationDataManager Main { get; private set; }
@@ -26,17 +25,17 @@ public class VisualizationDataManager : MonoBehaviour
             { VisualisationType.ArOnPaperCard, SceneNames.AnchorScene },
             { VisualisationType.Space3D, SceneNames.SpaceScene }
         };
-
-        SceneManager.sceneUnloaded += LoadCurrentScene;
     }
 
     private void Start()
     {
+        SceneManager.sceneUnloaded += LoadCurrentScene;
+
         DataManager.Main.VisualisationTypeProperty.Subscribe(visualisationType =>
         {
             graphContainer.SetParent(transform);
             graphContainer.gameObject.SetActive(false);
-            previousVisualizationScene = currentVisualizationScene;
+            var previousVisualizationScene = currentVisualizationScene;
             currentVisualizationScene = visualizationScenes[visualisationType];
             if (GetActiveSceneNames().Any(sceneName => sceneName == previousVisualizationScene))
             {
