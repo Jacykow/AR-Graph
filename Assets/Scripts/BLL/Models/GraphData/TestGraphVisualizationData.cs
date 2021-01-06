@@ -4,6 +4,23 @@ using UnityEngine;
 
 public static class TestGraphVisualizationData
 {
+    public static IGraphVisualizationData RandomData
+    {
+        get
+        {
+            var dataCollections = new IGraphVisualizationData[]
+            {
+                Columns,
+                Columns2D,
+                Balls,
+                Surface,
+                Pie2D,
+                UndirectedGraph
+            };
+            return dataCollections[Random.Range(0, dataCollections.Length)];
+        }
+    }
+
     public static ColumnGraphData Columns
     {
         get
