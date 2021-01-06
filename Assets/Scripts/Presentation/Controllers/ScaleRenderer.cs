@@ -35,14 +35,14 @@ public class ScaleRenderer : MonoBehaviour
 
     public void Redraw(IAxisProperties axis, GridRenderer grid)
     {
-        transform.position = grid.transform.position * 2 - axis.Direction * axis.Length;
-        transform.position += transform.position.normalized * scaleOffset;
+        transform.localPosition = grid.transform.localPosition * 2 - axis.Direction * axis.Length;
+        transform.localPosition += transform.localPosition.normalized * scaleOffset;
 
         if (labels == null) InstantiateLabels();
         var positions = grid.GetScaleMarks().ToArray();
         for (var i = skipLabels; i < positions.Length; i++)
         {
-            labels[i].position = transform.position + axis.Direction * positions[i];
+            labels[i].position = transform.position + transform.rotation * Vector3.Scale(axis.Direction * positions[i], transform.lossyScale);
             labels[i].gameObject.SetActive(true);
         }
 

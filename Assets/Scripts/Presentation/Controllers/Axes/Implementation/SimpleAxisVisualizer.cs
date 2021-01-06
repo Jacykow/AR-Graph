@@ -45,7 +45,7 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         if (axisPrefab != null && axisPrefab.GetComponent<AxisRenderer>() != null)
         {
             AxisRenderer AxisRenderer() =>
-                Instantiate(axisPrefab, transform.position, Quaternion.identity, transform)
+                Instantiate(axisPrefab, transform.position, transform.rotation, transform)
                     .GetComponent<AxisRenderer>();
 
             xAxis.Renderer = AxisRenderer();
@@ -56,7 +56,7 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         if (gridPrefab != null && gridPrefab.GetComponent<GridRenderer>() != null)
         {
             GridRenderer GridRenderer() =>
-                Instantiate(gridPrefab, transform.position, Quaternion.identity, transform)
+                Instantiate(gridPrefab, transform.position, transform.rotation, transform)
                     .GetComponent<GridRenderer>();
 
             xToYGrid.Renderer = GridRenderer();
@@ -71,7 +71,7 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         {
             ScaleRenderer ScaleRenderer()
             {
-                var scale = Instantiate(scalePrefab, transform.position, Quaternion.identity, transform)
+                var scale = Instantiate(scalePrefab, transform.position, transform.rotation, transform)
                     .GetComponent<ScaleRenderer>();
                 scale.LabelParent = labelParent;
                 scale.LookAtTarget = lookAtTarget;
