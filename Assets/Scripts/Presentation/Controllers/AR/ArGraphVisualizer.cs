@@ -11,11 +11,13 @@ public class ArGraphVisualizer : MonoBehaviour
         transform.localScale = Vector3.one * size;
     }
 
-    private void Start()
+    private void Awake()
     {
         var containerTranform = VisualizationDataManager.Main.GraphContainer.transform;
-        containerTranform.position = transform.position;
-        containerTranform.rotation = transform.rotation;
-        containerTranform.localScale = transform.lossyScale;
+        containerTranform.SetParent(transform);
+        containerTranform.localPosition = Vector3.zero;
+        containerTranform.localRotation = Quaternion.identity;
+        containerTranform.localScale = Vector3.one;
+        containerTranform.gameObject.SetActive(true);
     }
 }
