@@ -1,4 +1,5 @@
 ﻿using UniRx;
+using UnityEngine.Networking;
 
 public class DataManager
 {
@@ -18,7 +19,7 @@ public class DataManager
     private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
 
     public IReactiveProperty<string> GraphDataUrlProperty { get; } =
-        new ReactiveProperty<string>(null);
+        new ReactiveProperty<string>("https://argraph.azurewebsites.net/graph/11");
 
     public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
         new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
@@ -32,17 +33,50 @@ public class DataManager
                 _graphDataProperty = GraphDataUrlProperty
                     .SelectMany(url =>
                     {
-                        // todo Ewelina
-                        return Observable.Return("graphDataJson");
+                        return new UnityWebRequest
+                        {
+                            url = url,
+                            method = "GET"
+
+                        }.ObserveRequestResult();
                     })
                     .SelectMany(graphDataJson =>
                     {
                         // todo Grzegorz
+
                         return Observable.Return(TestGraphVisualizationData.RandomData);
                     })
                     .ToReadOnlyReactiveProperty();
             }
             return _graphDataProperty;
         }
+    }
+
+
+    public void SendGraph(string body)
+    {
+        var request = new UnityWebRequest
+        {
+            url = "https://argraph.azurewebsites.net/graph",
+            method = "POST"
+        };
+
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(body);
+        UploadHandlerRaw upHandler = new UploadHandlerRaw(data);
+        upHandler.contentType = "application/json";
+        request.uploadHandler = upHandler;
+
+        var response = request.ObserveRequestResult();
+    }
+
+    public void DeleteGraph(string url)
+    {
+        var request = new UnityWebRequest
+        {
+            url = url,
+            method = "DELETE"
+        };
+
+        var response = request.ObserveRequestResult();
     }
 }
