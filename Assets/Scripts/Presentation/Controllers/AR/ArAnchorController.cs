@@ -6,7 +6,7 @@ using UnityEngine;
 public class ArAnchorController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject graphPrefab;
+    private GameObject graphContainerPrefab;
 
     private List<AugmentedImage> augmentedImages = new List<AugmentedImage>();
     private ArGraphVisualizer graphVisualizer;
@@ -20,8 +20,8 @@ public class ArAnchorController : MonoBehaviour
             if (augmentedImage != null)
             {
                 Anchor anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
-                graphVisualizer = Instantiate(graphPrefab, anchor.transform).GetComponent<ArGraphVisualizer>();
-                graphVisualizer.Align(augmentedImage);
+                graphVisualizer = Instantiate(graphContainerPrefab, anchor.transform).GetComponent<ArGraphVisualizer>();
+                graphVisualizer.AlignToAugmentedImage(augmentedImage);
             }
         }
         else if (augmentedImages.Any(image => image.TrackingState == TrackingState.Stopped))
