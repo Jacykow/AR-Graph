@@ -9,6 +9,7 @@ public class NetworkingExample : MonoBehaviour
     {
         DataManager.Main.SendGraph(1 ,TestGraphVisualizationData.RandomData).Subscribe().AddTo(this);
     }
+
     private void ExampleGET()
     {
         new UnityWebRequest
@@ -23,7 +24,6 @@ public class NetworkingExample : MonoBehaviour
             Debug.Log(desContainer);
         }).AddTo(this);
     }
-
    
     private void ExampleDELETE()
     {

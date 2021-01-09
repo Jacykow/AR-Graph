@@ -45,9 +45,9 @@ public class DataManager
                     })
                     .Select(graphDataJson =>
                     {
-                        var desBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson);
-                        var desGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(desBackendData.data);
-                        return desGraphData.visualizationData;
+                        var deserializedBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson);
+                        var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data);
+                        return deserializedGraphData.visualizationData;
                     })
                     .Merge(_randomGraphSubject)
                     .ToReadOnlyReactiveProperty();
@@ -62,12 +62,12 @@ public class DataManager
         {
             visualizationData = graphData
         };
-        var jsonContainer = JsonConvert.SerializeObject(container);
+        var containerJson = JsonConvert.SerializeObject(container);
 
-        var graph = new BackendData(id, jsonContainer);
-        var jsonGraph = JsonConvert.SerializeObject(graph);
+        var graph = new BackendData(id, containerJson);
+        var graphJson = JsonConvert.SerializeObject(graph);
 
-        return SendGraph(jsonGraph);
+        return SendGraph(graphJson);
     }
 
     public IObservable<string> SendGraph(string body)
