@@ -17,6 +17,8 @@ public class DataManager
         }
     }
 
+    private Subject<IGraphVisualizationData> _randomGraphSubject = new Subject<IGraphVisualizationData>();
+
     private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
 
     public IReactiveProperty<string> GraphDataUrlProperty { get; } =
@@ -46,6 +48,7 @@ public class DataManager
 
                         return Observable.Return(TestGraphVisualizationData.RandomData);
                     })
+                    .Merge(_randomGraphSubject)
                     .ToReadOnlyReactiveProperty();
             }
             return _graphDataProperty;
@@ -78,5 +81,10 @@ public class DataManager
         };
 
         return request.ObserveRequestResult();
+    }
+
+    public void LoadGraph(IGraphVisualizationData graph)
+    {
+        _randomGraphSubject.OnNext(graph);
     }
 }
