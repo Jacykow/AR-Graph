@@ -7,8 +7,16 @@ public class PieChart2DVisualizer : BaseGraphVisualizer<PieChart2DData>
     [SerializeField] private Transform background;
     [SerializeField] private GameObject piePrefab;
 
+    private readonly List<GameObject> fragments = new List<GameObject>();
+
     protected override void Redraw(PieChart2DData graphData)
     {
+        foreach (var fragment in fragments)
+        {
+            Destroy(fragment);
+        }
+        fragments.Clear();
+
         var angles = GetAngles(graphData.Values);
         var last = 0;
 
@@ -22,6 +30,7 @@ public class PieChart2DVisualizer : BaseGraphVisualizer<PieChart2DData>
             material.SetInt("_Arc1", arc);
             material.SetInt("_Angle", rotation);
             material.color = new Color(Random.value, Random.value, Random.value);
+            fragments.Add(fragment);
         }
     }
 

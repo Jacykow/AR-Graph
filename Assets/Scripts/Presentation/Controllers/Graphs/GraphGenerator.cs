@@ -9,7 +9,7 @@ public class GraphGenerator : MonoBehaviour
     [SerializeField] private Transform visualizerContainer;
 
     private Dictionary<Type, IGraphVisualizer> visualizers;
-
+    private IGraphVisualizer activeVisualizer;
     private IShowable axes;
 
     private void Awake()
@@ -36,10 +36,17 @@ public class GraphGenerator : MonoBehaviour
 
     public void ShowGraph(IGraphVisualizationData data)
     {
+        if (activeVisualizer != null)
+        {
+            activeVisualizer.Hide();
+            axes.Hide();
+        }
+
         var dataType = data.GetType();
         if (visualizers.ContainsKey(dataType))
         {
-            visualizers[dataType].Show(data);
+            activeVisualizer = visualizers[dataType];
+            activeVisualizer.Show(data);
             axes.Show();
         }
         else
