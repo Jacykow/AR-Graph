@@ -46,7 +46,6 @@ public class GraphSceneController : MonoBehaviour
             ChangeElementsAfterQrScanning();
         }).AddTo(this);
 
-
         ScanQr();
         scannerButton.gameObject.SetActive(false);
         scannerButton.onClick.AddListener(ScanQr);
