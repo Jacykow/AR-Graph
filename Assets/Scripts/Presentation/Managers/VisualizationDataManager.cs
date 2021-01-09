@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class VisualizationDataManager : MonoBehaviour
 {
-    [SerializeField]
-    private Transform graphContainer;
+    [SerializeField] private Transform graphContainer;
+    [SerializeField] private SimpleAxisVisualizer axes;
 
     private Dictionary<VisualisationType, string> visualizationScenes;
     private string currentVisualizationScene;
 
     public Transform GraphContainer => graphContainer;
+    public SimpleAxisVisualizer Axes => axes;
     public static VisualizationDataManager Main { get; private set; }
 
     private void Awake()
@@ -35,6 +36,7 @@ public class VisualizationDataManager : MonoBehaviour
         {
             graphContainer.SetParent(transform);
             graphContainer.gameObject.SetActive(false);
+            Axes.Hide();
             var previousVisualizationScene = currentVisualizationScene;
             currentVisualizationScene = visualizationScenes[visualisationType];
             if (GetActiveSceneNames().Any(sceneName => sceneName == previousVisualizationScene))

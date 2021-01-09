@@ -12,5 +12,6 @@ public class ArGraphVisualizer : MonoBehaviour
         containerTranform.localRotation = Quaternion.identity;
         containerTranform.localScale = Vector3.one;
         containerTranform.gameObject.SetActive(true);
+        VisualizationDataManager.Main.Axes.Show();
     }
 }
