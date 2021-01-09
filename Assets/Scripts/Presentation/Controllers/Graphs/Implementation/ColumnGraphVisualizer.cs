@@ -19,7 +19,8 @@ public class ColumnGraphVisualizer : BaseGraphVisualizer<ColumnGraphData>
                     z = (float)(z + 1) / (graphData.Values.GetLength(1) + 1)
                 };
                 columnSize.y = graphData.Values[x, z];
-                var column = Instantiate(columnPrefab, columnPosition, Quaternion.identity, transform);
+                var column = Instantiate(columnPrefab, transform.position, Quaternion.identity, transform);
+                column.transform.localPosition = columnPosition;
                 column.transform.localScale = columnSize;
             }
         }

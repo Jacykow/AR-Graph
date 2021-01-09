@@ -4,13 +4,13 @@ public class LookAtCamera : MonoBehaviour
 {
     private Transform cameraTransform;
 
-    private void Awake()
-    {
-        cameraTransform = Camera.main.transform;
-    }
-
     private void Update()
     {
+        if (cameraTransform == null)
+        {
+            cameraTransform = Camera.main?.transform;
+        }
+
         transform.LookAt(cameraTransform, Vector3.up);
     }
 }

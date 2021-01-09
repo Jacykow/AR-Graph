@@ -17,7 +17,7 @@ public class PieChart2DVisualizer : BaseGraphVisualizer<PieChart2DData>
             var arc = 360 - (angles[i] - last);
             var rotation = last;
             last = angles[i];
-            var fragment = Instantiate(piePrefab, background, true);
+            var fragment = Instantiate(piePrefab, background.position, background.rotation, background);
             var material = fragment.GetComponent<Renderer>().material;
             material.SetInt("_Arc1", arc);
             material.SetInt("_Angle", rotation);
