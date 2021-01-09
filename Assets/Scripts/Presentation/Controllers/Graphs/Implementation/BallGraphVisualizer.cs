@@ -8,7 +8,8 @@ public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
     {
         foreach (var point in graphData.BallPositions)
         {
-            Instantiate(ballPrefab, point, Quaternion.identity, transform);
+            var ball = Instantiate(ballPrefab, transform.position, Quaternion.identity, transform);
+            ball.transform.localPosition = point;
         }
     }
 }

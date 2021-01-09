@@ -127,23 +127,33 @@ MonoBehaviour:
   axisPrefab: {fileID: 1047438548024195077, guid: ab6718a1f09a89f408569dc9c0689207, type: 3}
   xAxis:
     length: 1
+    name: x
   yAxis:
     length: 1
+    name: y
   zAxis:
     length: 1
+    name: z
   gridPrefab: {fileID: 5551959209627637440, guid: 0e7c6a49af4f56248b00b4171eda88bc, type: 3}
   xToYGrid:
     enabled: 1
+    showScale: 0
   xToZGrid:
     enabled: 1
+    showScale: 1
   yToXGrid:
     enabled: 1
+    showScale: 1
   yToZGrid:
     enabled: 1
+    showScale: 0
   zToXGrid:
     enabled: 1
+    showScale: 1
   zToYGrid:
     enabled: 1
+    showScale: 0
+  scalePrefab: {fileID: 7449895386625976081, guid: 597553d7a3c7aa6449da9aff6223f756, type: 3}
 --- !u!1 &2501733397569919555
 GameObject:
   m_ObjectHideFlags: 0
