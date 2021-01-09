@@ -1,6 +1,4 @@
-﻿using UniRx;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
 
 public class NetworkingExample : MonoBehaviour
 {
@@ -14,5 +12,20 @@ public class NetworkingExample : MonoBehaviour
         {
             Debug.Log(text);
         }).AddTo(this);
+    }
+
+    private void ExampleGET()
+    {
+        DataManager.Main.GraphDataUrlProperty.Value = "https://argraph.azurewebsites.net/graph/1";
+    }
+
+    private void ExamplePOST()
+    {
+        DataManager.Main.SendGraph("\"id\" : 1, \"data\" : \"przykladowe dane do grafu\"");
+    }
+
+    private void ExampleDELETE()
+    {
+        DataManager.Main.DeleteGraph("https://argraph.azurewebsites.net/graph/1");
     }
 }

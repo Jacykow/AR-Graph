@@ -19,7 +19,7 @@ public class DataManager
     private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
 
     public IReactiveProperty<string> GraphDataUrlProperty { get; } =
-        new ReactiveProperty<string>("https://argraph.azurewebsites.net/graph/11");
+        new ReactiveProperty<string>(null);
 
     public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
         new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
