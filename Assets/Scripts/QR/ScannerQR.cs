@@ -30,8 +30,8 @@ public class ScannerQR : MonoBehaviour
             var data = barCodeReader.Decode(framebuffer, currentResolution.width, currentResolution.height);
             if (data != null)
             {
-                string qr = "QR " + data.Text;
-                debugText.text = qr;
+                string qr = data.Text;
+                DataManager.Main.GraphDataUrlProperty.Value = qr;
             }
 
         }
