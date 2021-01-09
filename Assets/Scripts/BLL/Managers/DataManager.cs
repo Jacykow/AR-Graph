@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using UniRx;
 using UnityEngine.Networking;
 
@@ -42,11 +43,11 @@ public class DataManager
                             method = "GET"
                         }.ObserveRequestResult();
                     })
-                    .SelectMany(graphDataJson =>
+                    .Select(graphDataJson =>
                     {
-                        // todo Grzegorz
-
-                        return Observable.Return(TestGraphVisualizationData.RandomData);
+                        var deserializedBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson);
+                        var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data);
+                        return deserializedGraphData.visualizationData;
                     })
                     .Merge(_randomGraphSubject)
                     .ToReadOnlyReactiveProperty();
@@ -55,6 +56,19 @@ public class DataManager
         }
     }
 
+    public IObservable<string> SendGraph(int id, IGraphVisualizationData graphData)
+    {
+        var container = new GraphDataContainer
+        {
+            visualizationData = graphData
+        };
+        var containerJson = JsonConvert.SerializeObject(container);
+
+        var graph = new BackendData(id, containerJson);
+        var graphJson = JsonConvert.SerializeObject(graph);
+
+        return SendGraph(graphJson);
+    }
 
     public IObservable<string> SendGraph(string body)
     {

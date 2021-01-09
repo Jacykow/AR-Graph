@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Newtonsoft.Json;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -6,6 +7,7 @@ public class NetworkingExample : MonoBehaviour
 {
     private void Start()
     {
+        DataManager.Main.SendGraph(1 ,TestGraphVisualizationData.RandomData).Subscribe().AddTo(this);
     }
 
     private void ExampleGET()
@@ -17,19 +19,12 @@ public class NetworkingExample : MonoBehaviour
         }.ObserveRequestResult().Subscribe(text =>
         {
             Debug.Log(text);
+            var deserialized = JsonConvert.DeserializeObject<BackendData>(text);
+            var desContainer = JsonConvert.DeserializeObject<GraphDataContainer>(deserialized.data);
+            Debug.Log(desContainer);
         }).AddTo(this);
     }
-
-    private void ExamplePOST()
-    {
-        DataManager.Main
-            .SendGraph("{\"id\": 1, \"data\": \"przykladowe dane do grafu\"}")
-            .Subscribe(text =>
-        {
-            Debug.Log(text);
-        }).AddTo(this);
-    }
-
+   
     private void ExampleDELETE()
     {
         DataManager.Main
