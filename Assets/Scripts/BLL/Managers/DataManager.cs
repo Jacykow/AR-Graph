@@ -46,6 +46,10 @@ public class DataManager
                     .Select(graphDataJson =>
                     {
                         var deserializedBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson);
+                        if (deserializedBackendData == null)
+                        {
+                            return TestGraphVisualizationData.RandomData;
+                        }
                         var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data);
                         return deserializedGraphData.visualizationData;
                     })
