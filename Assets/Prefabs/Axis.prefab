@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coneOffset: 0.1
+  labelPrefab: {fileID: 6395958893288778557, guid: aaabf7b20581114429481ca744a460fe, type: 3}
+  labelOffset: 0.2
 --- !u!1001 &2945569499169176361
 PrefabInstance:
   m_ObjectHideFlags: 0

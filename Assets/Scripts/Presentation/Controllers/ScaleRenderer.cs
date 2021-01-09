@@ -10,26 +10,15 @@ public class ScaleRenderer : MonoBehaviour
     private const int MaxNumberOfLabels = 10;
     private Transform[] labels;
 
-    public Transform LabelParent { get; set; }
-    public Transform LookAtTarget { get; set; }
-
     private void InstantiateLabels()
     {
         labels = new Transform[MaxNumberOfLabels];
+        var parent = GameObject.FindWithTag("Graph Labels");
         for (var i = 0; i < labels.Length; i++)
         {
-            var label = Instantiate(labelPrefab, Vector3.zero, Quaternion.identity, LabelParent).transform;
+            var label = Instantiate(labelPrefab, Vector3.zero, Quaternion.identity, parent.transform).transform;
             label.gameObject.SetActive(false);
             labels[i] = label;
-        }
-    }
-
-    private void Update()
-    {
-        if (labels == null) return;
-        foreach (var label in labels)
-        {
-            label.LookAt(LookAtTarget, Vector3.up);
         }
     }
 
@@ -42,7 +31,7 @@ public class ScaleRenderer : MonoBehaviour
         var positions = grid.GetScaleMarks().ToArray();
         for (var i = skipLabels; i < positions.Length; i++)
         {
-            labels[i].position = transform.position + transform.rotation * Vector3.Scale(axis.Direction * positions[i], transform.lossyScale);
+            labels[i].position = transform.TransformPoint(axis.Direction * positions[i]);
             labels[i].gameObject.SetActive(true);
         }
 

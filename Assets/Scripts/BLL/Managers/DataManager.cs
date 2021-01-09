@@ -1,4 +1,6 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
+using UnityEngine.Networking;
 
 public class DataManager
 {
@@ -32,17 +34,49 @@ public class DataManager
                 _graphDataProperty = GraphDataUrlProperty
                     .SelectMany(url =>
                     {
-                        // todo Ewelina
-                        return Observable.Return("graphDataJson");
+                        return new UnityWebRequest
+                        {
+                            url = url,
+                            method = "GET"
+                        }.ObserveRequestResult();
                     })
                     .SelectMany(graphDataJson =>
                     {
                         // todo Grzegorz
+
                         return Observable.Return(TestGraphVisualizationData.RandomData);
                     })
                     .ToReadOnlyReactiveProperty();
             }
             return _graphDataProperty;
         }
+    }
+
+
+    public IObservable<string> SendGraph(string body)
+    {
+        var request = new UnityWebRequest
+        {
+            url = "https://argraph.azurewebsites.net/graph",
+            method = "POST"
+        };
+
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(body);
+        UploadHandlerRaw uploadHandlerRaw = new UploadHandlerRaw(data);
+        uploadHandlerRaw.contentType = "application/json";
+        request.uploadHandler = uploadHandlerRaw;
+
+        return request.ObserveRequestResult();
+    }
+
+    public IObservable<string> DeleteGraph(string url)
+    {
+        var request = new UnityWebRequest
+        {
+            url = url,
+            method = "DELETE"
+        };
+
+        return request.ObserveRequestResult();
     }
 }
