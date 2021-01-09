@@ -37,8 +37,6 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
     [Header("Scale")]
 
     [SerializeField] private GameObject scalePrefab;
-    [SerializeField] private Transform labelParent;
-    [SerializeField] private Transform lookAtTarget;
 
     private void Awake()
     {
@@ -73,8 +71,6 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
             {
                 var scale = Instantiate(scalePrefab, transform.position, transform.rotation, transform)
                     .GetComponent<ScaleRenderer>();
-                scale.LabelParent = labelParent;
-                scale.LookAtTarget = lookAtTarget;
                 return scale;
             }
 
