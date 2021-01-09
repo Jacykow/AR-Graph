@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Random = System.Random;
 
 public class GraphSceneController : MonoBehaviour
 {
@@ -18,7 +17,6 @@ public class GraphSceneController : MonoBehaviour
     private void Start()
     {
         _lastSelected = EventSystem.current.firstSelectedGameObject;
-        Random random = new Random();
 
         arOnPaperCard.OnClickAsObservable().Subscribe(_ =>
        {

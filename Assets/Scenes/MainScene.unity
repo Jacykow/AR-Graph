@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Losowy wykres
+  m_text: Losowy typ wykresu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 191894da64ac4d54484c2ab916c23c67, type: 2}
   m_sharedMaterial: {fileID: 3446614146534802844, guid: 191894da64ac4d54484c2ab916c23c67, type: 2}
