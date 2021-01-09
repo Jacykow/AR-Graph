@@ -38,7 +38,7 @@ public class GraphSceneController : MonoBehaviour
 
         randomChart.OnClickAsObservable().Subscribe(_ =>
         {
-
+            DataManager.Main.LoadGraph(TestGraphVisualizationData.RandomData);
         }).AddTo(this);
 
         scannerButton.gameObject.SetActive(false);
