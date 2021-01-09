@@ -205,6 +205,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2005088691}
     m_Modifications:
+    - target: {fileID: 2501733397357878112, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
+      propertyPath: labelCanvas
+      value: 
+      objectReference: {fileID: 984013196}
     - target: {fileID: 2501733397900699148, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -958,6 +962,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1335778602}
+    - target: {fileID: 7404094978740899968, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
+      propertyPath: graph
+      value: 
+      objectReference: {fileID: 1335778602}
     - target: {fileID: 7404094980012358384, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1048,6 +1056,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
+--- !u!223 &984013196 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7404094980012358385, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
+  m_PrefabInstance: {fileID: 984013195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1180729814
 GameObject:
   m_ObjectHideFlags: 0
