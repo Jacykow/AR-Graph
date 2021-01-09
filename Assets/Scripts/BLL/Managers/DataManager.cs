@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine.Networking;
 
 public class DataManager
@@ -37,7 +38,6 @@ public class DataManager
                         {
                             url = url,
                             method = "GET"
-
                         }.ObserveRequestResult();
                     })
                     .SelectMany(graphDataJson =>
@@ -53,7 +53,7 @@ public class DataManager
     }
 
 
-    public void SendGraph(string body)
+    public IObservable<string> SendGraph(string body)
     {
         var request = new UnityWebRequest
         {
@@ -62,14 +62,14 @@ public class DataManager
         };
 
         byte[] data = System.Text.Encoding.UTF8.GetBytes(body);
-        UploadHandlerRaw upHandler = new UploadHandlerRaw(data);
-        upHandler.contentType = "application/json";
-        request.uploadHandler = upHandler;
+        UploadHandlerRaw uploadHandlerRaw = new UploadHandlerRaw(data);
+        uploadHandlerRaw.contentType = "application/json";
+        request.uploadHandler = uploadHandlerRaw;
 
-        var response = request.ObserveRequestResult();
+        return request.ObserveRequestResult();
     }
 
-    public void DeleteGraph(string url)
+    public IObservable<string> DeleteGraph(string url)
     {
         var request = new UnityWebRequest
         {
@@ -77,6 +77,6 @@ public class DataManager
             method = "DELETE"
         };
 
-        var response = request.ObserveRequestResult();
+        return request.ObserveRequestResult();
     }
 }
