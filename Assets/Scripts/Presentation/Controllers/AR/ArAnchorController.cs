@@ -37,7 +37,7 @@ public class ArAnchorController : MonoBehaviour
         var size = Mathf.Min(augmentedImage.ExtentX, augmentedImage.ExtentZ);
         graphContainer.localScale = Vector3.one * size;
         var containerTranform = VisualizationDataManager.Main.GraphContainer.transform;
-        containerTranform.localPosition = Vector3.left * (ImageScale * 0.5f + size);
+        containerTranform.localPosition = Vector3.left * (ImageScale * 0.5f + 0.5f);
         containerTranform.localScale = Vector3.one * ImageScale;
     }
 }
