@@ -39,5 +39,6 @@ public class SimpleAxisRenderer : AxisRenderer
         var labelPosition = properties.Direction * (properties.Length + labelOffset);
         label.transform.position = transform.TransformPoint(labelPosition);
         label.text = properties.Name;
+        label.GetComponent<TransformScaler>().Rescale(transform);
     }
 }

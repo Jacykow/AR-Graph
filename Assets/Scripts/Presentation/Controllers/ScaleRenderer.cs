@@ -17,6 +17,7 @@ public class ScaleRenderer : MonoBehaviour
         for (var i = 0; i < labels.Length; i++)
         {
             var label = Instantiate(labelPrefab, Vector3.zero, Quaternion.identity, parent.transform).transform;
+            label.GetComponent<TransformScaler>().Rescale(transform);
             label.gameObject.SetActive(false);
             labels[i] = label;
         }
