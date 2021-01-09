@@ -5,7 +5,7 @@ public class ArGraphVisualizer : MonoBehaviour
 {
     [SerializeField] private GameObject graphPrefab;
 
-    private const float ImageScale = 4.5f;
+    private const float ImageScale = 2.55f;
 
     public void AlignToAugmentedImage(AugmentedImage augmentedImage)
     {
