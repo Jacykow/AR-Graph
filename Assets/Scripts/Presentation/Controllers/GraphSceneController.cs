@@ -8,6 +8,7 @@ public class GraphSceneController : MonoBehaviour
     public Button arOnPaperCard;
     public Button arInSpace;
     public Button space3D;
+    public Button randomChart;
     public Button scannerButton;
     public Image qrScanner;
 
@@ -33,6 +34,11 @@ public class GraphSceneController : MonoBehaviour
         {
             _lastSelected = space3D.gameObject;
             SetVisualisationType(VisualisationType.Space3D);
+        }).AddTo(this);
+
+        randomChart.OnClickAsObservable().Subscribe(_ =>
+        {
+
         }).AddTo(this);
 
         scannerButton.gameObject.SetActive(false);
