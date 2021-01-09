@@ -38,6 +38,10 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
 
     [SerializeField] private GameObject scalePrefab;
 
+    [Header("Labels")]
+
+    [SerializeField] private Canvas labelCanvas;
+
     private void Awake()
     {
         if (axisPrefab != null && axisPrefab.GetComponent<AxisRenderer>() != null)
@@ -99,6 +103,7 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
     public void Hide()
     {
         gameObject.SetActive(false);
+        labelCanvas.enabled = false;
     }
 
     public void Show()
@@ -113,5 +118,6 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
         yToZGrid.Show();
         zToXGrid.Show();
         zToYGrid.Show();
+        labelCanvas.enabled = true;
     }
 }
