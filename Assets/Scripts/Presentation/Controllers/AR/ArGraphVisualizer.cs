@@ -1,15 +1,8 @@
-﻿using GoogleARCore;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ArGraphVisualizer : MonoBehaviour
 {
     [SerializeField] private GameObject graphPrefab;
-
-    public void AlignToAugmentedImage(AugmentedImage augmentedImage)
-    {
-        var size = Mathf.Min(augmentedImage.ExtentX, augmentedImage.ExtentZ);
-        transform.localScale = Vector3.one * size;
-    }
 
     private void Awake()
     {

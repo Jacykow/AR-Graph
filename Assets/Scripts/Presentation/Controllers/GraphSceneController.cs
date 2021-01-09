@@ -38,13 +38,17 @@ public class GraphSceneController : MonoBehaviour
 
         randomChart.OnClickAsObservable().Subscribe(_ =>
         {
-
+            DataManager.Main.LoadGraph(TestGraphVisualizationData.RandomData);
         }).AddTo(this);
 
+        DataManager.Main.GraphDataUrlProperty.Subscribe(_ =>
+        {
+            ChangeElementsAfterQrScanning();
+        }).AddTo(this);
+
+        ScanQr();
         scannerButton.gameObject.SetActive(false);
         scannerButton.onClick.AddListener(ScanQr);
-
-        ChangeElementsAfterQrScanning();
     }
 
     private void Update()
