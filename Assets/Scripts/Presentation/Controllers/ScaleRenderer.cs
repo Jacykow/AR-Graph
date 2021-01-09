@@ -13,9 +13,9 @@ public class ScaleRenderer : MonoBehaviour
     private void InstantiateLabels()
     {
         labels = new Transform[MaxNumberOfLabels];
+        var parent = GameObject.FindWithTag("Graph Labels");
         for (var i = 0; i < labels.Length; i++)
         {
-            var parent = GameObject.FindWithTag("Graph Labels");
             var label = Instantiate(labelPrefab, Vector3.zero, Quaternion.identity, parent.transform).transform;
             label.gameObject.SetActive(false);
             labels[i] = label;
