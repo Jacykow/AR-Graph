@@ -36,9 +36,6 @@ public class GridRenderer : MonoBehaviour
 
     private void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        Scale = scale;
-
         var uvs = GetComponent<MeshFilter>().mesh.uv;
         uvs[6] = new Vector2(0, 0);
         uvs[7] = new Vector2(1, 0);
@@ -49,6 +46,12 @@ public class GridRenderer : MonoBehaviour
 
     public void Redraw(IAxisProperties primaryAxis, IAxisProperties secondaryAxis)
     {
+        if (meshRenderer == null)
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+            Scale = scale;
+        }
+
         var height = primaryAxis.Length;
         var width = secondaryAxis.Length;
 
