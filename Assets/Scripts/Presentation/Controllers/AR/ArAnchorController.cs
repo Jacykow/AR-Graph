@@ -11,31 +11,31 @@ public class ArAnchorController : MonoBehaviour
     private GameObject graphContainerPrefab;
 
     private List<AugmentedImage> augmentedImages = new List<AugmentedImage>();
-    private Transform graphContainer;
+    private Transform outerGraphContainer;
 
     private void Update()
     {
         Session.GetTrackables(augmentedImages, TrackableQueryFilter.Updated);
-        if (graphContainer == null)
+        if (outerGraphContainer == null)
         {
             var augmentedImage = augmentedImages.FirstOrDefault(image => image.TrackingState == TrackingState.Tracking);
             if (augmentedImage != null)
             {
                 Anchor anchor = augmentedImage.CreateAnchor(augmentedImage.CenterPose);
-                graphContainer = Instantiate(graphContainerPrefab, anchor.transform).transform;
+                outerGraphContainer = Instantiate(graphContainerPrefab, anchor.transform).transform;
                 AlignContainerToAugmentedImage(augmentedImage);
             }
         }
         else if (augmentedImages.Any(image => image.TrackingState == TrackingState.Stopped))
         {
-            Destroy(graphContainer.gameObject);
+            Destroy(outerGraphContainer.gameObject);
         }
     }
 
     public void AlignContainerToAugmentedImage(AugmentedImage augmentedImage)
     {
         var size = Mathf.Min(augmentedImage.ExtentX, augmentedImage.ExtentZ);
-        graphContainer.localScale = Vector3.one * size;
+        outerGraphContainer.localScale = Vector3.one * size;
         var containerTranform = VisualizationDataManager.Main.GraphContainer.transform;
         containerTranform.localPosition = Vector3.left * (ImageScale * 0.5f + 0.5f);
         containerTranform.localScale = Vector3.one * ImageScale;
