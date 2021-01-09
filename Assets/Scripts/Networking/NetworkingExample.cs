@@ -7,8 +7,7 @@ public class NetworkingExample : MonoBehaviour
 {
     private void Start()
     {
-        ExamplePOST();
-        //ExampleGET();
+        DataManager.Main.SendGraph(1 ,TestGraphVisualizationData.RandomData).Subscribe().AddTo(this);
     }
     private void ExampleGET()
     {
@@ -25,28 +24,7 @@ public class NetworkingExample : MonoBehaviour
         }).AddTo(this);
     }
 
-    private void ExamplePOST()
-    {
-        var randomdata = TestGraphVisualizationData.Pie2D;
-        var container = new GraphDataContainer
-        {
-            visualizationData = randomdata
-        };
-        var jsonString = JsonConvert.SerializeObject(container);
-
-        var graph = new BackendData(1, jsonString);
-        var secondJsonString = JsonConvert.SerializeObject(graph);
-
-        Debug.Log(secondJsonString);
-
-        DataManager.Main
-            .SendGraph(secondJsonString)
-            .Subscribe(text =>
-        {
-            Debug.Log(text);
-        }).AddTo(this);
-    }
-
+   
     private void ExampleDELETE()
     {
         DataManager.Main
