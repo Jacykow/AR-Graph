@@ -1,5 +1,4 @@
-﻿using System;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -41,22 +40,7 @@ public class GraphSceneController : MonoBehaviour
 
         randomChart.OnClickAsObservable().Subscribe(_ =>
         {
-            var types = Enum.GetValues(typeof(VisualisationType));
-            var randomType = (VisualisationType)types.GetValue(random.Next(types.Length));
 
-            SetVisualisationType(randomType);
-            if (randomType.Equals(VisualisationType.ArInSpace))
-            {
-                _lastSelected = arInSpace.gameObject;
-            }
-            else if (randomType.Equals(VisualisationType.ArOnPaperCard))
-            {
-                _lastSelected = arOnPaperCard.gameObject;
-            }
-            else
-            {
-                _lastSelected = space3D.gameObject;
-            }
         }).AddTo(this);
 
         scannerButton.gameObject.SetActive(false);
