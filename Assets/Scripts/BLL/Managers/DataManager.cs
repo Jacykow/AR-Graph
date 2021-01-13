@@ -26,7 +26,7 @@ public class DataManager
         new ReactiveProperty<string>(null);
 
     public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
-        new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
+        new ReactiveProperty<VisualisationType>(VisualisationType.ArOnPaperCard);
 
     public IReadOnlyReactiveProperty<IGraphVisualizationData> GraphDataProperty
     {
