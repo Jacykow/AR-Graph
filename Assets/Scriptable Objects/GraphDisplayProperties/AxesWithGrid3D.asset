@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78007bde0774c5b4b81d228c0c9b8788, type: 3}
-  m_Name: DefaultDisplayProperties
+  m_Name: AxesWithGrid3D
   m_EditorClassIdentifier: 
   xAxis:
-    enabled: 0
+    enabled: 1
   yAxis:
-    enabled: 0
+    enabled: 1
   zAxis:
-    enabled: 0
+    enabled: 1
   xToYGrid:
-    enabled: 0
+    enabled: 1
     showScale: 0
   xToZGrid:
-    enabled: 0
-    showScale: 0
+    enabled: 1
+    showScale: 1
   yToXGrid:
-    enabled: 0
-    showScale: 0
+    enabled: 1
+    showScale: 1
   yToZGrid:
-    enabled: 0
+    enabled: 1
     showScale: 0
   zToXGrid:
-    enabled: 0
-    showScale: 0
+    enabled: 1
+    showScale: 1
   zToYGrid:
-    enabled: 0
+    enabled: 1
     showScale: 0
