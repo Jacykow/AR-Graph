@@ -41,4 +41,13 @@ public class ScaleRenderer : MonoBehaviour
             labels[i].gameObject.SetActive(false);
         }
     }
+
+    public void Hide()
+    {
+        if (labels == null) return;
+        foreach (var label in labels)
+        {
+            label.gameObject.SetActive(false);
+        }
+    }
 }

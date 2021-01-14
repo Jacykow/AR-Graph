@@ -10,7 +10,7 @@ public class GraphGenerator : MonoBehaviour
 
     private Dictionary<Type, IGraphVisualizer> visualizers;
     private IGraphVisualizer activeVisualizer;
-    private IShowable axes;
+    private IAxisVisualizer axes;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class GraphGenerator : MonoBehaviour
             visualizer.Hide();
         }
 
-        axes = GetComponentInChildren<IShowable>();
+        axes = GetComponentInChildren<IAxisVisualizer>();
         axes.Hide();
     }
 
@@ -47,7 +47,7 @@ public class GraphGenerator : MonoBehaviour
         {
             activeVisualizer = visualizers[dataType];
             activeVisualizer.Show(data);
-            axes.Show();
+            axes.Show(activeVisualizer.DisplayProperties);
         }
         else
         {

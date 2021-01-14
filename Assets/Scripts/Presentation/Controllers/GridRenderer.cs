@@ -61,6 +61,13 @@ public class GridRenderer : MonoBehaviour
 
         transform.localScale = new Vector3(width, height, 0f);
         meshRenderer.material.SetFloat("_GraduationScale", height);
+        meshRenderer.enabled = true;
+    }
+
+    public void Hide()
+    {
+        if (meshRenderer == null) return;
+        meshRenderer.enabled = false;
     }
 
     public IEnumerable<float> GetScaleMarks()

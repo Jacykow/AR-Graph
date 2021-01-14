@@ -5,4 +5,5 @@ public interface IGraphVisualizer
     void Hide();
     void Show(IGraphVisualizationData graphVisualizationData);
     Type GetGraphDataType();
+    GraphDisplayProperties DisplayProperties { get; }
 }

@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735dbf5af5fd5364c8360a2a0d8f7834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayProperties: {fileID: 11400000, guid: 744a57148f8811147b2b809527fbd22c, type: 2}
   graphRenderer: {fileID: 2501733398576004881}
 --- !u!1 &2501733397357878114
 GameObject:
@@ -135,25 +136,8 @@ MonoBehaviour:
     length: 1
     name: z
   gridPrefab: {fileID: 5551959209627637440, guid: 0e7c6a49af4f56248b00b4171eda88bc, type: 3}
-  xToYGrid:
-    enabled: 1
-    showScale: 0
-  xToZGrid:
-    enabled: 1
-    showScale: 1
-  yToXGrid:
-    enabled: 1
-    showScale: 1
-  yToZGrid:
-    enabled: 1
-    showScale: 0
-  zToXGrid:
-    enabled: 1
-    showScale: 1
-  zToYGrid:
-    enabled: 1
-    showScale: 0
   scalePrefab: {fileID: 7449895386625976081, guid: 597553d7a3c7aa6449da9aff6223f756, type: 3}
+  labelCanvas: {fileID: 0}
 --- !u!1 &2501733397569919555
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf961c9ee7e71d4b8451f59de8f5e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayProperties: {fileID: 11400000, guid: 7109c8e677e97464ca8a8c39e2a42095, type: 2}
   nodePrefab: {fileID: 2023951288002560622, guid: f06dfa0c20710914eb800778f17d988d, type: 3}
 --- !u!1 &2501733397813728502
 GameObject:
@@ -241,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3ed0532bd9aff49a1c6883acbfa3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayProperties: {fileID: 11400000, guid: 0bc5a74f9fd2f11429bc45c14b2b2fe0, type: 2}
   ballPrefab: {fileID: 8855795877467435317, guid: 3eff6f92fa4f4af458e350c22f1b7f83, type: 3}
 --- !u!1 &2501733397892598856
 GameObject:
@@ -287,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5f0cc15d502824288c2200ef0b29d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayProperties: {fileID: 11400000, guid: 0bc5a74f9fd2f11429bc45c14b2b2fe0, type: 2}
 --- !u!33 &2501733397892598860
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -425,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f7fe7c13db0f4459e327c7bd8bd7cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayProperties: {fileID: 11400000, guid: f001ee9ee53d8c54aa10196e5a22488a, type: 2}
   columnPrefab: {fileID: 738158450019789180, guid: 33cd4862c18cae4408575bd870579e77, type: 3}
 --- !u!1 &2501733398576004883
 GameObject:
@@ -551,6 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899cb652055949b4da1ef162a7cadf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayProperties: {fileID: 11400000, guid: 7109c8e677e97464ca8a8c39e2a42095, type: 2}
   background: {fileID: 2501733397394497232}
   piePrefab: {fileID: 8707719009300245278, guid: 72bbe0f286baf084b85680ab2a9b741e, type: 3}
 --- !u!1001 &6516701001187063245

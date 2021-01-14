@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78007bde0774c5b4b81d228c0c9b8788, type: 3}
+  m_Name: DefaultDisplayProperties
+  m_EditorClassIdentifier: 
+  xAxis:
+    enabled: 0
+  yAxis:
+    enabled: 0
+  zAxis:
+    enabled: 0
+  xToYGrid:
+    enabled: 0
+    showScale: 0
+  xToZGrid:
+    enabled: 0
+    showScale: 0
+  yToXGrid:
+    enabled: 0
+    showScale: 0
+  yToZGrid:
+    enabled: 0
+    showScale: 0
+  zToXGrid:
+    enabled: 0
+    showScale: 0
+  zToYGrid:
+    enabled: 0
+    showScale: 0

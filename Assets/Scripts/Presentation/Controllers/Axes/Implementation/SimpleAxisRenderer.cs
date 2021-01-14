@@ -28,6 +28,16 @@ public class SimpleAxisRenderer : AxisRenderer
         cone.localPosition = end;
         cone.localRotation = Quaternion.LookRotation(properties.Direction);
         DrawLabel(properties);
+        lineRenderer.enabled = true;
+        cone.gameObject.SetActive(true);
+        label.gameObject.SetActive(true);
+    }
+
+    public override void Hide()
+    {
+        lineRenderer.enabled = false;
+        cone.gameObject.SetActive(false);
+        label?.gameObject.SetActive(false);
     }
 
     private void DrawLabel(IAxisProperties properties)

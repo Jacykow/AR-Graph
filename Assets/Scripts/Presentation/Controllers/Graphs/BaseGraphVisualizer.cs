@@ -3,6 +3,10 @@ using UnityEngine;
 
 public abstract class BaseGraphVisualizer<T> : MonoBehaviour, IGraphVisualizer where T : class, IGraphVisualizationData
 {
+    [SerializeField] private GraphDisplayProperties displayProperties;
+
+    public GraphDisplayProperties DisplayProperties => displayProperties;
+
     public Type GetGraphDataType()
     {
         return typeof(T);
