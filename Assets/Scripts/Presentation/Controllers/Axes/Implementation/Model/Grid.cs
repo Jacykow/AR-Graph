@@ -1,26 +1,29 @@
 ﻿using System;
-using UnityEngine;
 
 [Serializable]
 internal class Grid
 {
-    [SerializeField] private bool enabled;
-    [SerializeField] private bool showScale;
-
     public GridRenderer Renderer { get; set; }
     public ScaleRenderer Scale { get; set; }
     public IAxisProperties PrimaryAxis { get; set; }
     public IAxisProperties SecondaryAxis { get; set; }
 
-    public void Show()
+    public void Show(GridProperties properties)
     {
-        if (!enabled || Renderer == null) return;
+        if (!properties.Enabled || Renderer == null) return;
         Renderer.gameObject.SetActive(true);
         Renderer.Redraw(PrimaryAxis, SecondaryAxis);
+        Renderer.gameObject.SetActive(true);
 
-        if (showScale && Scale != null)
+        if (properties.ShowScale && Scale != null)
         {
             Scale.Redraw(PrimaryAxis, Renderer);
         }
+    }
+
+    public void Hide()
+    {
+        Renderer?.Hide();
+        Scale?.Hide();
     }
 }

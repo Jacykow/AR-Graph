@@ -17,8 +17,14 @@ internal class Axis : IAxisProperties
         Direction = direction;
     }
 
-    public void Show()
+    public void Show(AxisProperties properties)
     {
-        Renderer?.Redraw(this);
+        if (!properties.Enabled || Renderer == null) return;
+        Renderer.Redraw(this);
+    }
+
+    public void Hide()
+    {
+        Renderer?.Hide();
     }
 }

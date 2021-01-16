@@ -1,46 +1,22 @@
 ﻿using UnityEngine;
 
-public class SimpleAxisVisualizer : MonoBehaviour, IShowable
+public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
 {
-    [Header("Axes")]
 
     [SerializeField] private GameObject axisPrefab;
-
     [SerializeField] private Axis xAxis = new Axis(Vector3.right);
-
     [SerializeField] private Axis yAxis = new Axis(Vector3.up);
-
     [SerializeField] private Axis zAxis = new Axis(Vector3.forward);
-
-    [Header("Grid")]
-
     [SerializeField] private GameObject gridPrefab;
-
-    [Tooltip("Lines for X axis on XY plane")]
-    [SerializeField] private Grid xToYGrid;
-
-    [Tooltip("Lines for X axis on XZ plane")]
-    [SerializeField] private Grid xToZGrid;
-
-    [Tooltip("Lines for Y axis on XY plane")]
-    [SerializeField] private Grid yToXGrid;
-
-    [Tooltip("Lines for Y axis on YZ plane")]
-    [SerializeField] private Grid yToZGrid;
-
-    [Tooltip("Lines for Z axis on XZ plane")]
-    [SerializeField] private Grid zToXGrid;
-
-    [Tooltip("Lines for Z axis on YZ plane")]
-    [SerializeField] private Grid zToYGrid;
-
-    [Header("Scale")]
-
     [SerializeField] private GameObject scalePrefab;
-
-    [Header("Labels")]
-
     [SerializeField] private Canvas labelCanvas;
+
+    private Grid xToYGrid = new Grid();
+    private Grid xToZGrid = new Grid();
+    private Grid yToXGrid = new Grid();
+    private Grid yToZGrid = new Grid();
+    private Grid zToXGrid = new Grid();
+    private Grid zToYGrid = new Grid();
 
     private void Awake()
     {
@@ -103,21 +79,30 @@ public class SimpleAxisVisualizer : MonoBehaviour, IShowable
     public void Hide()
     {
         gameObject.SetActive(false);
+        xAxis.Hide();
+        yAxis.Hide();
+        zAxis.Hide();
+        xToYGrid.Hide();
+        xToZGrid.Hide();
+        yToXGrid.Hide();
+        yToZGrid.Hide();
+        zToXGrid.Hide();
+        zToYGrid.Hide();
         labelCanvas.enabled = false;
     }
 
-    public void Show()
+    public void Show(GraphDisplayProperties displayProperties)
     {
         gameObject.SetActive(true);
-        xAxis.Show();
-        yAxis.Show();
-        zAxis.Show();
-        xToYGrid.Show();
-        xToZGrid.Show();
-        yToXGrid.Show();
-        yToZGrid.Show();
-        zToXGrid.Show();
-        zToYGrid.Show();
+        xAxis.Show(displayProperties.xAxis);
+        yAxis.Show(displayProperties.yAxis);
+        zAxis.Show(displayProperties.zAxis);
+        xToYGrid.Show(displayProperties.xToYGrid);
+        xToZGrid.Show(displayProperties.xToZGrid);
+        yToXGrid.Show(displayProperties.yToXGrid);
+        yToZGrid.Show(displayProperties.yToZGrid);
+        zToXGrid.Show(displayProperties.zToXGrid);
+        zToYGrid.Show(displayProperties.zToYGrid);
         labelCanvas.enabled = true;
     }
 }
