@@ -1,4 +1,5 @@
 ﻿public class ColumnGraph2DData : IGraphVisualizationData
 {
     public float[] Values { get; set; }
+    public IGraphMetaData MetaData { get; set; }
 }

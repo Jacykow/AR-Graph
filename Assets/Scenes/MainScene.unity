@@ -209,6 +209,10 @@ PrefabInstance:
       propertyPath: labelCanvas
       value: 
       objectReference: {fileID: 984013196}
+    - target: {fileID: 2501733397357878112, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
+      propertyPath: graphTitle
+      value: 
+      objectReference: {fileID: 667204094}
     - target: {fileID: 2501733397900699148, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -820,6 +824,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650135488}
   m_CullTransparentMesh: 0
+--- !u!114 &667204094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5388084348897665967, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
+  m_PrefabInstance: {fileID: 984013195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &923817444
 GameObject:
   m_ObjectHideFlags: 0
