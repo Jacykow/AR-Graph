@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.BLL.Managers;
+using Assets.Scripts.Networking;
+using Newtonsoft.Json;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -7,7 +9,7 @@ public class NetworkingExample : MonoBehaviour
 {
     private void Start()
     {
-        DataManager.Main.SendGraph(1 ,TestGraphVisualizationData.RandomData).Subscribe().AddTo(this);
+        DataManager.Main.SendGraph(1, TestGraphVisualizationData.Balls).Subscribe().AddTo(this);
     }
 
     private void ExampleGET()
@@ -24,7 +26,7 @@ public class NetworkingExample : MonoBehaviour
             Debug.Log(desContainer);
         }).AddTo(this);
     }
-   
+
     private void ExampleDELETE()
     {
         DataManager.Main

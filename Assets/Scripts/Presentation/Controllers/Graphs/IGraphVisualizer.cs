@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.BLL.Models.GraphData;
+using System;
 
 public interface IGraphVisualizer
 {
