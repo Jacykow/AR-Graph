@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.BLL.Models.GraphData;
 
-public class GraphDataContainer
+namespace Assets.Scripts.Networking
 {
-    [JsonProperty(TypeNameHandling = TypeNameHandling.All)]
-    public IGraphVisualizationData visualizationData;
+    public class GraphDataContainer
+    {
+        public IGraphVisualizationData visualizationData;
+    }
 }

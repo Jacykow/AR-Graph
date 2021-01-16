@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.BLL.Managers;
+using System;
 using UnityEngine;
 using ZXing;
 

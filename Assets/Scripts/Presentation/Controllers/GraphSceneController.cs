@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.BLL.Managers;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UniRx;
@@ -14,6 +15,7 @@ public class GraphSceneController : MonoBehaviour
     public Button randomChart;
     public Button scannerButton;
     public TextMeshProUGUI scannerButtontext;
+    public TextMeshProUGUI alertText;
     public Image qrScanner;
 
     private Dictionary<VisualisationType, Button> _visualizationTypeButtons =
@@ -65,5 +67,20 @@ public class GraphSceneController : MonoBehaviour
         {
             DataManager.Main.VisualisationTypeProperty.Value = VisualisationType.ArOnPaperCard;
         }).AddTo(this);
+
+        DataManager.Main.AlertTextProperty.Subscribe(alert =>
+        {
+            alertText.text = alert + "\n" + alertText.text.Substring(0, Mathf.Min(alertText.text.Length, 300));
+        }).AddTo(this);
+
+        Application.logMessageReceived += ShowError;
+    }
+
+    private void ShowError(string condition, string stackTrace, LogType type)
+    {
+        if (type == LogType.Error || type == LogType.Exception || type == LogType.Warning)
+        {
+            DataManager.Main.AlertTextProperty.Value = condition;
+        }
     }
 }
