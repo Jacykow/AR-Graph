@@ -52,7 +52,10 @@ public class VisualizationDataManager : MonoBehaviour
 
     private void LoadCurrentScene(Scene unloadedScene = default)
     {
-        SceneManager.LoadSceneAsync(currentVisualizationScene, LoadSceneMode.Additive);
+        if (currentVisualizationScene != null)
+        {
+            SceneManager.LoadSceneAsync(currentVisualizationScene, LoadSceneMode.Additive);
+        }
     }
 
     private IEnumerable<string> GetActiveSceneNames()

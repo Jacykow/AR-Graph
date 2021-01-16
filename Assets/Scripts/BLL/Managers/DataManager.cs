@@ -23,7 +23,7 @@ public class DataManager
     private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
 
     public IReactiveProperty<string> GraphDataUrlProperty { get; } =
-        new ReactiveProperty<string>(null);
+        new ReactiveProperty<string>();
 
     public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
         new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
@@ -35,6 +35,7 @@ public class DataManager
             if (_graphDataProperty == null)
             {
                 _graphDataProperty = GraphDataUrlProperty
+                    .Where(url => url != null)
                     .SelectMany(url =>
                     {
                         return new UnityWebRequest

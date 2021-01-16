@@ -49,6 +49,7 @@ public class GraphSceneController : MonoBehaviour
         ScanQr();
         scannerButton.gameObject.SetActive(false);
         scannerButton.onClick.AddListener(ScanQr);
+        DataManager.Main.LoadGraph(TestGraphVisualizationData.Pie2D);
     }
 
     private void Update()

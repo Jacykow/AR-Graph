@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 using ZXing;
-using UnityEngine.UI;
 
 public class ScannerQR : MonoBehaviour
 {
     public Camera cam;
-    public Text debugText;
     private BarcodeReader barCodeReader;
     private FrameCapturer pixelCapturer;
 
