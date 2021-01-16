@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
 {
 
     [SerializeField] private GameObject axisPrefab;
-    [SerializeField] private Axis xAxis = new Axis(Vector3.right);
-    [SerializeField] private Axis yAxis = new Axis(Vector3.up);
-    [SerializeField] private Axis zAxis = new Axis(Vector3.forward);
     [SerializeField] private GameObject gridPrefab;
     [SerializeField] private GameObject scalePrefab;
+    [SerializeField] private TMP_Text graphTitle;
     [SerializeField] private Canvas labelCanvas;
 
+    private Axis xAxis = new Axis(Vector3.right);
+    private Axis yAxis = new Axis(Vector3.up);
+    private Axis zAxis = new Axis(Vector3.forward);
     private Grid xToYGrid = new Grid();
     private Grid xToZGrid = new Grid();
     private Grid yToXGrid = new Grid();
@@ -54,12 +56,12 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
                 return scale;
             }
 
-            xToYGrid.Scale = ScaleRenderer();
-            xToZGrid.Scale = ScaleRenderer();
-            yToXGrid.Scale = ScaleRenderer();
-            yToZGrid.Scale = ScaleRenderer();
-            zToXGrid.Scale = ScaleRenderer();
-            zToYGrid.Scale = ScaleRenderer();
+            xToYGrid.ScaleRenderer = ScaleRenderer();
+            xToZGrid.ScaleRenderer = ScaleRenderer();
+            yToXGrid.ScaleRenderer = ScaleRenderer();
+            yToZGrid.ScaleRenderer = ScaleRenderer();
+            zToXGrid.ScaleRenderer = ScaleRenderer();
+            zToYGrid.ScaleRenderer = ScaleRenderer();
         }
 
         xToYGrid.PrimaryAxis = xAxis;
@@ -91,17 +93,30 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
         labelCanvas.enabled = false;
     }
 
-    public void Show(GraphDisplayProperties displayProperties)
+    public void Show(GraphDisplayProperties displayProperties, IGraphMetaData metaData)
     {
         gameObject.SetActive(true);
+        graphTitle.text = metaData.Title;
+        xAxis.Name = metaData.AxisNames[0];
+        xAxis.Length = metaData.AxisLengths.x;
         xAxis.Show(displayProperties.xAxis);
+        yAxis.Name = metaData.AxisNames[1];
+        yAxis.Length = metaData.AxisLengths.y;
         yAxis.Show(displayProperties.yAxis);
+        zAxis.Name = metaData.AxisNames[2];
+        zAxis.Length = metaData.AxisLengths.z;
         zAxis.Show(displayProperties.zAxis);
+        xToYGrid.Scale = metaData.Scale.x;
         xToYGrid.Show(displayProperties.xToYGrid);
+        xToZGrid.Scale = metaData.Scale.x;
         xToZGrid.Show(displayProperties.xToZGrid);
+        yToXGrid.Scale = metaData.Scale.y;
         yToXGrid.Show(displayProperties.yToXGrid);
+        yToZGrid.Scale = metaData.Scale.y;
         yToZGrid.Show(displayProperties.yToZGrid);
+        zToXGrid.Scale = metaData.Scale.z;
         zToXGrid.Show(displayProperties.zToXGrid);
+        zToYGrid.Scale = metaData.Scale.z;
         zToYGrid.Show(displayProperties.zToYGrid);
         labelCanvas.enabled = true;
     }
