@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.BLL.Models.GraphData.Implementation;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ColumnGraph2DVisualizer : BaseGraphVisualizer<ColumnGraph2DData>
 {

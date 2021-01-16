@@ -1,137 +1,133 @@
-﻿using Assets.Scripts.BLL.Models.GraphData.Implementation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.BLL.Models.GraphData
+public static class TestGraphVisualizationData
 {
-    public static class TestGraphVisualizationData
+    public static IGraphVisualizationData RandomData
     {
-        public static IGraphVisualizationData RandomData
+        get
         {
-            get
+            var dataCollections = new IGraphVisualizationData[]
             {
-                var dataCollections = new IGraphVisualizationData[]
-                {
                 Columns,
                 Columns2D,
                 Balls,
                 Surface,
                 Pie2D,
                 UndirectedGraph
-                };
-                return dataCollections[Random.Range(0, dataCollections.Length)];
-            }
+            };
+            return dataCollections[Random.Range(0, dataCollections.Length)];
         }
+    }
 
-        public static ColumnGraphData Columns
+    public static ColumnGraphData Columns
+    {
+        get
         {
-            get
+            var graph = new ColumnGraphData
             {
-                var graph = new ColumnGraphData
+                Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
+            };
+            for (int x = 0; x < graph.Values.GetLength(0); x++)
+            {
+                for (int z = 0; z < graph.Values.GetLength(1); z++)
                 {
-                    Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
-                };
-                for (int x = 0; x < graph.Values.GetLength(0); x++)
-                {
-                    for (int z = 0; z < graph.Values.GetLength(1); z++)
-                    {
-                        graph.Values[x, z] = Random.value;
-                    }
+                    graph.Values[x, z] = Random.value;
                 }
-                return graph;
             }
+            return graph;
         }
+    }
 
-        public static ColumnGraph2DData Columns2D
+    public static ColumnGraph2DData Columns2D
+    {
+        get
         {
-            get
+            var graph = new ColumnGraph2DData
             {
-                var graph = new ColumnGraph2DData
-                {
-                    Values = new float[Random.Range(5, 25)]
-                };
-                for (int x = 0; x < graph.Values.Length; x++)
-                {
-                    graph.Values[x] = Random.value;
-                }
-                return graph;
+                Values = new float[Random.Range(5, 25)]
+            };
+            for (int x = 0; x < graph.Values.Length; x++)
+            {
+                graph.Values[x] = Random.value;
             }
+            return graph;
         }
+    }
 
-        public static BallGraphData Balls
+    public static BallGraphData Balls
+    {
+        get
         {
-            get
+            var points = new List<Vector3>();
+            for (int i = 0; i < 50; i++)
             {
-                var points = new List<Vector3>();
-                for (int i = 0; i < 50; i++)
-                {
-                    points.Add(new Vector3(Random.value, Random.value, Random.value));
-                }
-
-                return new BallGraphData
-                {
-                    BallPositions = points.ToArray()
-                };
+                points.Add(new Vector3(Random.value, Random.value, Random.value));
             }
+
+            return new BallGraphData
+            {
+                BallPositions = points.ToArray()
+            };
         }
+    }
 
-        public static SurfaceGraphData Surface
+    public static SurfaceGraphData Surface
+    {
+        get
         {
-            get
+            var graph = new SurfaceGraphData
             {
-                var graph = new SurfaceGraphData
+                Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
+            };
+            for (int x = 0; x < graph.Values.GetLength(0); x++)
+            {
+                for (int z = 0; z < graph.Values.GetLength(1); z++)
                 {
-                    Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
-                };
-                for (int x = 0; x < graph.Values.GetLength(0); x++)
-                {
-                    for (int z = 0; z < graph.Values.GetLength(1); z++)
-                    {
-                        graph.Values[x, z] = Random.value;
-                    }
+                    graph.Values[x, z] = Random.value;
                 }
-                return graph;
             }
+            return graph;
         }
+    }
 
-        public static PieChart2DData Pie2D
+    public static PieChart2DData Pie2D
+    {
+        get
         {
-            get
+            var graph = new PieChart2DData
             {
-                var graph = new PieChart2DData
-                {
-                    Values = new float[Random.Range(3, 10)]
-                };
-                for (int x = 0; x < graph.Values.Length; x++)
-                {
-                    graph.Values[x] = Random.value;
-                }
-                return graph;
+                Values = new float[Random.Range(3, 10)]
+            };
+            for (int x = 0; x < graph.Values.Length; x++)
+            {
+                graph.Values[x] = Random.value;
             }
+            return graph;
         }
+    }
 
-        public static UndirectedGraphData UndirectedGraph
+    public static UndirectedGraphData UndirectedGraph
+    {
+        get
         {
-            get
+            var numberOfNodes = Random.Range(4, 25);
+            var numberOfEdges = Random.Range(numberOfNodes, numberOfNodes * numberOfNodes / 4);
+            var edges = new HashSet<(int, int)>();
+            for (var i = 0; i < numberOfEdges; i++)
             {
-                var numberOfNodes = Random.Range(4, 25);
-                var numberOfEdges = Random.Range(numberOfNodes, numberOfNodes * numberOfNodes / 4);
-                var edges = new HashSet<(int, int)>();
-                for (var i = 0; i < numberOfEdges; i++)
-                {
-                    var first = Random.Range(0, numberOfNodes);
-                    var second = Random.Range(1, numberOfNodes);
-                    if (second == first) second = 0;
-                    edges.Add((first, second));
-                }
-                var graph = new UndirectedGraphData
-                {
-                    NumberOfNodes = numberOfNodes,
-                    Edges = edges.ToArray()
-                };
-                return graph;
+                var first = Random.Range(0, numberOfNodes);
+                var second = Random.Range(1, numberOfNodes);
+                if (second == first) second = 0;
+                edges.Add((first, second));
             }
+            var graph = new UndirectedGraphData
+            {
+                NumberOfNodes = numberOfNodes,
+                Edges = edges.ToArray()
+            };
+            return graph;
         }
     }
 }
