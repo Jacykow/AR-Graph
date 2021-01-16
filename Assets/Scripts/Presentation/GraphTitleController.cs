@@ -14,7 +14,7 @@ public class GraphTitleController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = graph.position + Vector3.Scale(offset, graph.lossyScale);
+        transform.position = graph.TransformPoint(offset);
         scaler.Rescale(graph);
     }
 }

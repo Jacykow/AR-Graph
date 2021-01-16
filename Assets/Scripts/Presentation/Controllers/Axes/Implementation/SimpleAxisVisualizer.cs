@@ -18,6 +18,11 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
     private Grid zToXGrid = new Grid();
     private Grid zToYGrid = new Grid();
 
+    public IAxisProperties XAxis => xAxis;
+    public IAxisProperties YAxis => yAxis;
+    public IAxisProperties ZAxis => zAxis;
+    public GraphDisplayProperties CurrentDisplayProperties { get; private set; }
+
     private void Awake()
     {
         if (axisPrefab != null && axisPrefab.GetComponent<AxisRenderer>() != null)
@@ -93,6 +98,7 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
 
     public void Show(GraphDisplayProperties displayProperties)
     {
+        CurrentDisplayProperties = displayProperties;
         gameObject.SetActive(true);
         xAxis.Show(displayProperties.xAxis);
         yAxis.Show(displayProperties.yAxis);
