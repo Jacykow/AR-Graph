@@ -1,5 +1,8 @@
-﻿public class SurfaceGraphData : IGraphVisualizationData
+﻿namespace Assets.Scripts.BLL.Models.GraphData.Implementation
 {
-    public float[,] Values { get; set; }
-    public IGraphMetaData MetaData { get; set; }
+    public class SurfaceGraphData : IGraphVisualizationData
+    {
+        public float[,] Values { get; set; }
+        public IGraphMetaData MetaData { get; set; }
+    }
 }
