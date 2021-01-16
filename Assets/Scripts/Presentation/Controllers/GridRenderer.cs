@@ -12,6 +12,7 @@ public class GridRenderer : MonoBehaviour
     private float scale = 2f;
 
     private const float DefaultInterval = 0.1f;
+    private const float MultiplyFactor = 2f;
     private const float RescaleFactor = 5f;
     private const int MaxScaleMarks = 10;
 
@@ -24,7 +25,7 @@ public class GridRenderer : MonoBehaviour
             scale = value;
             if (meshRenderer != null)
             {
-                meshRenderer.material.SetFloat("_Scale", scale);
+                meshRenderer.material.SetFloat("_Scale", scale * MultiplyFactor);
             }
         }
     }
@@ -74,7 +75,7 @@ public class GridRenderer : MonoBehaviour
     {
         var scaleLogFactor = Mathf.Floor(Mathf.Log10(scale));
         var normalizedScale = scale / Mathf.Pow(10f, scaleLogFactor);
-        var interval = DefaultInterval;
+        var interval = DefaultInterval * MultiplyFactor;
         if (normalizedScale > RescaleFactor)
         {
             interval /= RescaleFactor;

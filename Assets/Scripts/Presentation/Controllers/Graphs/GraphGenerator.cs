@@ -47,7 +47,7 @@ public class GraphGenerator : MonoBehaviour
         {
             activeVisualizer = visualizers[dataType];
             activeVisualizer.Show(data);
-            axes.Show(activeVisualizer.DisplayProperties);
+            axes.Show(activeVisualizer.DisplayProperties, data.MetaData);
         }
         else
         {
