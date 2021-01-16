@@ -1,4 +1,8 @@
-﻿using UniRx;
+﻿using Assets.Scripts.BLL.Managers;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,66 +14,73 @@ public class GraphSceneController : MonoBehaviour
     public Button space3D;
     public Button randomChart;
     public Button scannerButton;
+    public TextMeshProUGUI scannerButtontext;
+    public TextMeshProUGUI alertText;
     public Image qrScanner;
 
-    private GameObject _lastSelected;
+    private Dictionary<VisualisationType, Button> _visualizationTypeButtons =
+        new Dictionary<VisualisationType, Button>();
 
     private void Start()
     {
-        _lastSelected = EventSystem.current.firstSelectedGameObject;
+        _visualizationTypeButtons.Add(VisualisationType.ArOnPaperCard, arOnPaperCard);
+        _visualizationTypeButtons.Add(VisualisationType.ArInSpace, arInSpace);
+        _visualizationTypeButtons.Add(VisualisationType.Space3D, space3D);
 
-        arOnPaperCard.OnClickAsObservable().Subscribe(_ =>
-       {
-           _lastSelected = arOnPaperCard.gameObject;
-           SetVisualisationType(VisualisationType.ArOnPaperCard);
-       }).AddTo(this);
-
-        arInSpace.OnClickAsObservable().Subscribe(_ =>
+        _visualizationTypeButtons
+            .Select(k => k.Value.OnClickAsObservable().Select(_ => k.Key)).Merge()
+            .Subscribe(visualizationType =>
         {
-            _lastSelected = arInSpace.gameObject;
-            SetVisualisationType(VisualisationType.ArInSpace);
-        }).AddTo(this);
-
-        space3D.OnClickAsObservable().Subscribe(_ =>
-        {
-            _lastSelected = space3D.gameObject;
-            SetVisualisationType(VisualisationType.Space3D);
+            DataManager.Main.VisualisationTypeProperty.Value = visualizationType;
         }).AddTo(this);
 
         randomChart.OnClickAsObservable().Subscribe(_ =>
         {
-            DataManager.Main.LoadGraph(TestGraphVisualizationData.RandomData);
+            DataManager.Main.LoadRandomGraph();
         }).AddTo(this);
 
-        DataManager.Main.GraphDataUrlProperty.Subscribe(_ =>
+        scannerButton.OnClickAsObservable().Subscribe(_ =>
         {
-            ChangeElementsAfterQrScanning();
+            DataManager.Main.ScanningQRProperty.Value = !DataManager.Main.ScanningQRProperty.Value;
         }).AddTo(this);
 
-        ScanQr();
-        scannerButton.gameObject.SetActive(false);
-        scannerButton.onClick.AddListener(ScanQr);
+        DataManager.Main.ScanningQRProperty.Subscribe(scanning =>
+        {
+            if (scanning)
+            {
+                qrScanner.gameObject.SetActive(true);
+                scannerButtontext.text = "Anuluj skanowanie";
+            }
+            else
+            {
+                qrScanner.gameObject.SetActive(false);
+                scannerButtontext.text = "Skanuj kod QR";
+            }
+        }).AddTo(this);
+
+        DataManager.Main.VisualisationTypeProperty.Subscribe(visualizationType =>
+        {
+            EventSystem.current.SetSelectedGameObject(_visualizationTypeButtons[visualizationType].gameObject);
+        }).AddTo(this);
+
+        DataManager.Main.ScanningQRProperty.Where(scanning => scanning == true).Subscribe(scanning =>
+        {
+            DataManager.Main.VisualisationTypeProperty.Value = VisualisationType.ArOnPaperCard;
+        }).AddTo(this);
+
+        DataManager.Main.AlertTextProperty.Subscribe(alert =>
+        {
+            alertText.text = alert + "\n" + alertText.text.Substring(0, Mathf.Min(alertText.text.Length, 300));
+        }).AddTo(this);
+
+        Application.logMessageReceived += ShowError;
     }
 
-    private void Update()
+    private void ShowError(string condition, string stackTrace, LogType type)
     {
-        EventSystem.current.SetSelectedGameObject(_lastSelected);
-    }
-
-    public void SetVisualisationType(VisualisationType visualisation)
-    {
-        DataManager.Main.VisualisationTypeProperty.Value = visualisation;
-    }
-
-    public void ScanQr()
-    {
-        qrScanner.gameObject.SetActive(true);
-        scannerButton.gameObject.SetActive(false);
-    }
-
-    public void ChangeElementsAfterQrScanning()
-    {
-        qrScanner.gameObject.SetActive(false);
-        scannerButton.gameObject.SetActive(true);
+        if (type == LogType.Error || type == LogType.Exception || type == LogType.Warning)
+        {
+            DataManager.Main.AlertTextProperty.Value = condition;
+        }
     }
 }

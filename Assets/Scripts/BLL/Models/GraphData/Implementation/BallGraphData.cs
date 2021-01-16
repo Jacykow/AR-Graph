@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 
-public class BallGraphData : IGraphVisualizationData
+namespace Assets.Scripts.BLL.Models.GraphData.Implementation
 {
-    public Vector3[] BallPositions { get; set; }
+    public class BallGraphData : IGraphVisualizationData
+    {
+        public Vector3[] BallPositions { get; set; }
+        public IGraphMetaData MetaData { get; set; }
+    }
 }

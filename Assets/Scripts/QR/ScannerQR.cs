@@ -1,24 +1,29 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.BLL.Managers;
 using System;
+using UnityEngine;
 using ZXing;
-using UnityEngine.UI;
 
 public class ScannerQR : MonoBehaviour
 {
     public Camera cam;
-    public Text debugText;
     private BarcodeReader barCodeReader;
     private FrameCapturer pixelCapturer;
 
     private void Start()
     {
         barCodeReader = new BarcodeReader();
-        Resolution currentResolution = Screen.currentResolution;
         pixelCapturer = cam.GetComponent<FrameCapturer>();
     }
 
     private void Update()
     {
+        pixelCapturer.shouldCaptureOnNextFrame = true;
+
+        if (DataManager.Main.ScanningQRProperty.Value == false)
+        {
+            return;
+        }
+
         Resolution currentResolution = Screen.currentResolution;
         try
         {
@@ -31,14 +36,16 @@ public class ScannerQR : MonoBehaviour
             if (data != null)
             {
                 string qr = data.Text;
-                DataManager.Main.GraphDataUrlProperty.Value = qr;
+                if (qr != DataManager.Main.GraphDataUrlProperty.Value)
+                {
+                    DataManager.Main.GraphDataUrlProperty.Value = qr;
+                    DataManager.Main.ScanningQRProperty.Value = false;
+                }
             }
-
         }
         catch (Exception e)
         {
             Debug.LogException(e);
         }
-        pixelCapturer.shouldCaptureOnNextFrame = true;
     }
 }

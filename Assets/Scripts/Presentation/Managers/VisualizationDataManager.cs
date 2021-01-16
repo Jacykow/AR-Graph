@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.BLL.Managers;
+using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -52,7 +53,10 @@ public class VisualizationDataManager : MonoBehaviour
 
     private void LoadCurrentScene(Scene unloadedScene = default)
     {
-        SceneManager.LoadSceneAsync(currentVisualizationScene, LoadSceneMode.Additive);
+        if (currentVisualizationScene != null)
+        {
+            SceneManager.LoadSceneAsync(currentVisualizationScene, LoadSceneMode.Additive);
+        }
     }
 
     private IEnumerable<string> GetActiveSceneNames()

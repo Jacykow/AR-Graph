@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.BLL.Models.GraphData.Implementation;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -36,6 +37,13 @@ public static class TestGraphVisualizationData
                     graph.Values[x, z] = Random.value;
                 }
             }
+            graph.MetaData = new BaseGraphMetaData
+            {
+                Title = "Column graph 3D",
+                AxisNames = new[] { "", "", "" },
+                Scale = Vector3.one,
+                AxisLengths = Vector3.one
+            };
             return graph;
         }
     }
@@ -52,6 +60,13 @@ public static class TestGraphVisualizationData
             {
                 graph.Values[x] = Random.value;
             }
+            graph.MetaData = new BaseGraphMetaData
+            {
+                Title = "Column graph 2D",
+                AxisNames = new[] { "", "", "" },
+                Scale = Vector3.one,
+                AxisLengths = Vector3.one
+            };
             return graph;
         }
     }
@@ -65,11 +80,18 @@ public static class TestGraphVisualizationData
             {
                 points.Add(new Vector3(Random.value, Random.value, Random.value));
             }
-
-            return new BallGraphData
+            var graph = new BallGraphData
             {
                 BallPositions = points.ToArray()
             };
+            graph.MetaData = new BaseGraphMetaData
+            {
+                Title = "Ball graph",
+                AxisNames = new[] { "(1, 0, 0)", "(0, 1, 0)", "(0, 0, 1)" },
+                Scale = Vector3.one,
+                AxisLengths = Vector3.one
+            };
+            return graph;
         }
     }
 
@@ -88,6 +110,13 @@ public static class TestGraphVisualizationData
                     graph.Values[x, z] = Random.value;
                 }
             }
+            graph.MetaData = new BaseGraphMetaData
+            {
+                Title = "Surface graph",
+                AxisNames = new[] { "x", "y", "z" },
+                Scale = new Vector3(1.2f, 0.08f, 1.5f),
+                AxisLengths = new Vector3(1.2f, 0.8f, 1.5f)
+            };
             return graph;
         }
     }
@@ -104,6 +133,13 @@ public static class TestGraphVisualizationData
             {
                 graph.Values[x] = Random.value;
             }
+            graph.MetaData = new BaseGraphMetaData
+            {
+                Title = "Pie chart 2D",
+                AxisNames = new[] { "", "", "" },
+                Scale = Vector3.one,
+                AxisLengths = Vector3.one
+            };
             return graph;
         }
     }
@@ -126,6 +162,13 @@ public static class TestGraphVisualizationData
             {
                 NumberOfNodes = numberOfNodes,
                 Edges = edges.ToArray()
+            };
+            graph.MetaData = new BaseGraphMetaData
+            {
+                Title = "Undirected graph",
+                AxisNames = new[] { "", "", "" },
+                Scale = Vector3.one,
+                AxisLengths = Vector3.one
             };
             return graph;
         }

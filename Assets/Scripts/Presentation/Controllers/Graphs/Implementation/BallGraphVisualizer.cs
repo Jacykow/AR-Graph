@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.BLL.Models.GraphData.Implementation;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
@@ -18,7 +19,7 @@ public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
         foreach (var point in graphData.BallPositions)
         {
             var ball = Instantiate(ballPrefab, transform.position, Quaternion.identity, transform);
-            ball.transform.localPosition = point;
+            ball.transform.localPosition = Vector3.Scale(point, graphData.MetaData.Scale);
             balls.Add(ball);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.BLL.Models.GraphData;
+using System;
 using UnityEngine;
 
 public abstract class BaseGraphVisualizer<T> : MonoBehaviour, IGraphVisualizer where T : class, IGraphVisualizationData

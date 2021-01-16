@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.BLL.Models.GraphData;
+using UnityEngine;
 
 public class GraphTest : MonoBehaviour
 {

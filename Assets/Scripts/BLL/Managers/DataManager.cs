@@ -1,108 +1,141 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.BLL.Models.GraphData;
+using Assets.Scripts.Networking;
+using Newtonsoft.Json;
 using System;
 using UniRx;
 using UnityEngine.Networking;
 
-public class DataManager
+namespace Assets.Scripts.BLL.Managers
 {
-    private static DataManager _main;
-    public static DataManager Main
+    public class DataManager
     {
-        get
+        private static DataManager _main;
+        public static DataManager Main
         {
-            if (_main == null)
+            get
             {
-                _main = new DataManager();
+                if (_main == null)
+                {
+                    _main = new DataManager();
+                }
+                return _main;
             }
-            return _main;
         }
-    }
 
-    private Subject<IGraphVisualizationData> _randomGraphSubject = new Subject<IGraphVisualizationData>();
-
-    private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
-
-    public IReactiveProperty<string> GraphDataUrlProperty { get; } =
-        new ReactiveProperty<string>(null);
-
-    public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
-        new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
-
-    public IReadOnlyReactiveProperty<IGraphVisualizationData> GraphDataProperty
-    {
-        get
+        public static JsonSerializerSettings JsonSettings => new JsonSerializerSettings
         {
-            if (_graphDataProperty == null)
+            TypeNameHandling = TypeNameHandling.All,
+            MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
+        };
+
+        private IReactiveProperty<IGraphVisualizationData> _randomGraphProperty =
+            new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.Pie2D);
+        //new ReactiveProperty<IGraphVisualizationData>();
+
+        private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
+
+        public IReactiveProperty<string> GraphDataUrlProperty { get; } =
+            new ReactiveProperty<string>();
+        //new ReactiveProperty<string>("https://argraph.azurewebsites.net/graph/1");
+
+        public IReactiveProperty<string> AlertTextProperty { get; } =
+            new ReactiveProperty<string>("");
+
+        public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
+            new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
+
+        public IReactiveProperty<bool> ScanningQRProperty { get; } =
+            new ReactiveProperty<bool>(false);
+
+        public IReadOnlyReactiveProperty<IGraphVisualizationData> GraphDataProperty
+        {
+            get
             {
-                _graphDataProperty = GraphDataUrlProperty
-                    .SelectMany(url =>
-                    {
-                        return new UnityWebRequest
+                if (_graphDataProperty == null)
+                {
+                    _graphDataProperty = GraphDataUrlProperty
+                        .Where(url => url != null)
+                        .SelectMany(url =>
                         {
-                            url = url,
-                            method = "GET"
-                        }.ObserveRequestResult();
-                    })
-                    .Select(graphDataJson =>
-                    {
-                        var deserializedBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson);
-                        if (deserializedBackendData == null)
+                            AlertTextProperty.Value = url;
+                            return new UnityWebRequest
+                            {
+                                url = url,
+                                method = "GET"
+                            }.ObserveRequestResult();
+                        })
+                        .Select(graphDataJson =>
                         {
-                            return TestGraphVisualizationData.RandomData;
-                        }
-                        var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data);
-                        return deserializedGraphData.visualizationData;
-                    })
-                    .Merge(_randomGraphSubject)
-                    .ToReadOnlyReactiveProperty();
+                            var deserializedBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson, JsonSettings);
+                            if (deserializedBackendData == null)
+                            {
+                                AlertTextProperty.Value = $"Error in deserialization\ndata: {graphDataJson}";
+                                return TestGraphVisualizationData.RandomData;
+                            }
+                            var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data, JsonSettings);
+                            if (deserializedGraphData == null)
+                            {
+                                AlertTextProperty.Value = $"Error in second deserialization\ndata: {deserializedBackendData.data}";
+                            }
+                            return deserializedGraphData.visualizationData;
+                        })
+                        .Merge(_randomGraphProperty
+                            .Where(data => data != null)
+                            .Select(data =>
+                            {
+                                GraphDataUrlProperty.Value = null;
+                                return data;
+                            }))
+                        .ToReadOnlyReactiveProperty();
+                }
+                return _graphDataProperty;
             }
-            return _graphDataProperty;
         }
-    }
 
-    public IObservable<string> SendGraph(int id, IGraphVisualizationData graphData)
-    {
-        var container = new GraphDataContainer
+        public IObservable<string> SendGraph(int id, IGraphVisualizationData graphData)
         {
-            visualizationData = graphData
-        };
-        var containerJson = JsonConvert.SerializeObject(container);
+            var container = new GraphDataContainer
+            {
+                visualizationData = graphData
+            };
+            var containerJson = JsonConvert.SerializeObject(container, JsonSettings);
 
-        var graph = new BackendData(id, containerJson);
-        var graphJson = JsonConvert.SerializeObject(graph);
+            var graph = new BackendData(id, containerJson);
+            var graphJson = JsonConvert.SerializeObject(graph, JsonSettings);
 
-        return SendGraph(graphJson);
-    }
+            return SendGraph(graphJson);
+        }
 
-    public IObservable<string> SendGraph(string body)
-    {
-        var request = new UnityWebRequest
+        public IObservable<string> SendGraph(string body)
         {
-            url = "https://argraph.azurewebsites.net/graph",
-            method = "POST"
-        };
+            var request = new UnityWebRequest
+            {
+                url = "https://argraph.azurewebsites.net/graph",
+                method = "POST"
+            };
 
-        byte[] data = System.Text.Encoding.UTF8.GetBytes(body);
-        UploadHandlerRaw uploadHandlerRaw = new UploadHandlerRaw(data);
-        uploadHandlerRaw.contentType = "application/json";
-        request.uploadHandler = uploadHandlerRaw;
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(body);
+            var uploadHandlerRaw = new UploadHandlerRaw(data);
+            uploadHandlerRaw.contentType = "application/json";
+            request.uploadHandler = uploadHandlerRaw;
 
-        return request.ObserveRequestResult();
-    }
+            return request.ObserveRequestResult();
+        }
 
-    public IObservable<string> DeleteGraph(string url)
-    {
-        var request = new UnityWebRequest
+        public IObservable<string> DeleteGraph(string url)
         {
-            url = url,
-            method = "DELETE"
-        };
+            var request = new UnityWebRequest
+            {
+                url = url,
+                method = "DELETE"
+            };
 
-        return request.ObserveRequestResult();
-    }
+            return request.ObserveRequestResult();
+        }
 
-    public void LoadGraph(IGraphVisualizationData graph)
-    {
-        _randomGraphSubject.OnNext(graph);
+        public void LoadRandomGraph()
+        {
+            _randomGraphProperty.Value = TestGraphVisualizationData.RandomData;
+        }
     }
 }

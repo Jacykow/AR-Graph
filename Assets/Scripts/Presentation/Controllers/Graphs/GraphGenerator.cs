@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.BLL.Managers;
+using Assets.Scripts.BLL.Models.GraphData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -47,7 +49,7 @@ public class GraphGenerator : MonoBehaviour
         {
             activeVisualizer = visualizers[dataType];
             activeVisualizer.Show(data);
-            axes.Show(activeVisualizer.DisplayProperties);
+            axes.Show(activeVisualizer.DisplayProperties, data.MetaData);
         }
         else
         {

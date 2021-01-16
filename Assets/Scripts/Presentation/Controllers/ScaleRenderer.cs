@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ScaleRenderer : MonoBehaviour
@@ -8,15 +10,15 @@ public class ScaleRenderer : MonoBehaviour
     [SerializeField] private float scaleOffset = 0.1f;
 
     private const int MaxNumberOfLabels = 10;
-    private Transform[] labels;
+    private TMP_Text[] labels;
 
     private void InstantiateLabels()
     {
-        labels = new Transform[MaxNumberOfLabels];
+        labels = new TMP_Text[MaxNumberOfLabels];
         var parent = GameObject.FindWithTag("Graph Labels");
         for (var i = 0; i < labels.Length; i++)
         {
-            var label = Instantiate(labelPrefab, Vector3.zero, Quaternion.identity, parent.transform).transform;
+            var label = Instantiate(labelPrefab, Vector3.zero, Quaternion.identity, parent.transform).GetComponent<TMP_Text>();
             label.GetComponent<TransformScaler>().Rescale(transform);
             label.gameObject.SetActive(false);
             labels[i] = label;
@@ -32,7 +34,8 @@ public class ScaleRenderer : MonoBehaviour
         var positions = grid.GetScaleMarks().ToArray();
         for (var i = skipLabels; i < positions.Length; i++)
         {
-            labels[i].position = transform.TransformPoint(axis.Direction * positions[i]);
+            labels[i].transform.position = transform.TransformPoint(axis.Direction * positions[i]);
+            labels[i].text = (positions[i] / grid.Scale).ToString("G4", CultureInfo.InvariantCulture);
             labels[i].gameObject.SetActive(true);
         }
 

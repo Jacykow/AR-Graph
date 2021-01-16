@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.BLL.Models.GraphData.Implementation;
+using UnityEngine;
 
 public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
 {
@@ -33,6 +34,7 @@ public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
                     y = graphData.Values[x, z],
                     z = (float)z / zLengthMinusOne
                 };
+                vertices[vertexNumber].Scale(graphData.MetaData.Scale);
                 uv[vertexNumber] = new Vector2
                 {
                     x = vertices[vertexNumber].x,
@@ -55,6 +57,7 @@ public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
                     graphData.Values[x + 1, z + 1] + graphData.Values[x, z + 1]) * 0.25f,
                     z = (z + 0.5f) / zLengthMinusOne
                 };
+                vertices[vertexNumber].Scale(graphData.MetaData.Scale);
                 uv[vertexNumber] = new Vector2
                 {
                     x = vertices[vertexNumber].x,
