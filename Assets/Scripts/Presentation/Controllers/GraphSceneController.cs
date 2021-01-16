@@ -34,7 +34,7 @@ public class GraphSceneController : MonoBehaviour
 
         randomChart.OnClickAsObservable().Subscribe(_ =>
         {
-            DataManager.Main.LoadGraph(TestGraphVisualizationData.RandomData);
+            DataManager.Main.LoadRandomGraph();
         }).AddTo(this);
 
         scannerButton.OnClickAsObservable().Subscribe(_ =>
@@ -47,13 +47,11 @@ public class GraphSceneController : MonoBehaviour
             if (scanning)
             {
                 qrScanner.gameObject.SetActive(true);
-                scannerButton.gameObject.SetActive(false);
                 scannerButtontext.text = "Anuluj skanowanie";
             }
             else
             {
                 qrScanner.gameObject.SetActive(false);
-                scannerButton.gameObject.SetActive(true);
                 scannerButtontext.text = "Skanuj kod QR";
             }
         }).AddTo(this);
@@ -63,6 +61,9 @@ public class GraphSceneController : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(_visualizationTypeButtons[visualizationType].gameObject);
         }).AddTo(this);
 
-        DataManager.Main.LoadGraph(TestGraphVisualizationData.Pie2D);
+        DataManager.Main.ScanningQRProperty.Where(scanning => scanning == true).Subscribe(scanning =>
+        {
+            DataManager.Main.VisualisationTypeProperty.Value = VisualisationType.ArOnPaperCard;
+        }).AddTo(this);
     }
 }

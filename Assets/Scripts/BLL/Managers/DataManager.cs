@@ -18,7 +18,8 @@ public class DataManager
         }
     }
 
-    private Subject<IGraphVisualizationData> _randomGraphSubject = new Subject<IGraphVisualizationData>();
+    private IReactiveProperty<IGraphVisualizationData> RandomGraphProperty =
+        new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.Pie2D);
 
     private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
 
@@ -57,7 +58,11 @@ public class DataManager
                         var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data);
                         return deserializedGraphData.visualizationData;
                     })
-                    .Merge(_randomGraphSubject)
+                    .Merge(RandomGraphProperty.Select(data =>
+                    {
+                        GraphDataUrlProperty.Value = null;
+                        return data;
+                    }))
                     .ToReadOnlyReactiveProperty();
             }
             return _graphDataProperty;
@@ -105,8 +110,8 @@ public class DataManager
         return request.ObserveRequestResult();
     }
 
-    public void LoadGraph(IGraphVisualizationData graph)
+    public void LoadRandomGraph()
     {
-        _randomGraphSubject.OnNext(graph);
+        RandomGraphProperty.Value = TestGraphVisualizationData.RandomData;
     }
 }
