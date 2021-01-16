@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.BLL.Managers;
+using UniRx;
+using UnityEngine;
 
 public class GraphRotator : MonoBehaviour
 {
@@ -8,7 +10,16 @@ public class GraphRotator : MonoBehaviour
 
     private void Awake()
     {
-        axes = GetComponentInChildren<SimpleAxisVisualizer>();
+        axes = GetComponentInChildren<SimpleAxisVisualizer>(true);
+    }
+
+    private void Start()
+    {
+        DataManager.Main.GraphDataProperty.Subscribe(_ =>
+        {
+            UpdatePosition();
+            axes.Redraw();
+        }).AddTo(this);
     }
 
     private void Update()
@@ -17,14 +28,13 @@ public class GraphRotator : MonoBehaviour
         {
             var delta = -Input.GetAxis("Mouse X");
             transform.Rotate(transform.up, rotationSpeed * delta);
-            transform.localPosition = transform.localRotation * -GetAxesCenter();
-            axes.Show(axes.CurrentDisplayProperties);
+            UpdatePosition();
+            axes.Redraw();
         }
     }
 
-    private Vector3 GetAxesCenter()
+    private void UpdatePosition()
     {
-        return axes.XAxis.Direction * axes.XAxis.Length / 2f +
-               axes.ZAxis.Direction * axes.ZAxis.Length / 2f;
+        transform.localPosition = transform.localRotation * new Vector3(-axes.Dimensions.x, 0f, -axes.Dimensions.z) / 2f;
     }
 }

@@ -2,8 +2,8 @@
 
 public class GraphTitleController : MonoBehaviour
 {
-    [SerializeField] private Transform graph;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private SimpleAxisVisualizer axes;
+    [SerializeField] private float offset;
 
     private TransformScaler scaler;
 
@@ -14,7 +14,8 @@ public class GraphTitleController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = graph.TransformPoint(offset);
-        scaler.Rescale(graph);
+        var position = new Vector3(axes.Dimensions.x / 2f, axes.Dimensions.y + offset, axes.Dimensions.z / 2f);
+        transform.position = axes.transform.TransformPoint(position);
+        scaler.Rescale(axes.transform);
     }
 }

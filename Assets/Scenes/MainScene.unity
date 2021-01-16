@@ -984,6 +984,10 @@ PrefabInstance:
       propertyPath: graph
       value: 
       objectReference: {fileID: 1335778602}
+    - target: {fileID: 7404094978740899968, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
+      propertyPath: axes
+      value: 
+      objectReference: {fileID: 1447239001}
     - target: {fileID: 7404094980012358384, guid: 5c1a5aa4af067584eb4f855d42f97ab8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

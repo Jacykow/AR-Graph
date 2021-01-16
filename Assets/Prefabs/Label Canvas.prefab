@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab099897072f3ad438690dbca7175622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: 0.5, y: 1.25, z: 0.5}
+  axes: {fileID: 0}
+  offset: 0.25
 --- !u!1 &7404094979722231128
 GameObject:
   m_ObjectHideFlags: 0

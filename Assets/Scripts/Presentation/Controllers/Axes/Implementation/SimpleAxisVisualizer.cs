@@ -19,11 +19,9 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
     private Grid yToZGrid = new Grid();
     private Grid zToXGrid = new Grid();
     private Grid zToYGrid = new Grid();
+    private GraphDisplayProperties currentDisplayProperties;
 
-    public IAxisProperties XAxis => xAxis;
-    public IAxisProperties YAxis => yAxis;
-    public IAxisProperties ZAxis => zAxis;
-    public GraphDisplayProperties CurrentDisplayProperties { get; private set; }
+    public Vector3 Dimensions => new Vector3(xAxis.Length, yAxis.Length, zAxis.Length);
 
     private void Awake()
     {
@@ -100,30 +98,36 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
 
     public void Show(GraphDisplayProperties displayProperties, IGraphMetaData metaData)
     {
-        CurrentDisplayProperties = displayProperties;
+        currentDisplayProperties = displayProperties;
         gameObject.SetActive(true);
         graphTitle.text = metaData.Title;
         xAxis.Name = metaData.AxisNames[0];
         xAxis.Length = metaData.AxisLengths.x;
-        xAxis.Show(displayProperties.xAxis);
         yAxis.Name = metaData.AxisNames[1];
         yAxis.Length = metaData.AxisLengths.y;
-        yAxis.Show(displayProperties.yAxis);
         zAxis.Name = metaData.AxisNames[2];
         zAxis.Length = metaData.AxisLengths.z;
-        zAxis.Show(displayProperties.zAxis);
         xToYGrid.Scale = metaData.Scale.x;
-        xToYGrid.Show(displayProperties.xToYGrid);
         xToZGrid.Scale = metaData.Scale.x;
-        xToZGrid.Show(displayProperties.xToZGrid);
         yToXGrid.Scale = metaData.Scale.y;
-        yToXGrid.Show(displayProperties.yToXGrid);
         yToZGrid.Scale = metaData.Scale.y;
-        yToZGrid.Show(displayProperties.yToZGrid);
         zToXGrid.Scale = metaData.Scale.z;
-        zToXGrid.Show(displayProperties.zToXGrid);
         zToYGrid.Scale = metaData.Scale.z;
-        zToYGrid.Show(displayProperties.zToYGrid);
+        Redraw();
         labelCanvas.enabled = true;
+    }
+
+    public void Redraw()
+    {
+        if (currentDisplayProperties == null) return;
+        xAxis.Show(currentDisplayProperties.xAxis);
+        yAxis.Show(currentDisplayProperties.yAxis);
+        zAxis.Show(currentDisplayProperties.zAxis);
+        xToYGrid.Show(currentDisplayProperties.xToYGrid);
+        xToZGrid.Show(currentDisplayProperties.xToZGrid);
+        yToXGrid.Show(currentDisplayProperties.yToXGrid);
+        yToZGrid.Show(currentDisplayProperties.yToZGrid);
+        zToXGrid.Show(currentDisplayProperties.zToXGrid);
+        zToYGrid.Show(currentDisplayProperties.zToYGrid);
     }
 }
