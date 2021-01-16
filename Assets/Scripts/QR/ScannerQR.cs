@@ -7,11 +7,11 @@ public class ScannerQR : MonoBehaviour
     public Camera cam;
     private BarcodeReader barCodeReader;
     private FrameCapturer pixelCapturer;
+    private string lastScannedQr;
 
     private void Start()
     {
         barCodeReader = new BarcodeReader();
-        Resolution currentResolution = Screen.currentResolution;
         pixelCapturer = cam.GetComponent<FrameCapturer>();
     }
 
@@ -29,9 +29,12 @@ public class ScannerQR : MonoBehaviour
             if (data != null)
             {
                 string qr = data.Text;
-                DataManager.Main.GraphDataUrlProperty.Value = qr;
+                if (lastScannedQr != qr && DataManager.Main.ScanningQRProperty.Value)
+                {
+                    DataManager.Main.GraphDataUrlProperty.Value = qr;
+                    lastScannedQr = qr;
+                }
             }
-
         }
         catch (Exception e)
         {

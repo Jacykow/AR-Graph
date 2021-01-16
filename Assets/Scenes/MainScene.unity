@@ -621,6 +621,7 @@ MonoBehaviour:
   space3D: {fileID: 2129901780}
   randomChart: {fileID: 1767831924}
   scannerButton: {fileID: 338785307}
+  scannerButtontext: {fileID: 1400601180}
   qrScanner: {fileID: 1362059514}
 --- !u!1 &544311803
 GameObject:

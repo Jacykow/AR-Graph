@@ -28,6 +28,9 @@ public class DataManager
     public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
         new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
 
+    public IReactiveProperty<bool> ScanningQRProperty { get; } =
+        new ReactiveProperty<bool>(false);
+
     public IReadOnlyReactiveProperty<IGraphVisualizationData> GraphDataProperty
     {
         get
