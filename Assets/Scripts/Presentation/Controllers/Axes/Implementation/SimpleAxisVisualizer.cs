@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
@@ -7,6 +8,7 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
     [SerializeField] private GameObject axisPrefab;
     [SerializeField] private GameObject gridPrefab;
     [SerializeField] private GameObject scalePrefab;
+    [SerializeField] private GameObject labelsPrefab;
     [SerializeField] private TMP_Text graphTitle;
     [SerializeField] private Canvas labelCanvas;
 
@@ -67,6 +69,23 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
             zToYGrid.ScaleRenderer = ScaleRenderer();
         }
 
+        if (scalePrefab != null && scalePrefab.GetComponent<ScaleRenderer>() != null)
+        {
+            LabelRenderer LabelRenderer()
+            {
+                var labels = Instantiate(labelsPrefab, transform.position, transform.rotation, transform)
+                    .GetComponent<LabelRenderer>();
+                return labels;
+            }
+
+            xToYGrid.LabelRenderer = LabelRenderer();
+            xToZGrid.LabelRenderer = LabelRenderer();
+            yToXGrid.LabelRenderer = LabelRenderer();
+            yToZGrid.LabelRenderer = LabelRenderer();
+            zToXGrid.LabelRenderer = LabelRenderer();
+            zToYGrid.LabelRenderer = LabelRenderer();
+        }
+
         xToYGrid.PrimaryAxis = xAxis;
         xToYGrid.SecondaryAxis = yAxis;
         xToZGrid.PrimaryAxis = xAxis;
@@ -101,18 +120,22 @@ public class SimpleAxisVisualizer : MonoBehaviour, IAxisVisualizer
         currentDisplayProperties = displayProperties;
         gameObject.SetActive(true);
         graphTitle.text = metaData.Title;
-        xAxis.Name = metaData.AxisNames[0];
+        xAxis.Name = metaData.AxisNames?.ElementAtOrDefault(0);
         xAxis.Length = metaData.AxisLengths.x;
-        yAxis.Name = metaData.AxisNames[1];
+        yAxis.Name = metaData.AxisNames?.ElementAtOrDefault(1);
         yAxis.Length = metaData.AxisLengths.y;
-        zAxis.Name = metaData.AxisNames[2];
+        zAxis.Name = metaData.AxisNames?.ElementAtOrDefault(2);
         zAxis.Length = metaData.AxisLengths.z;
         xToYGrid.Scale = metaData.Scale.x;
+        xToYGrid.Labels = metaData.LabelsX;
         xToZGrid.Scale = metaData.Scale.x;
+        xToZGrid.Labels = metaData.LabelsX;
         yToXGrid.Scale = metaData.Scale.y;
         yToZGrid.Scale = metaData.Scale.y;
         zToXGrid.Scale = metaData.Scale.z;
+        zToXGrid.Labels = metaData.LabelsZ;
         zToYGrid.Scale = metaData.Scale.z;
+        zToYGrid.Labels = metaData.LabelsZ;
         Redraw();
         labelCanvas.enabled = true;
     }

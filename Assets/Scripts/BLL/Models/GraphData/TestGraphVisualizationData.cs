@@ -40,9 +40,10 @@ public static class TestGraphVisualizationData
             graph.MetaData = new ColumnGraphMetaData
             {
                 Title = "Column graph 3D",
-                AxisNames = new[] { "", "", "" },
                 Scale = Vector3.one,
-                AxisLengths = Vector3.one
+                AxisLengths = Vector3.one,
+                LabelsX = new[] { "2017", "2018", "2019", "2020" },
+                LabelsZ = new[] { "Wiosna", "Lato", "Jesień", "Zima" }
             };
             return graph;
         }
@@ -63,9 +64,9 @@ public static class TestGraphVisualizationData
             graph.MetaData = new ColumnGraph2DMetaData
             {
                 Title = "Column graph 2D",
-                AxisNames = new[] { "", "", "" },
                 Scale = Vector3.one,
-                AxisLengths = Vector3.one
+                AxisLengths = Vector3.one,
+                LabelsX = new[] { "USA", "Rosja", "Chiny", "Indie" }
             };
             return graph;
         }
@@ -136,7 +137,6 @@ public static class TestGraphVisualizationData
             graph.MetaData = new PieChart2DMetaData
             {
                 Title = "Pie chart 2D",
-                AxisNames = new[] { "", "", "" },
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one
             };
@@ -166,7 +166,6 @@ public static class TestGraphVisualizationData
             graph.MetaData = new UndirectedGraphMetaData
             {
                 Title = "Undirected graph",
-                AxisNames = new[] { "", "", "" },
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one
             };

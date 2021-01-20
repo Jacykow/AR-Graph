@@ -6,4 +6,6 @@ public interface IGraphMetaData
     string[] AxisNames { get; set; }
     Vector3 Scale { get; set; }
     Vector3 AxisLengths { get; set; }
+    string[] LabelsX { get; set; }
+    string[] LabelsZ { get; set; }
 }
