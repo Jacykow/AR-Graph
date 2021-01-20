@@ -5,10 +5,11 @@ using UnityEngine.EventSystems;
 
 public class GraphRotator : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 5f;
+    private const float rotationSpeed = 0.5f;
 
     private SimpleAxisVisualizer axes;
     private bool dragging = false;
+    private bool canDrag = false;
 
     private void Awake()
     {
@@ -17,31 +18,40 @@ public class GraphRotator : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Main.GraphDataProperty.Subscribe(_ =>
+        DataManager.Main.VisualisationTypeProperty.Subscribe(visualizationType =>
         {
-            UpdatePosition();
-            axes.Redraw();
+            if (visualizationType == VisualisationType.ArOnPaperCard)
+            {
+                canDrag = false;
+            }
+            else
+            {
+                canDrag = true;
+            }
         }).AddTo(this);
     }
 
     private void Update()
     {
+        axes.Redraw();
+
         if (Input.touchCount == 0)
         {
             return;
         }
 
-        if (Input.touches[0].phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(0))
+        if (Input.touches[0].phase == TouchPhase.Began &&
+            EventSystem.current.IsPointerOverGameObject(0) == false &&
+            canDrag == true)
         {
             dragging = true;
         }
 
         if (Input.touches[0].phase != TouchPhase.Ended && dragging)
         {
-            var delta = Input.touches[0].deltaPosition.x;
+            var delta = -Input.touches[0].deltaPosition.x;
             transform.Rotate(transform.up, rotationSpeed * delta);
             UpdatePosition();
-            axes.Redraw();
         }
         else
         {
