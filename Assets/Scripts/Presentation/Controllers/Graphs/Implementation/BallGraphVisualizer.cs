@@ -19,7 +19,10 @@ public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
         foreach (var point in graphData.BallPositions)
         {
             var ball = Instantiate(ballPrefab, transform.position, Quaternion.identity, transform);
+            // todo mati
+            var color = Color.HSVToRGB(point.y, 1, 1);
             ball.transform.localPosition = Vector3.Scale(point, graphData.MetaData.Scale);
+            ball.GetComponent<Renderer>().material.color = color;
             balls.Add(ball);
         }
     }
