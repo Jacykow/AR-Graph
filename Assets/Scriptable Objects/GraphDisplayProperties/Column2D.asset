@@ -21,18 +21,24 @@ MonoBehaviour:
   xToYGrid:
     enabled: 0
     showScale: 0
+    showLabels: 0
   xToZGrid:
     enabled: 0
     showScale: 0
+    showLabels: 1
   yToXGrid:
     enabled: 0
     showScale: 0
+    showLabels: 0
   yToZGrid:
     enabled: 0
     showScale: 0
+    showLabels: 0
   zToXGrid:
     enabled: 1
     showScale: 1
+    showLabels: 0
   zToYGrid:
     enabled: 0
     showScale: 0
+    showLabels: 0
