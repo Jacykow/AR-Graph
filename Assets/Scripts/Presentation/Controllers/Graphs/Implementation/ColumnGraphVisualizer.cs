@@ -29,9 +29,12 @@ public class ColumnGraphVisualizer : BaseGraphVisualizer<ColumnGraphData>
                     z = (float)(z + 1) / (graphData.Values.GetLength(1) + 1)
                 };
                 columnSize.y = graphData.Values[x, z];
+                // todo mati
+                var color = Color.HSVToRGB(graphData.Values[x, z], 1, 1);
                 var column = Instantiate(columnPrefab, transform.position, transform.rotation, transform);
                 column.transform.localPosition = columnPosition;
                 column.transform.localScale = columnSize;
+                column.GetComponent<Renderer>().material.color = color;
                 columns.Add(column);
             }
         }

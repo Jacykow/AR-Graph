@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.BLL.Models.GraphData;
-using Assets.Scripts.Networking;
+﻿using Assets.Scripts.Networking;
 using Newtonsoft.Json;
 using System;
 using UniRx;
@@ -29,7 +28,7 @@ namespace Assets.Scripts.BLL.Managers
         };
 
         private IReactiveProperty<IGraphVisualizationData> _randomGraphProperty =
-            new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.Pie2D);
+            new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.Columns);
         //new ReactiveProperty<IGraphVisualizationData>();
 
         private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
