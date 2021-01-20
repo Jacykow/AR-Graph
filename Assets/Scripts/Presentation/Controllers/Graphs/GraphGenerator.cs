@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.BLL.Managers;
-using Assets.Scripts.BLL.Models.GraphData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,8 @@ public class GraphGenerator : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Main.GraphDataProperty.Subscribe(graphData =>
+        DataManager.Main.GraphDataProperty
+            .Subscribe(graphData =>
         {
             ShowGraph(graphData);
         }).AddTo(this);
