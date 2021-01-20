@@ -17,6 +17,9 @@ public class GraphRotator : MonoBehaviour
             if (visualizationType == VisualisationType.ArOnPaperCard)
             {
                 canDrag = false;
+                transform.localRotation = Quaternion.identity;
+                VisualizationDataManager.Main.Axes.Redraw();
+                UpdatePosition();
             }
             else
             {
@@ -46,6 +49,7 @@ public class GraphRotator : MonoBehaviour
             var delta = -Input.touches[0].deltaPosition.x;
             transform.Rotate(transform.up, rotationSpeed * delta);
             UpdatePosition();
+            VisualizationDataManager.Main.Axes.Redraw();
         }
         else
         {
