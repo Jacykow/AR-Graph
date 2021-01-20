@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class GraphEdgeDrawer : MonoBehaviour
 {
+    [SerializeField] private float baseWidth = 0.125f;
+
     private Transform node;
     private Transform[] neighbors;
     private LineRenderer lineRenderer;
@@ -19,6 +21,7 @@ public class GraphEdgeDrawer : MonoBehaviour
     {
         neighbors = GetComponents<SpringJoint>().Select(joint => joint.connectedBody.transform).ToArray();
         lineRenderer.positionCount = 2 * neighbors.Length;
+        lineRenderer.startWidth = lineRenderer.endWidth = baseWidth * transform.lossyScale.x;
         positions = new Vector3[lineRenderer.positionCount];
     }
 

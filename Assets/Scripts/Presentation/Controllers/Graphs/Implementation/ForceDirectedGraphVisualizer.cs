@@ -27,7 +27,7 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
         nodes.Clear();
         for (var i = 0; i < quantity; i++)
         {
-            var initialPosition = transform.position + Random.insideUnitSphere / 2;
+            var initialPosition = transform.position + Random.insideUnitSphere * transform.lossyScale.magnitude / 4;
             nodes.Add(Instantiate(nodePrefab, initialPosition, Quaternion.identity, transform));
         }
     }
@@ -37,6 +37,5 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
         var joint = firstNode.AddComponent<SpringJoint>();
         joint.enableCollision = true;
         joint.connectedBody = secondNode.GetComponent<Rigidbody>();
-        joint.spring = 10f / firstNode.transform.lossyScale.x;
     }
 }
