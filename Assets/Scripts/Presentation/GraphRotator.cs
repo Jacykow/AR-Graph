@@ -26,14 +26,19 @@ public class GraphRotator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.touchCount == 0)
+        {
+            return;
+        }
+
+        if (Input.touches[0].phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(0))
         {
             dragging = true;
         }
 
-        if (Input.GetMouseButton(0) && dragging)
+        if (Input.touches[0].phase != TouchPhase.Ended && dragging)
         {
-            var delta = -Input.GetAxis("Mouse X");
+            var delta = Input.touches[0].deltaPosition.x;
             transform.Rotate(transform.up, rotationSpeed * delta);
             UpdatePosition();
             axes.Redraw();
