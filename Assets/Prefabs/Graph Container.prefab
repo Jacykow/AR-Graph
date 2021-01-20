@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 787927345055135517}
   - component: {fileID: 787927345055135514}
-  - component: {fileID: 7294497142218641198}
   m_Layer: 0
   m_Name: Graph Container
   m_TagString: Untagged
@@ -45,15 +44,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphPrefab: {fileID: 2501733397900699151, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
---- !u!114 &7294497142218641198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787927345055135516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b807586e4c05ae84ab574473220d644c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

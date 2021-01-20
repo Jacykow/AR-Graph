@@ -7,14 +7,8 @@ public class GraphRotator : MonoBehaviour
 {
     private const float rotationSpeed = 0.5f;
 
-    private SimpleAxisVisualizer axes;
     private bool dragging = false;
     private bool canDrag = false;
-
-    private void Awake()
-    {
-        axes = GetComponentInChildren<SimpleAxisVisualizer>(true);
-    }
 
     private void Start()
     {
@@ -33,7 +27,7 @@ public class GraphRotator : MonoBehaviour
 
     private void Update()
     {
-        axes.Redraw();
+        VisualizationDataManager.Main.Axes.Redraw();
 
         if (Input.touchCount == 0)
         {
@@ -61,6 +55,6 @@ public class GraphRotator : MonoBehaviour
 
     private void UpdatePosition()
     {
-        transform.localPosition = transform.localRotation * new Vector3(-axes.Dimensions.x, 0f, -axes.Dimensions.z) / 2f;
+        transform.localPosition = transform.localRotation * new Vector3(-VisualizationDataManager.Main.Axes.Dimensions.x, 0f, -VisualizationDataManager.Main.Axes.Dimensions.z) / 2f;
     }
 }
