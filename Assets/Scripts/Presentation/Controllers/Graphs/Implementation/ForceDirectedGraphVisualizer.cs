@@ -37,5 +37,6 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
         var joint = firstNode.AddComponent<SpringJoint>();
         joint.enableCollision = true;
         joint.connectedBody = secondNode.GetComponent<Rigidbody>();
+        joint.spring = 10f / firstNode.transform.lossyScale.x;
     }
 }
