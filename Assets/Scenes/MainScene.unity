@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: graphTitle
       value: 
       objectReference: {fileID: 667204094}
+    - target: {fileID: 2501733397357878112, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
+      propertyPath: labelsPrefab
+      value: 
+      objectReference: {fileID: 2307624545889272713, guid: f2c41e14d7560a346b2f4d580ee9132b, type: 3}
     - target: {fileID: 2501733397900699148, guid: c928060c38e541f4988b3054e6c6d017, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
