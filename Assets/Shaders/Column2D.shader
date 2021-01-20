@@ -26,6 +26,7 @@
                 float2 uv : TEXCOORD0;
             };
             
+            uniform float4 _Colors [100];
             uniform float _Columns [100];
             uniform float _ColumnAmount;
 
@@ -40,8 +41,9 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 if(_ColumnAmount == 0) discard;
-                if(i.uv.y > _Columns[floor(i.uv.x*_ColumnAmount)]) discard;
-                fixed4 col = fixed4(1,1,1,1);
+                float columnId = floor(i.uv.x*_ColumnAmount);
+                if(i.uv.y > _Columns[columnId]) discard;
+                fixed4 col = _Colors[columnId];
                 return col;
             }
             ENDCG
