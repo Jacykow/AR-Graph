@@ -37,7 +37,7 @@ public static class TestGraphVisualizationData
                     graph.Values[x, z] = Random.value;
                 }
             }
-            graph.MetaData = new BaseGraphMetaData
+            graph.MetaData = new ColumnGraphMetaData
             {
                 Title = "Column graph 3D",
                 AxisNames = new[] { "", "", "" },
@@ -60,7 +60,7 @@ public static class TestGraphVisualizationData
             {
                 graph.Values[x] = Random.value;
             }
-            graph.MetaData = new BaseGraphMetaData
+            graph.MetaData = new ColumnGraph2DMetaData
             {
                 Title = "Column graph 2D",
                 AxisNames = new[] { "", "", "" },
@@ -84,7 +84,7 @@ public static class TestGraphVisualizationData
             {
                 BallPositions = points.ToArray()
             };
-            graph.MetaData = new BaseGraphMetaData
+            graph.MetaData = new BallGraphMetaData
             {
                 Title = "Ball graph",
                 AxisNames = new[] { "(1, 0, 0)", "(0, 1, 0)", "(0, 0, 1)" },
@@ -110,7 +110,7 @@ public static class TestGraphVisualizationData
                     graph.Values[x, z] = Random.value;
                 }
             }
-            graph.MetaData = new BaseGraphMetaData
+            graph.MetaData = new SurfaceGraphMetaData
             {
                 Title = "Surface graph",
                 AxisNames = new[] { "x", "y", "z" },
@@ -133,7 +133,7 @@ public static class TestGraphVisualizationData
             {
                 graph.Values[x] = Random.value;
             }
-            graph.MetaData = new BaseGraphMetaData
+            graph.MetaData = new PieChart2DMetaData
             {
                 Title = "Pie chart 2D",
                 AxisNames = new[] { "", "", "" },
@@ -163,7 +163,7 @@ public static class TestGraphVisualizationData
                 NumberOfNodes = numberOfNodes,
                 Edges = edges.ToArray()
             };
-            graph.MetaData = new BaseGraphMetaData
+            graph.MetaData = new UndirectedGraphMetaData
             {
                 Title = "Undirected graph",
                 AxisNames = new[] { "", "", "" },
