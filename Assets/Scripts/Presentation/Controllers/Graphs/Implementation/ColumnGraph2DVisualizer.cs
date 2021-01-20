@@ -7,7 +7,7 @@ public class ColumnGraph2DVisualizer : BaseGraphVisualizer<ColumnGraph2DData>
 
     protected override void Redraw(ColumnGraph2DData graphData)
     {
-        graphRenderer.material.SetFloat("_ColumnAmount", graphData.Values.Length);
         graphRenderer.material.SetFloatArray("_Columns", graphData.Values);
+        graphRenderer.material.SetFloat("_ColumnAmount", graphData.Values.Length);
     }
 }
