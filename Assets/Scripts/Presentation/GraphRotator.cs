@@ -1,12 +1,14 @@
 ﻿using Assets.Scripts.BLL.Managers;
 using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GraphRotator : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 5f;
 
     private SimpleAxisVisualizer axes;
+    private bool dragging = false;
 
     private void Awake()
     {
@@ -24,12 +26,21 @@ public class GraphRotator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            dragging = true;
+        }
+
+        if (Input.GetMouseButton(0) && dragging)
         {
             var delta = -Input.GetAxis("Mouse X");
             transform.Rotate(transform.up, rotationSpeed * delta);
             UpdatePosition();
             axes.Redraw();
+        }
+        else
+        {
+            dragging = false;
         }
     }
 
