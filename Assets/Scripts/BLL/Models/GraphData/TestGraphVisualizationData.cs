@@ -105,21 +105,27 @@ public static class TestGraphVisualizationData
         {
             var graph = new SurfaceGraphData
             {
-                Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
+                Values = new float[30, 30]
             };
+            float randomX = Random.Range(-1f, 1f);
             for (int x = 0; x < graph.Values.GetLength(0); x++)
             {
                 for (int z = 0; z < graph.Values.GetLength(1); z++)
                 {
-                    graph.Values[x, z] = Random.value;
+                    float graphX = (float)x / (graph.Values.GetLength(0) - 1);
+                    float graphZ = (float)z / (graph.Values.GetLength(1) - 1);
+                    graphX = 2 * graphX - 1 + randomX;
+                    graphX *= graphX;
+                    graphZ = 2 * (1 - graphZ) + 1;
+                    graph.Values[x, z] = Mathf.Clamp((graphX * graphX + graphZ * graphZ - 2 * graphX * graphZ) * 0.1f, 0f, 1f);
                 }
             }
             graph.MetaData = new SurfaceGraphMetaData
             {
                 Title = "Surface graph",
                 AxisNames = new[] { "x", "y", "z" },
-                Scale = new Vector3(1.2f, 0.08f, 1.5f),
-                AxisLengths = new Vector3(1.2f, 0.8f, 1.5f)
+                Scale = new Vector3(1f, 1f, 1f),
+                AxisLengths = new Vector3(1f, 1f, 1f)
             };
             return graph;
         }
