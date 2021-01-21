@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
 {
     [SerializeField] private GameObject ballPrefab;
-    [SerializeField] private Color defaultColor = new Color(1f, 1f, 1f);
+    [SerializeField] private Color defaultColor = Color.white;
 
     private readonly List<GameObject> balls = new List<GameObject>();
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class ColumnGraph2DVisualizer : BaseGraphVisualizer<ColumnGraph2DData>
 {
     [SerializeField] private Renderer graphRenderer;
-    [SerializeField] private Color defaultColor = new Color(1f, 1f, 1f);
+    [SerializeField] private Color defaultColor = Color.white;
 
     private const int MaxValues = 100;
 

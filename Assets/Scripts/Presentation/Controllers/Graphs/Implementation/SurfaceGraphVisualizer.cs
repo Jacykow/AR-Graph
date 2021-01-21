@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
 {
+    [SerializeField] private Color defaultColor = Color.white;
+
     protected override void Redraw(SurfaceGraphData graphData)
     {
-        // todo mati
-        GetComponent<Renderer>().material.color = Color.cyan;
+        var metaData = graphData.MetaData as SurfaceGraphMetaData;
+        GetComponent<Renderer>().material.color = metaData?.Color ?? defaultColor;
 
         var meshFilter = GetComponent<MeshFilter>();
 

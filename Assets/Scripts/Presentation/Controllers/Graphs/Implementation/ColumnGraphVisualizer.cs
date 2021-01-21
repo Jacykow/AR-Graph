@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColumnGraphVisualizer : BaseGraphVisualizer<ColumnGraphData>
 {
     [SerializeField] private GameObject columnPrefab;
-    [SerializeField] private Color defaultColor = new Color(1f, 1f, 1f);
+    [SerializeField] private Color defaultColor = Color.white;
 
     private readonly List<GameObject> columns = new List<GameObject>();
 
