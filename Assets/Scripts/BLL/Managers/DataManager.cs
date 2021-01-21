@@ -28,7 +28,7 @@ namespace Assets.Scripts.BLL.Managers
         };
 
         private IReactiveProperty<IGraphVisualizationData> _randomGraphProperty =
-            new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.UndirectedGraph);
+            new ReactiveProperty<IGraphVisualizationData>(TestGraphVisualizationData.Surface);
         //new ReactiveProperty<IGraphVisualizationData>();
 
         private IReadOnlyReactiveProperty<IGraphVisualizationData> _graphDataProperty;
