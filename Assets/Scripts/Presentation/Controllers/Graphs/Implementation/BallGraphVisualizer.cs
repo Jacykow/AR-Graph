@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
 {
     [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private Color defaultColor = new Color(1f, 1f, 1f);
 
     private readonly List<GameObject> balls = new List<GameObject>();
 
@@ -16,11 +17,13 @@ public class BallGraphVisualizer : BaseGraphVisualizer<BallGraphData>
         }
         balls.Clear();
 
-        foreach (var point in graphData.BallPositions)
+        var metaData = graphData.MetaData as BallGraphMetaData;
+        var colors = metaData?.Colors ?? new[] { defaultColor };
+        for (var i = 0; i < graphData.BallPositions.Length; i++)
         {
+            var point = graphData.BallPositions[i];
             var ball = Instantiate(ballPrefab, transform.position, Quaternion.identity, transform);
-            // todo mati
-            var color = Color.HSVToRGB(point.y, 1, 1);
+            var color = colors[i % colors.Length];
             ball.transform.localPosition = Vector3.Scale(point, graphData.MetaData.Scale);
             ball.GetComponent<Renderer>().material.color = color;
             balls.Add(ball);

@@ -18,9 +18,10 @@ public class PieChart2DVisualizer : BaseGraphVisualizer<PieChart2DData>
         }
         fragments.Clear();
 
+        var metaData = graphData.MetaData as PieChart2DMetaData;
+        var colors = metaData?.Colors;
         var angles = GetAngles(graphData.Values);
         var last = 0;
-
         for (var i = 0; i < angles.Length; i++)
         {
             var arc = 360 - (angles[i] - last);
@@ -30,7 +31,7 @@ public class PieChart2DVisualizer : BaseGraphVisualizer<PieChart2DData>
             var material = fragment.GetComponent<Renderer>().material;
             material.SetInt("_Arc1", arc);
             material.SetInt("_Angle", rotation);
-            material.color = new Color(Random.value, Random.value, Random.value);
+            material.color = (colors != null && colors.Length > i) ? colors[i] : Color.HSVToRGB(Random.value, 1, 1);
             fragments.Add(fragment);
         }
     }

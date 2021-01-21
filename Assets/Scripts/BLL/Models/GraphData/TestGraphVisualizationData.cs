@@ -28,7 +28,8 @@ public static class TestGraphVisualizationData
         {
             var graph = new ColumnGraphData
             {
-                Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
+                //Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
+                Values = new float[5, 3]
             };
             for (int x = 0; x < graph.Values.GetLength(0); x++)
             {
@@ -43,7 +44,8 @@ public static class TestGraphVisualizationData
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
                 LabelsX = new[] { "2017", "2018", "2019", "2020" },
-                LabelsZ = new[] { "Wiosna", "Lato", "Jesień", "Zima" }
+                LabelsZ = new[] { "Wiosna", "Lato", "Jesień", "Zima" },
+                Colors = new[] { new Color(1f, 0f, 0f), new Color(0f, 1f, 0f), new Color(0f, 0f, 1f) }
             };
             return graph;
         }
@@ -66,7 +68,8 @@ public static class TestGraphVisualizationData
                 Title = "Column graph 2D",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                LabelsX = new[] { "USA", "Rosja", "Chiny", "Indie" }
+                LabelsX = new[] { "USA", "Rosja", "Chiny", "Indie" },
+                Colors = new[] { new Color(0f, 0f, 1f), new Color(1f, 1f, 0f) }
             };
             return graph;
         }
@@ -138,7 +141,8 @@ public static class TestGraphVisualizationData
             {
                 Title = "Pie chart 2D",
                 Scale = Vector3.one,
-                AxisLengths = Vector3.one
+                AxisLengths = Vector3.one,
+                Colors = new[] { new Color(1f, 0f, 0f), new Color(0f, 1f, 0f), new Color(0f, 0f, 1f) }
             };
             return graph;
         }
