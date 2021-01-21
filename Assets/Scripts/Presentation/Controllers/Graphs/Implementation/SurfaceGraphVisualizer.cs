@@ -5,6 +5,9 @@ public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
 {
     protected override void Redraw(SurfaceGraphData graphData)
     {
+        // todo mati
+        GetComponent<Renderer>().material.color = Color.cyan;
+
         var meshFilter = GetComponent<MeshFilter>();
 
         var mesh = new Mesh();
