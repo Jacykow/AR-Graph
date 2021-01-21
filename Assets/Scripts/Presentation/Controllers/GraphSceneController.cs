@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.BLL.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -16,10 +17,14 @@ public class GraphSceneController : MonoBehaviour
     public Button scannerButton;
     public TextMeshProUGUI scannerButtontext;
     public TextMeshProUGUI alertText;
+    public TextMeshProUGUI communicationText;
     public Image qrScanner;
 
     private Dictionary<VisualisationType, Button> _visualizationTypeButtons =
         new Dictionary<VisualisationType, Button>();
+
+    private const string GraphReadyMessage = "Wykres gotowy";
+    private static TimeSpan MessageDelay = TimeSpan.FromSeconds(1.5);
 
     private void Start()
     {
@@ -68,10 +73,24 @@ public class GraphSceneController : MonoBehaviour
             DataManager.Main.VisualisationTypeProperty.Value = VisualisationType.ArOnPaperCard;
         }).AddTo(this);
 
-        DataManager.Main.AlertTextProperty.Subscribe(alert =>
+        DataManager.Main.CommunicationTextProperty.Subscribe(message =>
         {
-            alertText.text = alert + "\n" + alertText.text.Substring(0, Mathf.Min(alertText.text.Length, 300));
+            communicationText.text = message;
         }).AddTo(this);
+
+        DataManager.Main.GraphDataProperty.Select(_ =>
+        {
+            DataManager.Main.CommunicationTextProperty.Value = GraphReadyMessage;
+            return Unit.Default;
+        })
+            .Delay(MessageDelay)
+            .Subscribe(_ =>
+            {
+                if (DataManager.Main.CommunicationTextProperty.Value == GraphReadyMessage)
+                {
+                    DataManager.Main.CommunicationTextProperty.Value = "";
+                }
+            }).AddTo(this);
 
         Application.logMessageReceived += ShowError;
     }
