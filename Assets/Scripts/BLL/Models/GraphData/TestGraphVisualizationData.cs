@@ -45,7 +45,7 @@ public static class TestGraphVisualizationData
                 AxisLengths = Vector3.one,
                 LabelsX = new[] { "2017", "2018", "2019", "2020" },
                 LabelsZ = new[] { "Wiosna", "Lato", "Jesień", "Zima" },
-                Colors = new[] { new Color(1f, 0f, 0f), new Color(0f, 1f, 0f), new Color(0f, 0f, 1f) }
+                Colors = new[] { Color.red, Color.green, Color.blue }
             };
             return graph;
         }
@@ -69,7 +69,7 @@ public static class TestGraphVisualizationData
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
                 LabelsX = new[] { "USA", "Rosja", "Chiny", "Indie" },
-                Colors = new[] { new Color(0f, 0f, 1f), new Color(1f, 1f, 0f) }
+                Colors = new[] { Color.blue, Color.yellow }
             };
             return graph;
         }
@@ -93,7 +93,8 @@ public static class TestGraphVisualizationData
                 Title = "Ball graph",
                 AxisNames = new[] { "(1, 0, 0)", "(0, 1, 0)", "(0, 0, 1)" },
                 Scale = Vector3.one,
-                AxisLengths = Vector3.one
+                AxisLengths = Vector3.one,
+                Colors = new[] { Color.red, Color.green, Color.blue }
             };
             return graph;
         }
@@ -125,7 +126,8 @@ public static class TestGraphVisualizationData
                 Title = "Surface graph",
                 AxisNames = new[] { "x", "y", "z" },
                 Scale = new Vector3(1f, 1f, 1f),
-                AxisLengths = new Vector3(1f, 1f, 1f)
+                AxisLengths = new Vector3(1f, 1f, 1f),
+                Color = Color.cyan
             };
             return graph;
         }
@@ -148,7 +150,7 @@ public static class TestGraphVisualizationData
                 Title = "Pie chart 2D",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                Colors = new[] { new Color(1f, 0f, 0f), new Color(0f, 1f, 0f), new Color(0f, 0f, 1f) }
+                Colors = new[] { Color.red, Color.green, Color.blue }
             };
             return graph;
         }
@@ -177,7 +179,9 @@ public static class TestGraphVisualizationData
             {
                 Title = "Undirected graph",
                 Scale = Vector3.one,
-                AxisLengths = Vector3.one
+                AxisLengths = Vector3.one,
+                NodeColors = new[] { Color.gray },
+                EdgeColor = Color.red
             };
             return graph;
         }

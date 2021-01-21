@@ -5,6 +5,8 @@ using UnityEngine;
 public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphData>
 {
     [SerializeField] private GameObject nodePrefab;
+    [SerializeField] private Color defaultNodeColor = Color.white;
+    [SerializeField] private Color defaultEdgeColor = Color.blue;
 
     private readonly List<GameObject> nodes = new List<GameObject>();
 
@@ -15,27 +17,37 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
             Destroy(node);
         }
 
-        SpawnNodes(graphData.NumberOfNodes);
+        var metaData = graphData.MetaData as UndirectedGraphMetaData;
+        var nodeColors = metaData?.NodeColors ?? new[] { defaultNodeColor };
+        var edgeColor = metaData?.EdgeColor ?? defaultEdgeColor;
+        SpawnNodes(graphData.NumberOfNodes, nodeColors);
         foreach (var (i, j) in graphData.Edges)
         {
-            SpawnEdge(nodes[i], nodes[j]);
+            SpawnEdge(nodes[i], nodes[j], edgeColor);
         }
     }
 
-    private void SpawnNodes(int quantity)
+    private void SpawnNodes(int quantity, IReadOnlyList<Color> colors)
     {
         nodes.Clear();
         for (var i = 0; i < quantity; i++)
         {
             var initialPosition = transform.position + Random.insideUnitSphere * transform.lossyScale.magnitude / 4;
-            nodes.Add(Instantiate(nodePrefab, initialPosition, Quaternion.identity, transform));
+            var node = Instantiate(nodePrefab, initialPosition, Quaternion.identity, transform);
+            node.GetComponent<Renderer>().material.color = colors[i % colors.Count];
+            nodes.Add(node);
         }
     }
 
-    private static void SpawnEdge(GameObject firstNode, GameObject secondNode)
+    private static void SpawnEdge(GameObject firstNode, GameObject secondNode, Color color)
     {
         var joint = firstNode.AddComponent<SpringJoint>();
         joint.enableCollision = true;
         joint.connectedBody = secondNode.GetComponent<Rigidbody>();
+        var lineRenderer = firstNode.GetComponent<LineRenderer>();
+        if (lineRenderer != null)
+        {
+            lineRenderer.startColor = lineRenderer.endColor = color;
+        }
     }
 }
