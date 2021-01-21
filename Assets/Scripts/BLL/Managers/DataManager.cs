@@ -40,6 +40,9 @@ namespace Assets.Scripts.BLL.Managers
         public IReactiveProperty<string> AlertTextProperty { get; } =
             new ReactiveProperty<string>("");
 
+        public IReactiveProperty<string> CommunicationTextProperty { get; } =
+            new ReactiveProperty<string>("");
+
         public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
             new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
 
