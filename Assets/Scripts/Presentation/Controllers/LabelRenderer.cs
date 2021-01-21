@@ -34,6 +34,7 @@ public class LabelRenderer : MonoBehaviour
         {
             labels[i].transform.position = transform.TransformPoint(axis.Direction * interval * (i + 0.5f));
             labels[i].text = labelList[i];
+            labels[i].GetComponent<TransformScaler>().Rescale(transform);
             labels[i].gameObject.SetActive(true);
         }
 

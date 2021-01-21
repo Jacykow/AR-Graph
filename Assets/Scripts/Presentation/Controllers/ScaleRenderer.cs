@@ -36,6 +36,7 @@ public class ScaleRenderer : MonoBehaviour
         {
             labels[i].transform.position = transform.TransformPoint(axis.Direction * positions[i]);
             labels[i].text = (positions[i] / grid.Scale).ToString("G4", CultureInfo.InvariantCulture);
+            labels[i].GetComponent<TransformScaler>().Rescale(transform);
             labels[i].gameObject.SetActive(true);
         }
 
