@@ -8,5 +8,5 @@ public class ColumnGraphMetaData : IGraphMetaData
     public Vector3 AxisLengths { get; set; }
     public string[] LabelsX { get; set; }
     public string[] LabelsZ { get; set; }
-    public Color[] Colors { get; set; }
+    public UnityReplacement.Color[] Colors { get; set; }
 }

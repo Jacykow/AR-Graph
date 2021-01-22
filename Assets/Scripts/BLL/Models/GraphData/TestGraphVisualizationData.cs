@@ -41,10 +41,10 @@ public static class TestGraphVisualizationData
             {
                 Title = "Accuracy",
                 Scale = Vector3.one,
-                AxisLengths = new Vector3(1f, 1f, 1f),
+                AxisLengths = Vector3.one,
                 LabelsX = new[] { "binary", "hash", "ordinal", "onehot", "word2vec" },
                 LabelsZ = new[] { "CNN", "LSTM", "MLP" },
-                Colors = new[] { Color.red, Color.green, Color.blue }
+                Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
         }
@@ -67,7 +67,12 @@ public static class TestGraphVisualizationData
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
                 LabelsX = new[] { "50", "100", "150", "200", "250" },
-                Colors = new[] { Color.clear, Color.blue, Color.yellow, Color.clear }
+                Colors = new[] { 
+                    new UnityReplacement.Color(Color.clear),
+                    new UnityReplacement.Color(Color.blue),
+                    new UnityReplacement.Color(Color.yellow),
+                    new UnityReplacement.Color(Color.clear)
+                }
             };
             return graph;
         }
@@ -240,7 +245,7 @@ public static class TestGraphVisualizationData
                 AxisNames = new[] { "Sepal length", "Sepal width", "Petal length" },
                 Scale = Vector3.one / 10f,
                 AxisLengths = new Vector3(1f, 0.6f, 1f),
-                Colors = new[] { Color.red, Color.green, Color.blue }
+                Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
         }
@@ -273,7 +278,7 @@ public static class TestGraphVisualizationData
                 AxisNames = new[] { "x", "y", "z" },
                 Scale = new Vector3(1f, 1f, 1f),
                 AxisLengths = new Vector3(1f, 1f, 1f),
-                Color = Color.cyan
+                Color = new UnityReplacement.Color(Color.cyan)
             };
             return graph;
         }
@@ -292,7 +297,15 @@ public static class TestGraphVisualizationData
                 Title = "Pie chart 2D",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                Colors = new[] { Color.yellow, Color.red, Color.cyan, Color.green, Color.magenta, Color.blue, Color.gray }
+                Colors = new[] {
+                    new UnityReplacement.Color(Color.yellow),
+                    new UnityReplacement.Color(Color.red),
+                    new UnityReplacement.Color(Color.cyan),
+                    new UnityReplacement.Color(Color.green),
+                    new UnityReplacement.Color(Color.magenta),
+                    new UnityReplacement.Color(Color.blue),
+                    new UnityReplacement.Color(Color.gray)
+                }
             };
             return graph;
         }
@@ -322,8 +335,8 @@ public static class TestGraphVisualizationData
                 Title = "Instance graph",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                NodeColors = new[] { Color.gray },
-                EdgeColor = Color.blue
+                NodeColors = new[] { new UnityReplacement.Color(Color.gray) },
+                EdgeColor = new UnityReplacement.Color(Color.blue)
             };
             return graph;
         }

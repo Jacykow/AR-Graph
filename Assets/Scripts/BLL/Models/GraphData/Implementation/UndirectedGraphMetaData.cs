@@ -8,6 +8,6 @@ public class UndirectedGraphMetaData : IGraphMetaData
     public Vector3 AxisLengths { get; set; }
     public string[] LabelsX { get; set; }
     public string[] LabelsZ { get; set; }
-    public Color[] NodeColors { get; set; }
-    public Color? EdgeColor { get; set; }
+    public UnityReplacement.Color[] NodeColors { get; set; }
+    public UnityReplacement.Color EdgeColor { get; set; }
 }
