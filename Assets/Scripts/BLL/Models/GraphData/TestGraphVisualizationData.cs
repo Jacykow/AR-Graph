@@ -45,7 +45,7 @@ public static class TestGraphVisualizationData
                 AxisLengths = Vector3.one,
                 LabelsX = new[] { "2017", "2018", "2019", "2020" },
                 LabelsZ = new[] { "Wiosna", "Lato", "Jesień", "Zima" },
-                Colors = new[] { Color.red, Color.green, Color.blue }
+                Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
         }
@@ -69,7 +69,7 @@ public static class TestGraphVisualizationData
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
                 LabelsX = new[] { "USA", "Rosja", "Chiny", "Indie" },
-                Colors = new[] { Color.blue, Color.yellow }
+                Colors = new[] { new UnityReplacement.Color(Color.blue), new UnityReplacement.Color(Color.yellow) }
             };
             return graph;
         }
@@ -94,7 +94,7 @@ public static class TestGraphVisualizationData
                 AxisNames = new[] { "(1, 0, 0)", "(0, 1, 0)", "(0, 0, 1)" },
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                Colors = new[] { Color.red, Color.green, Color.blue }
+                Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
         }
@@ -127,7 +127,7 @@ public static class TestGraphVisualizationData
                 AxisNames = new[] { "x", "y", "z" },
                 Scale = new Vector3(1f, 1f, 1f),
                 AxisLengths = new Vector3(1f, 1f, 1f),
-                Color = Color.cyan
+                Color = new UnityReplacement.Color(Color.cyan)
             };
             return graph;
         }
@@ -150,7 +150,7 @@ public static class TestGraphVisualizationData
                 Title = "Pie chart 2D",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                Colors = new[] { Color.red, Color.green, Color.blue }
+                Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
         }
@@ -180,8 +180,8 @@ public static class TestGraphVisualizationData
                 Title = "Undirected graph",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                NodeColors = new[] { Color.gray },
-                EdgeColor = Color.red
+                NodeColors = new[] { new UnityReplacement.Color(Color.gray) },
+                EdgeColor = new UnityReplacement.Color(Color.red)
             };
             return graph;
         }

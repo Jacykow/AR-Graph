@@ -8,7 +8,7 @@ public class SurfaceGraphVisualizer : BaseGraphVisualizer<SurfaceGraphData>
     protected override void Redraw(SurfaceGraphData graphData)
     {
         var metaData = graphData.MetaData as SurfaceGraphMetaData;
-        GetComponent<Renderer>().material.color = metaData?.Color ?? defaultColor;
+        GetComponent<Renderer>().material.color = metaData?.Color.ToUnityColor() ?? defaultColor;
 
         var meshFilter = GetComponent<MeshFilter>();
 

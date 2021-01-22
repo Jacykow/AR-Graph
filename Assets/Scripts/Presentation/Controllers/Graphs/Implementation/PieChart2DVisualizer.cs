@@ -31,7 +31,7 @@ public class PieChart2DVisualizer : BaseGraphVisualizer<PieChart2DData>
             var material = fragment.GetComponent<Renderer>().material;
             material.SetInt("_Arc1", arc);
             material.SetInt("_Angle", rotation);
-            material.color = (colors != null && colors.Length > i) ? colors[i] : Color.HSVToRGB(Random.value, 1, 1);
+            material.color = (colors != null && colors.Length > i) ? colors[i].ToUnityColor() : Color.HSVToRGB(Random.value, 1, 1);
             fragments.Add(fragment);
         }
     }

@@ -18,8 +18,8 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
         }
 
         var metaData = graphData.MetaData as UndirectedGraphMetaData;
-        var nodeColors = metaData?.NodeColors ?? new[] { defaultNodeColor };
-        var edgeColor = metaData?.EdgeColor ?? defaultEdgeColor;
+        var nodeColors = metaData?.NodeColors ?? new[] { new UnityReplacement.Color(defaultNodeColor) };
+        var edgeColor = metaData?.EdgeColor ?? new UnityReplacement.Color(defaultEdgeColor);
         SpawnNodes(graphData.NumberOfNodes, nodeColors);
         foreach (var (i, j) in graphData.Edges)
         {
@@ -27,19 +27,19 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
         }
     }
 
-    private void SpawnNodes(int quantity, IReadOnlyList<Color> colors)
+    private void SpawnNodes(int quantity, IReadOnlyList<UnityReplacement.Color> colors)
     {
         nodes.Clear();
         for (var i = 0; i < quantity; i++)
         {
             var initialPosition = transform.position + Random.insideUnitSphere * transform.lossyScale.magnitude / 4;
             var node = Instantiate(nodePrefab, initialPosition, Quaternion.identity, transform);
-            node.GetComponent<Renderer>().material.color = colors[i % colors.Count];
+            node.GetComponent<Renderer>().material.color = colors[i % colors.Count].ToUnityColor();
             nodes.Add(node);
         }
     }
 
-    private static void SpawnEdge(GameObject firstNode, GameObject secondNode, Color color)
+    private static void SpawnEdge(GameObject firstNode, GameObject secondNode, UnityReplacement.Color color)
     {
         var joint = firstNode.AddComponent<SpringJoint>();
         joint.enableCollision = true;
@@ -47,7 +47,7 @@ public class ForceDirectedGraphVisualizer : BaseGraphVisualizer<UndirectedGraphD
         var lineRenderer = firstNode.GetComponent<LineRenderer>();
         if (lineRenderer != null)
         {
-            lineRenderer.startColor = lineRenderer.endColor = color;
+            lineRenderer.startColor = lineRenderer.endColor = color.ToUnityColor();
         }
     }
 }

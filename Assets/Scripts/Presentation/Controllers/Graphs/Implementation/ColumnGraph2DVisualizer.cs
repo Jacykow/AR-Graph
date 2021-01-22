@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.BLL.Models.GraphData.Implementation;
+using System.Linq;
 using UnityEngine;
 
 public class ColumnGraph2DVisualizer : BaseGraphVisualizer<ColumnGraph2DData>
@@ -14,7 +15,7 @@ public class ColumnGraph2DVisualizer : BaseGraphVisualizer<ColumnGraph2DData>
         graphData.Values.CopyTo(valuesArray, 0);
         graphRenderer.material.SetFloatArray("_Columns", valuesArray);
         var metaData = graphData.MetaData as ColumnGraph2DMetaData;
-        var colors = metaData?.Colors ?? new[] { defaultColor };
+        var colors = metaData?.Colors.Select(color => color.ToUnityColor()).ToArray() ?? new[] { defaultColor };
         var colorsArray = new Color[MaxValues];
         for (var i = 0; i < graphData.Values.Length; i += colors.Length)
         {

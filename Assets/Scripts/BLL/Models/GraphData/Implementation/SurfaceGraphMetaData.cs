@@ -8,5 +8,5 @@ public class SurfaceGraphMetaData : IGraphMetaData
     public Vector3 AxisLengths { get; set; }
     public string[] LabelsX { get; set; }
     public string[] LabelsZ { get; set; }
-    public Color? Color { get; set; }
+    public UnityReplacement.Color Color { get; set; }
 }

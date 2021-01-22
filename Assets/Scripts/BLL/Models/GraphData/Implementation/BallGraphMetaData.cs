@@ -9,5 +9,5 @@ public class BallGraphMetaData : IGraphMetaData
     public string[] LabelsX { get; set; }
     public string[] LabelsZ { get; set; }
     public string[] Labels { get; set; }
-    public Color[] Colors { get; set; }
+    public UnityReplacement.Color[] Colors { get; set; }
 }
