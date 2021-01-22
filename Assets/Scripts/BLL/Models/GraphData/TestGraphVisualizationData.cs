@@ -28,23 +28,22 @@ public static class TestGraphVisualizationData
         {
             var graph = new ColumnGraphData
             {
-                //Values = new float[Random.Range(5, 15), Random.Range(5, 15)]
-                Values = new float[5, 3]
-            };
-            for (int x = 0; x < graph.Values.GetLength(0); x++)
-            {
-                for (int z = 0; z < graph.Values.GetLength(1); z++)
+                Values = new[,]
                 {
-                    graph.Values[x, z] = Random.value;
+                    {0.3232F, 0.4272F, 0.5068F},
+                    {0.5892F, 0.6612F, 0.5900F},
+                    {0.1688F, 0.1744F, 0.2212F},
+                    {0.4656F, 0.5072F, 0.4904F},
+                    {0.2068F, 0.4644F, 0.1052F}
                 }
-            }
+            };
             graph.MetaData = new ColumnGraphMetaData
             {
-                Title = "Column graph 3D",
+                Title = "Accuracy",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                LabelsX = new[] { "2017", "2018", "2019", "2020" },
-                LabelsZ = new[] { "Wiosna", "Lato", "Jesień", "Zima" },
+                LabelsX = new[] { "binary", "hash", "ordinal", "onehot", "word2vec" },
+                LabelsZ = new[] { "CNN", "LSTM", "MLP" },
                 Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
@@ -57,19 +56,23 @@ public static class TestGraphVisualizationData
         {
             var graph = new ColumnGraph2DData
             {
-                Values = new float[Random.Range(5, 25)]
+                Values = new[]
+                {
+                    0f, 0.82f, 0.7f, 0f, 0f, 0.94f, 0.5f, 0f, 0f, 0.97f, 0.9f, 0f, 0f, 0.62f, 0.2f, 0f, 0f, 0.6f, 0.8f, 0f
+                }
             };
-            for (int x = 0; x < graph.Values.Length; x++)
-            {
-                graph.Values[x] = Random.value;
-            }
             graph.MetaData = new ColumnGraph2DMetaData
             {
-                Title = "Column graph 2D",
+                Title = "Computation time",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                LabelsX = new[] { "USA", "Rosja", "Chiny", "Indie" },
-                Colors = new[] { new UnityReplacement.Color(Color.blue), new UnityReplacement.Color(Color.yellow) }
+                LabelsX = new[] { "50", "100", "150", "200", "250" },
+                Colors = new[] { 
+                    new UnityReplacement.Color(Color.clear),
+                    new UnityReplacement.Color(Color.blue),
+                    new UnityReplacement.Color(Color.yellow),
+                    new UnityReplacement.Color(Color.clear)
+                }
             };
             return graph;
         }
@@ -79,21 +82,169 @@ public static class TestGraphVisualizationData
     {
         get
         {
-            var points = new List<Vector3>();
-            for (int i = 0; i < 50; i++)
+            var points = new List<Vector3>
             {
-                points.Add(new Vector3(Random.value, Random.value, Random.value));
-            }
+                new Vector3(5.1f, 3.5f, 1.4f),
+                new Vector3(7.0f, 3.2f, 4.7f),
+                new Vector3(6.3f, 3.3f, 6.0f),
+                new Vector3(4.9f, 3.0f, 1.4f),
+                new Vector3(6.4f, 3.2f, 4.5f),
+                new Vector3(5.8f, 2.7f, 5.1f),
+                new Vector3(4.7f, 3.2f, 1.3f),
+                new Vector3(6.9f, 3.1f, 4.9f),
+                new Vector3(7.1f, 3.0f, 5.9f),
+                new Vector3(4.6f, 3.1f, 1.5f),
+                new Vector3(5.5f, 2.3f, 4.0f),
+                new Vector3(6.3f, 2.9f, 5.6f),
+                new Vector3(5.0f, 3.6f, 1.4f),
+                new Vector3(6.5f, 2.8f, 4.6f),
+                new Vector3(6.5f, 3.0f, 5.8f),
+                new Vector3(5.4f, 3.9f, 1.7f),
+                new Vector3(5.7f, 2.8f, 4.5f),
+                new Vector3(7.6f, 3.0f, 6.6f),
+                new Vector3(4.6f, 3.4f, 1.4f),
+                new Vector3(6.3f, 3.3f, 4.7f),
+                new Vector3(4.9f, 2.5f, 4.5f),
+                new Vector3(5.0f, 3.4f, 1.5f),
+                new Vector3(4.9f, 2.4f, 3.3f),
+                new Vector3(7.3f, 2.9f, 6.3f),
+                new Vector3(4.4f, 2.9f, 1.4f),
+                new Vector3(6.6f, 2.9f, 4.6f),
+                new Vector3(6.7f, 2.5f, 5.8f),
+                new Vector3(4.9f, 3.1f, 1.5f),
+                new Vector3(5.2f, 2.7f, 3.9f),
+                new Vector3(7.2f, 3.6f, 6.1f),
+                new Vector3(5.4f, 3.7f, 1.5f),
+                new Vector3(5.0f, 2.0f, 3.5f),
+                new Vector3(6.5f, 3.2f, 5.1f),
+                new Vector3(4.8f, 3.4f, 1.6f),
+                new Vector3(5.9f, 3.0f, 4.2f),
+                new Vector3(6.4f, 2.7f, 5.3f),
+                new Vector3(4.8f, 3.0f, 1.4f),
+                new Vector3(6.0f, 2.2f, 4.0f),
+                new Vector3(6.8f, 3.0f, 5.5f),
+                new Vector3(4.3f, 3.0f, 1.1f),
+                new Vector3(6.1f, 2.9f, 4.7f),
+                new Vector3(5.7f, 2.5f, 5.0f),
+                new Vector3(5.8f, 4.0f, 1.2f),
+                new Vector3(5.6f, 2.9f, 3.6f),
+                new Vector3(5.8f, 2.8f, 5.1f),
+                new Vector3(5.7f, 4.4f, 1.5f),
+                new Vector3(6.7f, 3.1f, 4.4f),
+                new Vector3(6.4f, 3.2f, 5.3f),
+                new Vector3(5.4f, 3.9f, 1.3f),
+                new Vector3(5.6f, 3.0f, 4.5f),
+                new Vector3(6.5f, 3.0f, 5.5f),
+                new Vector3(5.1f, 3.5f, 1.4f),
+                new Vector3(5.8f, 2.7f, 4.1f),
+                new Vector3(7.7f, 3.8f, 6.7f),
+                new Vector3(5.7f, 3.8f, 1.7f),
+                new Vector3(6.2f, 2.2f, 4.5f),
+                new Vector3(7.7f, 2.6f, 6.9f),
+                new Vector3(5.1f, 3.8f, 1.5f),
+                new Vector3(5.6f, 2.5f, 3.9f),
+                new Vector3(6.0f, 2.2f, 5.0f),
+                new Vector3(5.4f, 3.4f, 1.7f),
+                new Vector3(5.9f, 3.2f, 4.8f),
+                new Vector3(6.9f, 3.2f, 5.7f),
+                new Vector3(5.1f, 3.7f, 1.5f),
+                new Vector3(6.1f, 2.8f, 4.0f),
+                new Vector3(5.6f, 2.8f, 4.9f),
+                new Vector3(4.6f, 3.6f, 1.0f),
+                new Vector3(6.3f, 2.5f, 4.9f),
+                new Vector3(7.7f, 2.8f, 6.7f),
+                new Vector3(5.1f, 3.3f, 1.7f),
+                new Vector3(6.1f, 2.8f, 4.7f),
+                new Vector3(6.3f, 2.7f, 4.9f),
+                new Vector3(4.8f, 3.4f, 1.9f),
+                new Vector3(6.4f, 2.9f, 4.3f),
+                new Vector3(6.7f, 3.3f, 5.7f),
+                new Vector3(5.0f, 3.0f, 1.6f),
+                new Vector3(6.6f, 3.0f, 4.4f),
+                new Vector3(7.2f, 3.2f, 6.0f),
+                new Vector3(5.0f, 3.4f, 1.6f),
+                new Vector3(6.8f, 2.8f, 4.8f),
+                new Vector3(6.2f, 2.8f, 4.8f),
+                new Vector3(5.2f, 3.5f, 1.5f),
+                new Vector3(6.7f, 3.0f, 5.0f),
+                new Vector3(6.1f, 3.0f, 4.9f),
+                new Vector3(5.2f, 3.4f, 1.4f),
+                new Vector3(6.0f, 2.9f, 4.5f),
+                new Vector3(6.4f, 2.8f, 5.6f),
+                new Vector3(4.7f, 3.2f, 1.6f),
+                new Vector3(5.7f, 2.6f, 3.5f),
+                new Vector3(7.2f, 3.0f, 5.8f),
+                new Vector3(4.8f, 3.1f, 1.6f),
+                new Vector3(5.5f, 2.4f, 3.8f),
+                new Vector3(7.4f, 2.8f, 6.1f),
+                new Vector3(5.4f, 3.4f, 1.5f),
+                new Vector3(5.5f, 2.4f, 3.7f),
+                new Vector3(7.9f, 3.8f, 6.4f),
+                new Vector3(5.2f, 4.1f, 1.5f),
+                new Vector3(5.8f, 2.7f, 3.9f),
+                new Vector3(6.4f, 2.8f, 5.6f),
+                new Vector3(5.5f, 4.2f, 1.4f),
+                new Vector3(6.0f, 2.7f, 5.1f),
+                new Vector3(6.3f, 2.8f, 5.1f),
+                new Vector3(4.9f, 3.1f, 1.5f),
+                new Vector3(5.4f, 3.0f, 4.5f),
+                new Vector3(6.1f, 2.6f, 5.6f),
+                new Vector3(5.0f, 3.2f, 1.2f),
+                new Vector3(6.0f, 3.4f, 4.5f),
+                new Vector3(7.7f, 3.0f, 6.1f),
+                new Vector3(5.5f, 3.5f, 1.3f),
+                new Vector3(6.7f, 3.1f, 4.7f),
+                new Vector3(6.3f, 3.4f, 5.6f),
+                new Vector3(4.9f, 3.6f, 1.4f),
+                new Vector3(6.3f, 2.3f, 4.4f),
+                new Vector3(6.4f, 3.1f, 5.5f),
+                new Vector3(4.4f, 3.0f, 1.3f),
+                new Vector3(5.6f, 3.0f, 4.1f),
+                new Vector3(6.0f, 3.0f, 4.8f),
+                new Vector3(5.1f, 3.4f, 1.5f),
+                new Vector3(5.5f, 2.5f, 4.0f),
+                new Vector3(6.9f, 3.1f, 5.4f),
+                new Vector3(5.0f, 3.5f, 1.3f),
+                new Vector3(5.5f, 2.6f, 4.4f),
+                new Vector3(6.7f, 3.1f, 5.6f),
+                new Vector3(4.5f, 2.3f, 1.3f),
+                new Vector3(6.1f, 3.0f, 4.6f),
+                new Vector3(6.9f, 3.1f, 5.1f),
+                new Vector3(4.4f, 3.2f, 1.3f),
+                new Vector3(5.8f, 2.6f, 4.0f),
+                new Vector3(5.8f, 2.7f, 5.1f),
+                new Vector3(5.0f, 3.5f, 1.6f),
+                new Vector3(5.0f, 2.3f, 3.3f),
+                new Vector3(6.8f, 3.2f, 5.9f),
+                new Vector3(5.1f, 3.8f, 1.9f),
+                new Vector3(5.6f, 2.7f, 4.2f),
+                new Vector3(6.7f, 3.3f, 5.7f),
+                new Vector3(4.8f, 3.0f, 1.4f),
+                new Vector3(5.7f, 3.0f, 4.2f),
+                new Vector3(6.7f, 3.0f, 5.2f),
+                new Vector3(5.1f, 3.8f, 1.6f),
+                new Vector3(5.7f, 2.9f, 4.2f),
+                new Vector3(6.3f, 2.5f, 5.0f),
+                new Vector3(4.6f, 3.2f, 1.4f),
+                new Vector3(6.2f, 2.9f, 4.3f),
+                new Vector3(6.5f, 3.0f, 5.2f),
+                new Vector3(5.3f, 3.7f, 1.5f),
+                new Vector3(5.1f, 2.5f, 3.0f),
+                new Vector3(6.2f, 3.4f, 5.4f),
+                new Vector3(5.0f, 3.3f, 1.4f),
+                new Vector3(5.7f, 2.8f, 4.1f),
+                new Vector3(5.9f, 3.0f, 5.1f)
+            };
             var graph = new BallGraphData
             {
                 BallPositions = points.ToArray()
             };
             graph.MetaData = new BallGraphMetaData
             {
-                Title = "Ball graph",
-                AxisNames = new[] { "(1, 0, 0)", "(0, 1, 0)", "(0, 0, 1)" },
-                Scale = Vector3.one,
-                AxisLengths = Vector3.one,
+                Title = "Iris dataset",
+                AxisNames = new[] { "Sepal length", "Sepal width", "Petal length" },
+                Scale = Vector3.one / 10f,
+                AxisLengths = new Vector3(1f, 0.6f, 1f),
                 Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
             };
             return graph;
@@ -139,18 +290,22 @@ public static class TestGraphVisualizationData
         {
             var graph = new PieChart2DData
             {
-                Values = new float[Random.Range(3, 10)]
+                Values = new[] { 62f, 46f, 38f, 31f, 27f, 14f, 14f }
             };
-            for (int x = 0; x < graph.Values.Length; x++)
-            {
-                graph.Values[x] = Random.value;
-            }
             graph.MetaData = new PieChart2DMetaData
             {
                 Title = "Pie chart 2D",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
-                Colors = new[] { new UnityReplacement.Color(Color.red), new UnityReplacement.Color(Color.green), new UnityReplacement.Color(Color.blue) }
+                Colors = new[] {
+                    new UnityReplacement.Color(Color.yellow),
+                    new UnityReplacement.Color(Color.red),
+                    new UnityReplacement.Color(Color.cyan),
+                    new UnityReplacement.Color(Color.green),
+                    new UnityReplacement.Color(Color.magenta),
+                    new UnityReplacement.Color(Color.blue),
+                    new UnityReplacement.Color(Color.gray)
+                }
             };
             return graph;
         }
@@ -160,15 +315,15 @@ public static class TestGraphVisualizationData
     {
         get
         {
-            var numberOfNodes = Random.Range(4, 25);
-            var numberOfEdges = Random.Range(numberOfNodes, numberOfNodes * numberOfNodes / 4);
+            var numberOfNodes = 16;
             var edges = new HashSet<(int, int)>();
-            for (var i = 0; i < numberOfEdges; i++)
+            for (var i = 0; i < numberOfNodes; i++)
             {
-                var first = Random.Range(0, numberOfNodes);
-                var second = Random.Range(1, numberOfNodes);
-                if (second == first) second = 0;
-                edges.Add((first, second));
+                for (var j = 1; j < 3; j++)
+                {
+                    var second = (i + j) % numberOfNodes;
+                    edges.Add((i, second));
+                }
             }
             var graph = new UndirectedGraphData
             {
@@ -177,11 +332,11 @@ public static class TestGraphVisualizationData
             };
             graph.MetaData = new UndirectedGraphMetaData
             {
-                Title = "Undirected graph",
+                Title = "Instance graph",
                 Scale = Vector3.one,
                 AxisLengths = Vector3.one,
                 NodeColors = new[] { new UnityReplacement.Color(Color.gray) },
-                EdgeColor = new UnityReplacement.Color(Color.red)
+                EdgeColor = new UnityReplacement.Color(Color.blue)
             };
             return graph;
         }
