@@ -26,6 +26,11 @@ public class GraphRotator : MonoBehaviour
                 canDrag = true;
             }
         }).AddTo(this);
+        DataManager.Main.GraphDataProperty.Subscribe(_ =>
+        {
+            UpdatePosition();
+            VisualizationDataManager.Main.Axes.Redraw();
+        }).AddTo(this);
     }
 
     private void Update()
