@@ -1,6 +1,9 @@
 ﻿using Assets.Scripts.BLL.Managers;
 using Assets.Scripts.Networking;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,22 +12,56 @@ public class NetworkingExample : MonoBehaviour
 {
     private void Start()
     {
-        DataManager.Main.SendGraph(1, TestGraphVisualizationData.Balls).Subscribe().AddTo(this);
+        SendAndGet(TestGraphVisualizationData.Balls, TestGraphVisualizationData.Columns2D, TestGraphVisualizationData.Surface)
+            .Subscribe(graphs =>
+            {
+                foreach (var graph in graphs)
+                {
+                    Debug.Log(graph);
+                }
+            }).AddTo(this);
     }
 
-    private void ExampleGET()
+    private IObservable<IEnumerable<IGraphVisualizationData>> SendAndGet(params IGraphVisualizationData[] graphs)
     {
-        new UnityWebRequest
+        return SendGraphs(graphs).SelectMany(GetGraphs(Enumerable.Range(1, graphs.Length).ToArray()));
+    }
+
+    private IObservable<Unit> SendGraphs(params IGraphVisualizationData[] graphs)
+    {
+        var graphSendRequests = new List<IObservable<string>>();
+        for (int x = 0; x < graphs.Length; x++)
         {
-            url = "https://argraph.azurewebsites.net/graph/1",
+            int id = x + 1;
+            graphSendRequests.Add(DataManager.Main.SendGraph(id, graphs[x]));
+        }
+        return Observable.WhenAll(graphSendRequests).Select(graphSendResponses =>
+        {
+            foreach (var response in graphSendResponses)
+            {
+                //Debug.Log(response);
+            }
+            return Unit.Default;
+        });
+    }
+
+    private IObservable<IEnumerable<IGraphVisualizationData>> GetGraphs(params int[] ids)
+    {
+        return ids.Select(id => GetGraph(id)).WhenAll();
+    }
+
+    private IObservable<IGraphVisualizationData> GetGraph(int id)
+    {
+        return new UnityWebRequest
+        {
+            url = "https://argraph.azurewebsites.net/graph/" + id,
             method = "GET"
-        }.ObserveRequestResult().Subscribe(text =>
+        }.ObserveRequestResult().Select(graphDataJson =>
         {
-            Debug.Log(text);
-            var deserialized = JsonConvert.DeserializeObject<BackendData>(text);
-            var desContainer = JsonConvert.DeserializeObject<GraphDataContainer>(deserialized.data);
-            Debug.Log(desContainer);
-        }).AddTo(this);
+            var deserializedBackendData = JsonConvert.DeserializeObject<BackendData>(graphDataJson, DataManager.JsonSettings);
+            var deserializedGraphData = JsonConvert.DeserializeObject<GraphDataContainer>(deserializedBackendData.data, DataManager.JsonSettings);
+            return deserializedGraphData.visualizationData;
+        });
     }
 
     private void ExampleDELETE()
