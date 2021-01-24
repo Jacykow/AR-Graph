@@ -36,7 +36,7 @@ public class GraphSceneController : MonoBehaviour
             .Select(k => k.Value.OnClickAsObservable().Select(_ => k.Key)).Merge()
             .Subscribe(visualizationType =>
         {
-            DataManager.Main.VisualisationTypeProperty.Value = visualizationType;
+            DataManager.Main.VisualizationTypeProperty.Value = visualizationType;
         }).AddTo(this);
 
         randomChart.OnClickAsObservable().Subscribe(_ =>
@@ -63,14 +63,14 @@ public class GraphSceneController : MonoBehaviour
             }
         }).AddTo(this);
 
-        DataManager.Main.VisualisationTypeProperty.Subscribe(visualizationType =>
+        DataManager.Main.VisualizationTypeProperty.Subscribe(visualizationType =>
         {
             EventSystem.current.SetSelectedGameObject(_visualizationTypeButtons[visualizationType].gameObject);
         }).AddTo(this);
 
         DataManager.Main.ScanningQRProperty.Where(scanning => scanning == true).Subscribe(scanning =>
         {
-            DataManager.Main.VisualisationTypeProperty.Value = VisualisationType.ArOnPaperCard;
+            DataManager.Main.VisualizationTypeProperty.Value = VisualisationType.ArOnPaperCard;
         }).AddTo(this);
 
         DataManager.Main.CommunicationTextProperty.Subscribe(message =>

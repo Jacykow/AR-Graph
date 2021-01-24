@@ -30,7 +30,7 @@ public class GraphGenerator : MonoBehaviour
     private void Start()
     {
         DataManager.Main.GraphDataProperty
-            .Merge(DataManager.Main.VisualisationTypeProperty
+            .Merge(DataManager.Main.VisualizationTypeProperty
                 .DelayFrame(2)
                 .Select(_ => DataManager.Main.GraphDataProperty.Value))
             .Subscribe(graphData =>

@@ -43,7 +43,7 @@ namespace Assets.Scripts.BLL.Managers
         public IReactiveProperty<string> CommunicationTextProperty { get; } =
             new ReactiveProperty<string>("");
 
-        public IReactiveProperty<VisualisationType> VisualisationTypeProperty { get; } =
+        public IReactiveProperty<VisualisationType> VisualizationTypeProperty { get; } =
             new ReactiveProperty<VisualisationType>(VisualisationType.Space3D);
 
         public IReactiveProperty<bool> ScanningQRProperty { get; } =
