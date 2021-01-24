@@ -12,7 +12,7 @@ public class GraphRotator : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Main.VisualisationTypeProperty.Subscribe(visualizationType =>
+        DataManager.Main.VisualizationTypeProperty.Subscribe(visualizationType =>
         {
             if (visualizationType == VisualisationType.ArOnPaperCard)
             {

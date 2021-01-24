@@ -33,13 +33,13 @@ public class VisualizationDataManager : MonoBehaviour
     {
         SceneManager.sceneUnloaded += LoadCurrentScene;
 
-        DataManager.Main.VisualisationTypeProperty.Subscribe(visualisationType =>
+        DataManager.Main.VisualizationTypeProperty.Subscribe(visualizationType =>
         {
             graphContainer.SetParent(transform);
             graphContainer.gameObject.SetActive(false);
             Axes.Hide();
             var previousVisualizationScene = currentVisualizationScene;
-            currentVisualizationScene = visualizationScenes[visualisationType];
+            currentVisualizationScene = visualizationScenes[visualizationType];
             if (GetActiveSceneNames().Any(sceneName => sceneName == previousVisualizationScene))
             {
                 SceneManager.UnloadSceneAsync(previousVisualizationScene);
