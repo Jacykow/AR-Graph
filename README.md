@@ -1,5 +1,6 @@
 # AR-Graph
-This project contains augmented reality application for scientific paper data visualization which is a part of Engineer's Thesis written for Android system in Unity by four students from Poznań University of Technology:
+This is an augmented reality application for Android that enables scientific paper data visualization made in Unity.
+This is a part of an Engineer's Thesis written by a team of four students from Poznań University of Technology:
 - Ewelina Bamberska,
 - Mateusz Bąk,
 - Jacek Gulij,
